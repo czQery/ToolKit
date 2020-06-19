@@ -1,6 +1,6 @@
 ToolKit.jar
 ============
-1.15.2 - [Download](https://github.com/czQery/ToolKit/releases)
+[![Releases](https://img.shields.io/badge/download-1.15.2-brightgreen.svg)](https://github.com/czQery/ToolKit/releases)
 
 Commands
 ---------------
