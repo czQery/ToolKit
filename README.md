@@ -4,7 +4,7 @@ ToolKit.jar
 
 Commands
 ---------------
-- **/crash**
+- **/crasher**
 - **/skick**
 - **/troll**
   - Sneak
@@ -18,13 +18,14 @@ Commands
 
 Events
 ---------------
-- **Teleport to spawn on join**
 - **Join message**
+  - Teleports players to spawn
 - **Leave message**
 
 Permissions
 ---------------
-- toolkit.crasher
-- toolkit.bypass
-- toolkit.skick
-- toolkit.troll
+- **toolkit.crasher**
+- **toolkit.skick**
+- **toolkit.troll**
+- **toolkit.bypass**
+  - Gives immunity against crash and troll commands
