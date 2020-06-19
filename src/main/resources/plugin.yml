@@ -1,0 +1,27 @@
+name: ToolKit
+version: ${project.version}
+main: cz.qery.toolkit.ToolKit
+author: czQery
+description: Very useful plugin
+website: qery.cz
+
+commands:
+  crasher:
+    description: idk
+    aliases: [crash]
+  skick:
+    description: idk
+  toolkit:
+    description: idk
+  troll:
+    description: idk
+
+permissions:
+  toolkit.bypass:
+    description: idk
+  toolkit.crasher:
+    description: idk
+  toolkit.skick:
+    description: idk
+  toolkit.troll:
+    description: idk
