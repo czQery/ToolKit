@@ -1,3 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: cz.qery.toolkit.ToolKit
-
+Main-Class: cz.qery.toolkit.Main

@@ -1,32 +1,49 @@
-ToolKit.jar
-============
-[![Version](https://img.shields.io/badge/version-v2-informational.svg)](https://github.com/czQery/ToolKit/releases)
-[![Releases](https://img.shields.io/badge/download-1.15.2-brightgreen.svg)](https://github.com/czQery/ToolKit/releases)
+<p align="center">
+    <img src="https://github.com/czQery/ToolKit/blob/master/banner.png?raw=true">
+</p>
 
-Commands
----------------
-- **/crasher**
-- **/skick**
-- **/troll**
-  - Sneak
-  - Sleep
-  - Close
-  - Glow
-  - PickUp
-  - Freeze
-  - FakeOp
-  - Flip
+[![Version](https://img.shields.io/badge/version-v2.1-informational.svg)](https://github.com/czQery/ToolKit/releases)
+[![Releases](https://img.shields.io/badge/download-1.16.1-brightgreen.svg)](https://github.com/czQery/ToolKit/releases)
 
-Events
----------------
-- **Join message**
+## Commands
+| Command           | Permission            | Protection                | Description                           |
+| ----------------- | --------------------- | ------------------------- | ------------------------------------- |
+| /crasher          | toolkit.crasher       | toolkit.crasher.bypass    | Lag/Crash players game                |
+| /crawl            | toolkit.crawl         | null                      | Allows the player to crawl            |
+| /skick            | toolkit.skick         | toolkit.skick.bypass      | Badlion users cannot exit kick screen |
+| /troll            | toolkit.troll         | toolkit.troll.bypass      | Just troll command :)                 |
+| /tollkit          | null                  | null                      | Show info about plugin                |
+
+## Trolls
+- Sneak
+- Sleep
+- Close
+- Glow
+- PickUp
+- Freeze
+- FakeOp
+- Flip
+
+## Events
+- Join message
   - Teleports players to spawn
-- **Leave message**
+- Leave message
 
-Permissions
----------------
-- **toolkit.crasher**
-- **toolkit.skick**
-- **toolkit.troll**
-- **toolkit.bypass**
-  - Gives immunity against crash and troll commands
+## Config
+```yml
+join:
+  alert: true
+  message: '&8[&cSERVER&8]&6 %player%&7 joined!'
+  teleport: true
+  world: world
+leave:
+  alert: true
+  message: '&8[&cSERVER&8]&6 %player%&7 disconnected!'
+
+#cusstom chat colors
+color:
+  bracket: '&8'
+  name: '&c'
+  text: '&7'
+  highlight: '&6'
+```

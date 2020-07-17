@@ -1,6 +1,6 @@
 name: ToolKit
 version: ${project.version}
-main: cz.qery.toolkit.ToolKit
+main: cz.qery.toolkit.Main
 author: czQery
 description: Very useful plugin
 website: qery.cz
@@ -15,13 +15,21 @@ commands:
     description: idk
   troll:
     description: idk
+  crawl:
+    description: idk
 
 permissions:
-  toolkit.bypass:
-    description: idk
   toolkit.crasher:
+    description: idk
+  toolkit.crasher.bypass:
     description: idk
   toolkit.skick:
     description: idk
+  toolkit.skick.bypass:
+    description: idk
   toolkit.troll:
+    description: idk
+  toolkit.troll.bypass:
+    description: idk
+  toolkit.crawl:
     description: idk
