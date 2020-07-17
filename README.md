@@ -40,7 +40,7 @@ leave:
   alert: true
   message: '&8[&cSERVER&8]&6 %player%&7 disconnected!'
 
-#cusstom chat colors
+#custom chat colors
 color:
   bracket: '&8'
   name: '&c'
