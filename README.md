@@ -12,7 +12,7 @@
 | /crawl            | toolkit.crawl         | null                      | Allows the player to crawl            |
 | /skick            | toolkit.skick         | toolkit.skick.bypass      | Badlion users cannot exit kick screen |
 | /troll            | toolkit.troll         | toolkit.troll.bypass      | Just troll command :)                 |
-| /tollkit          | null                  | null                      | Show info about plugin                |
+| /toolkit          | null                  | null                      | Show info about plugin                |
 
 ## Trolls
 - Sneak
