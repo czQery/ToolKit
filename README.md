@@ -2,7 +2,7 @@
     <img src="https://github.com/czQery/ToolKit/blob/master/banner.png?raw=true">
 </p>
 
-[![Version](https://img.shields.io/badge/version-v2.1-informational.svg)](https://github.com/czQery/ToolKit/releases)
+[![Version](https://img.shields.io/badge/version-v2.2-informational.svg)](https://github.com/czQery/ToolKit/releases)
 [![Releases](https://img.shields.io/badge/download-1.16.1-brightgreen.svg)](https://github.com/czQery/ToolKit/releases)
 
 ## Commands
