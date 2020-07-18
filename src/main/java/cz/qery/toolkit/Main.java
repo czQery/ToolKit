@@ -12,6 +12,7 @@ public final class Main extends JavaPlugin {
 
         getCommand("crasher").setExecutor(new Crasher());
         getCommand("crawl").setExecutor(new Crawl());
+        getCommand("sit").setExecutor(new Sit());
         getCommand("skick").setExecutor(new SKick());
         getCommand("toolkit").setExecutor(new ToolKit());
         getCommand("troll").setExecutor(new Troll());

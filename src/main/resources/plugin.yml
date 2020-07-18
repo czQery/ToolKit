@@ -17,6 +17,8 @@ commands:
     description: idk
   crawl:
     description: idk
+  sit:
+    description: idk
 
 permissions:
   toolkit.crasher:
