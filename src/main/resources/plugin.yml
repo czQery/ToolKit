@@ -1,14 +1,15 @@
 name: ToolKit
 version: ${project.version}
 main: cz.qery.toolkit.Main
-author: czQery
+api-version: 1.16
+authors: [ czQery ]
 description: Very useful plugin
 website: qery.cz
+depend: [ ProtocolLib ]
 
 commands:
-  crasher:
+  crash:
     description: idk
-    aliases: [crash]
   skick:
     description: idk
   toolkit:
@@ -19,11 +20,15 @@ commands:
     description: idk
   sit:
     description: idk
+  pinfo:
+    description: idk
+  rp:
+    description: idk
 
 permissions:
-  toolkit.crasher:
+  toolkit.crash:
     description: idk
-  toolkit.crasher.bypass:
+  toolkit.crash.bypass:
     description: idk
   toolkit.skick:
     description: idk
@@ -34,4 +39,10 @@ permissions:
   toolkit.troll.bypass:
     description: idk
   toolkit.crawl:
+    description: idk
+  toolkit.sit:
+    description: idk
+  toolkit.pinfo:
+    description: idk
+  toolkit.rp:
     description: idk

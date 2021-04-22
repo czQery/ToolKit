@@ -1,7 +1,7 @@
 package cz.qery.toolkit.events;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Utils;
+import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,7 +22,7 @@ public class Leave implements Listener {
         Player p = e.getPlayer();
 
         if (plugin.getConfig().getBoolean("leave.alert")) {
-            e.setQuitMessage(Utils.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName()));
+            e.setQuitMessage(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName()));
         } else {
             e.setQuitMessage("");
         }

@@ -1,17 +1,16 @@
 package cz.qery.toolkit;
 
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class Scripts {
-    static Plugin plugin = Main.getPlugin(Main.class);
+    static Main plugin = Main.getPlugin(Main.class);
     static String b = plugin.getConfig().getString("color.bracket");
     static String n = plugin.getConfig().getString("color.name");
     static String t = plugin.getConfig().getString("color.text");
+    static String h = plugin.getConfig().getString("color.highlight");
 
     @SuppressWarnings("deprecation")
     public static void bCheck(Player p) {
@@ -26,7 +25,7 @@ public class Scripts {
         if (p.isOnGround()) {
             if (p.getLocation().getY() % 1 > 0.25) {
                 p.setMetadata("crawl", new FixedMetadataValue(plugin, false));
-                p.sendMessage(Utils.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &cOFF"+t+"!"));
+                p.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &cOFF"+t+"!"));
                 Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY()+1, p.getLocation().getBlockZ());
                 if (loc.getBlock().getType() == Material.BARRIER){loc.getBlock().setType(Material.AIR);}
             }
@@ -34,7 +33,7 @@ public class Scripts {
 
         if (d1.getBlock().isEmpty() && d2.getBlock().isEmpty()) {
             p.setMetadata("crawl", new FixedMetadataValue(plugin, false));
-            p.sendMessage(Utils.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &cOFF"+t+"!"));
+            p.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &cOFF"+t+"!"));
             Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY()+1, p.getLocation().getBlockZ());
             if (loc.getBlock().getType() == Material.BARRIER){loc.getBlock().setType(Material.AIR);}
         }

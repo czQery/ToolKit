@@ -1,7 +1,7 @@
 package cz.qery.toolkit.events;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Utils;
+import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -32,7 +32,7 @@ public class Join implements Listener {
             p.teleport(location);
         }
         if (plugin.getConfig().getBoolean("join.alert")) {
-            e.setJoinMessage(Utils.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName()));
+            e.setJoinMessage(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName()));
         } else {
             e.setJoinMessage("");
         }

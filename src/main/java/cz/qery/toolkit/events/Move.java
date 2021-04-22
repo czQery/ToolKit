@@ -2,7 +2,7 @@ package cz.qery.toolkit.events;
 
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Scripts;
-import cz.qery.toolkit.Utils;
+import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,7 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.plugin.Plugin;
 
 public class Move implements Listener {
     private Main plugin;
@@ -22,6 +21,7 @@ public class Move implements Listener {
 
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
+
     @EventHandler
     @SuppressWarnings("deprecation")
     public void onPlayerMove(PlayerMoveEvent e) {
@@ -61,7 +61,7 @@ public class Move implements Listener {
                         if (ent.getEntityId() == p.getMetadata("sit").get(0).asInt()) {
                             ent.remove();
                             p.setMetadata("sit", new FixedMetadataValue(plugin, 0));
-                            p.sendMessage(Utils.chat(b+"["+n+"SIT"+b+"]"+t+" Sit mode has been turned &cOFF"+t+"!"));
+                            p.sendMessage(Tools.chat(b+"["+n+"SIT"+b+"]"+t+" Sit mode has been turned &cOFF"+t+"!"));
                         }
                     }
                 }
