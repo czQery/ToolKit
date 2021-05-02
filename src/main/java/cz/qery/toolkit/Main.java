@@ -16,7 +16,6 @@ public final class Main extends JavaPlugin {
         String b = this.getConfig().getString("color.bracket");
         String n = this.getConfig().getString("color.name");
 
-        Tools.log(b + "[" + n + "ToolKit" + b + "] &cThis plugin require ProtocolLib!");
 
         getCommand("crash").setExecutor(new Crash());
         getCommand("crawl").setExecutor(new Crawl());

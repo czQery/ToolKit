@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Join implements Listener {
-    private Main plugin;
+    private final Main plugin;
 
     public Join(Main plugin) {
         this.plugin = plugin;

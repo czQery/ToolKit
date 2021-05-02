@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class Leave implements Listener {
-    private Main plugin;
+    private final Main plugin;
 
     public Leave(Main plugin) {
         this.plugin = plugin;

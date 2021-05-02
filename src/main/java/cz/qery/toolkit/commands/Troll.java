@@ -10,8 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 public class Troll implements CommandExecutor {
@@ -137,8 +135,7 @@ public class Troll implements CommandExecutor {
                             case "flip":
                                 final Location targetLocation = target.getLocation().clone();
                                 float newYaw;
-                                for (newYaw = targetLocation.getYaw() + 180.0f; newYaw < 0.0f; newYaw += 360.0f) {
-                                }
+                                newYaw = targetLocation.getYaw() + 180.0f;
                                 while (newYaw > 360.0f) {
                                     newYaw -= 360.0f;
                                 }
