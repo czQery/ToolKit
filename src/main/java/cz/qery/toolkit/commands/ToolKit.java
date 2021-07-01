@@ -35,7 +35,7 @@ public class ToolKit implements CommandExecutor {
             github.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/czQery/ToolKit"));
 
             p.sendMessage(Tools.chat(b+"-------["+n+"TOOLKIT"+b+"]-------"));
-            p.sendMessage(Tools.chat(b+"- "+t+"Very useful plugin :))"));
+            p.sendMessage(Tools.chat(b+"- "+t+"Set of useful tools"));
             p.sendMessage(Tools.chat(b+"- "+t+"Version "+h+version));
             p.spigot().sendMessage(github);
             p.sendMessage(Tools.chat(b+"- "+t+"Made by "+h+"czQery"));

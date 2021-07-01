@@ -1,47 +1,65 @@
 name: ToolKit
 version: ${project.version}
 main: cz.qery.toolkit.Main
-api-version: 1.16
+api-version: 1.17
 authors: [ czQery ]
-description: Very useful plugin
-website: qery.cz
+description: Set of useful tools
+website: github.com/czQery/ToolKit
 
 commands:
   crash:
-    description: idk
+    description: Lag/Crash players game
   skick:
-    description: idk
+    description: Hax3er kick xDD (Badlion users cannot exit kick screen)
   toolkit:
-    description: idk
+    description: Show info about plugin
   troll:
-    description: idk
+    description: Set of troll commands
   crawl:
-    description: idk
+    description: Allows the player to crawl
   sit:
-    description: idk
+    description: Allows the player to sit down
   pinfo:
-    description: idk
+    description: Show info about player (even their client)
   rp:
-    description: idk
+    description: Set player resource pack
+  # Aliases
+  gmc:
+    description: Switch to CREATIVE mode
+  gms:
+    description: Switch to SURVIVAL mode
+  gma:
+    description: Switch to ADVENTURE mode
+  gmsp:
+    description: Switch to SPECTATOR mode
 
 permissions:
   toolkit.crash:
-    description: idk
+    description: Crash command
   toolkit.crash.bypass:
-    description: idk
+    description: Bypass crash command
   toolkit.skick:
-    description: idk
+    description: Skick command
   toolkit.skick.bypass:
-    description: idk
+    description: Bypass skick command
   toolkit.troll:
-    description: idk
+    description: Troll command
   toolkit.troll.bypass:
-    description: idk
+    description: Bypass troll command
   toolkit.crawl:
-    description: idk
+    description: Crawl command
   toolkit.sit:
-    description: idk
+    description: Sit command
   toolkit.pinfo:
-    description: idk
+    description: Pinfo command
   toolkit.rp:
-    description: idk
+    description: Rp command
+  # Aliases
+  toolkit.gmc:
+    description: Gmc command
+  toolkit.gms:
+    description: Gms command
+  toolkit.gma:
+    description: Gma command
+  toolkit.gmsp:
+    description: Gmsp command

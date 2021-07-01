@@ -2,10 +2,13 @@ package cz.qery.toolkit;
 
 import cz.qery.toolkit.commands.*;
 import cz.qery.toolkit.events.*;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.Messenger;
+
+import java.util.Objects;
 
 public final class Main extends JavaPlugin {
 
@@ -13,18 +16,20 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         loadConfiguration();
 
-        String b = this.getConfig().getString("color.bracket");
-        String n = this.getConfig().getString("color.name");
+        Objects.requireNonNull(getCommand("crash")).setExecutor(new Crash());
+        Objects.requireNonNull(getCommand("crawl")).setExecutor(new Crawl());
+        Objects.requireNonNull(getCommand("toolkit")).setExecutor(new ToolKit());
+        Objects.requireNonNull(getCommand("skick")).setExecutor(new SKick());
+        Objects.requireNonNull(getCommand("sit")).setExecutor(new Sit());
+        Objects.requireNonNull(getCommand("troll")).setExecutor(new Troll());
+        Objects.requireNonNull(getCommand("pinfo")).setExecutor(new PInfo());
+        Objects.requireNonNull(getCommand("rp")).setExecutor(new RP());
 
-
-        getCommand("crash").setExecutor(new Crash());
-        getCommand("crawl").setExecutor(new Crawl());
-        getCommand("toolkit").setExecutor(new ToolKit());
-        getCommand("skick").setExecutor(new SKick());
-        getCommand("sit").setExecutor(new Sit());
-        getCommand("troll").setExecutor(new Troll());
-        getCommand("pinfo").setExecutor(new PInfo());
-        getCommand("rp").setExecutor(new RP());
+        //Aliases
+        Objects.requireNonNull(getCommand("gmc")).setExecutor(new Aliases());
+        Objects.requireNonNull(getCommand("gms")).setExecutor(new Aliases());
+        Objects.requireNonNull(getCommand("gma")).setExecutor(new Aliases());
+        Objects.requireNonNull(getCommand("gmsp")).setExecutor(new Aliases());
 
         new Interact(this);
         new Join(this);
@@ -43,6 +48,12 @@ public final class Main extends JavaPlugin {
         ms.registerOutgoingPluginChannel(this, "fml:handshake");
         ms.registerOutgoingPluginChannel(this, "fml:loginwrapper");
         ms.registerOutgoingPluginChannel(this, "fml:play");
+
+
+
+        //bStats
+        int pluginId = 11896;
+        Metrics metrics = new Metrics(this, pluginId);
     }
 
     public void loadConfiguration() {

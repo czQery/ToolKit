@@ -1,12 +1,15 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
+import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
+import net.minecraft.network.protocol.game.PacketPlayOutGameStateChange;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
@@ -25,7 +28,7 @@ public class Troll implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
         if (!(sender instanceof Player)) {
-            Tools.log(b+"["+n+"SERVER"+b+"]"+t+" This command cannot be used by the console!");
+            Tools.log(b + "[" + n + "SERVER" + b + "]" + t + " This command cannot be used by the console!");
         } else {
             Player p = (Player) sender;
             if (!p.hasPermission("toolkit.troll")) {
@@ -143,29 +146,28 @@ public class Troll implements CommandExecutor {
                                 target.teleport(targetLocation);
                                 p.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " flip" + t + "!"));
                                 break;
-                            case "fakedemo":
-                                //! ISSUE #1041
-                                // ? WAITING FOR FIX
-                            /*
-                            ProtocolManager pm = ProtocolLibrary.getProtocolManager();
-                            PacketContainer packet = pm.createPacket(PacketType.Play.Server.GAME_STATE_CHANGE);
-                            packet.getModifier().writeDefaults();
-                            packet.getBytes().write(0, (byte) 5);
-                            packet.getFloat().write(0,0F);
-                            try {
-                                pm.sendServerPacket(target, packet);
-                            } catch (InvocationTargetException e) {
-                            }
-                             */
+                            case "thor":
+                                target.getWorld().strikeLightning(target.getLocation());
+                                p.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been struck by lightning!"));
+                                break;
+                            case "fakedemo-WIP":
+                                /*
+                                final CraftPlayer craftPlayer = (CraftPlayer) target;
+                                final PacketPlayOutGameStateChange welcomePacket = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.a, 0.0F);
+                                final PacketPlayOutGameStateChange moveHelpPacket = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.a, 101F);
+                                final PacketPlayOutGameStateChange jumpHelpPacket = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.a, 102F);
+                                final PacketPlayOutGameStateChange inventoryControl = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.a, 103F);
+
+                                craftPlayer.getHandle().
+
+                                craftPlayer.getHandle().playerConnection.sendPacket(inventoryControl);
+                                craftPlayer.getHandle().playerConnection.sendPacket(jumpHelpPacket);
+                                craftPlayer.getHandle().playerConnection.sendPacket(welcomePacket);
+                                craftPlayer.getHandle().playerConnection.sendPacket(moveHelpPacket);
+                                 */
+
 
                                 p.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " fakedemo" + t + "!"));
-                                break;
-                            case "test":
-                                //? I am trying to crash players windows by using this bug \\.\globalroot\device\condrv\kernelconnect (just file that crash windows when its open)
-                                //? But its not working... If you reading this message you have probably enough skill to try it :)
-                                target.setResourcePack("https://qery.cz/kek");
-
-                                p.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " test" + t + "!"));
                                 break;
                             default:
                                 p.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> <troll>"));
