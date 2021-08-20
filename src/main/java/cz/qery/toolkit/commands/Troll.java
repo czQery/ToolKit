@@ -1,9 +1,10 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
 import net.minecraft.network.protocol.game.PacketPlayOutGameStateChange;
+import net.minecraft.server.level.EntityPlayer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -46,6 +47,8 @@ public class Troll implements CommandExecutor {
                             p.sendMessage(Tools.chat(b + "- " + t + "Freeze"));
                             p.sendMessage(Tools.chat(b + "- " + t + "FakeOP"));
                             p.sendMessage(Tools.chat(b + "- " + t + "Flip"));
+                            p.sendMessage(Tools.chat(b + "- " + t + "Thor"));
+                            p.sendMessage(Tools.chat(b + "- " + t + "Fakedemo"));
                             p.sendMessage(Tools.chat(b + "----------------------"));
                         } else {
                             p.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> <troll>"));
@@ -150,22 +153,11 @@ public class Troll implements CommandExecutor {
                                 target.getWorld().strikeLightning(target.getLocation());
                                 p.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been struck by lightning!"));
                                 break;
-                            case "fakedemo-WIP":
-                                /*
-                                final CraftPlayer craftPlayer = (CraftPlayer) target;
-                                final PacketPlayOutGameStateChange welcomePacket = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.a, 0.0F);
-                                final PacketPlayOutGameStateChange moveHelpPacket = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.a, 101F);
-                                final PacketPlayOutGameStateChange jumpHelpPacket = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.a, 102F);
-                                final PacketPlayOutGameStateChange inventoryControl = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.a, 103F);
+                            case "fakedemo":
+                                EntityPlayer target_entity = (EntityPlayer) ((CraftPlayer) target).getHandle();
+                                final PacketPlayOutGameStateChange packet = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.f, 0.0F);
 
-                                craftPlayer.getHandle().
-
-                                craftPlayer.getHandle().playerConnection.sendPacket(inventoryControl);
-                                craftPlayer.getHandle().playerConnection.sendPacket(jumpHelpPacket);
-                                craftPlayer.getHandle().playerConnection.sendPacket(welcomePacket);
-                                craftPlayer.getHandle().playerConnection.sendPacket(moveHelpPacket);
-                                 */
-
+                                target_entity.b.sendPacket(packet);
 
                                 p.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " fakedemo" + t + "!"));
                                 break;
