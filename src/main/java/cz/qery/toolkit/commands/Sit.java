@@ -22,46 +22,42 @@ public class Sit implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            Tools.log(b+"["+n+"SERVER"+b+"]"+t+" This command cannot be used by the console!");
+            Tools.log(b + "[" + n + "SERVER" + b + "]" + t + " This command cannot be used by the console!");
         } else {
             Player p = (Player) sender;
 
-            if(!p.hasPermission("toolkit.sit")) {
-                p.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" You're not allowed to do this!"));
+            if (!p.hasPermission("toolkit.sit")) {
+                p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " You're not allowed to do this!"));
             } else {
                 if (p.getMetadata("sit").toString() == "[]") {
                     if (p.isOnGround()) {
                         int id = setAs(p);
                         p.setMetadata("sit", new FixedMetadataValue(plugin, id));
-                        p.sendMessage(Tools.chat(b+"["+n+"SIT"+b+"]"+t+" Sit mode has been turned &aON"+t+"!"));
+                        p.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " Sit mode has been turned &aON" + t + "!"));
                     } else {
-                        p.sendMessage(Tools.chat(b+"["+n+"SIT"+b+"]"+t+" You must stand on a block!"));
+                        p.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " You must stand on a block!"));
                     }
                 } else {
                     if (p.getMetadata("sit").get(0).asInt() != 0) {
-                        for (Entity ent: p.getLocation().getChunk().getEntities()){
-                            if (ent.getEntityId() == p.getMetadata("sit").get(0).asInt()) {
-                                ent.remove();
-                            }
-                        }
-                        p.setMetadata("sit", new FixedMetadataValue(plugin, 0));
-                        p.sendMessage(Tools.chat(b+"["+n+"SIT"+b+"]"+t+" Sit mode has been turned &cOFF"+t+"!"));
+                        p.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " You are already sitting!"));
                     } else {
                         if (p.isOnGround()) {
                             int id = setAs(p);
                             p.setMetadata("sit", new FixedMetadataValue(plugin, id));
-                            p.sendMessage(Tools.chat(b+"["+n+"SIT"+b+"]"+t+" Sit mode has been turned &aON"+t+"!"));
+                            p.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " Sit mode has been turned &aON" + t + "!"));
                         } else {
-                            p.sendMessage(Tools.chat(b+"["+n+"SIT"+b+"]"+t+" You must stand on a block!"));
+                            p.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " You must stand on a block!"));
                         }
                     }
                 }
             }
         }
         return false;
+
     }
+
     public static int setAs(Player p) {
-        Location loc = new Location(p.getWorld(), p.getLocation().getBlockX()+0.5, p.getLocation().getBlockY()-1+p.getLocation().getY() % 1, p.getLocation().getBlockZ()+0.5);
+        Location loc = new Location(p.getWorld(), p.getLocation().getBlockX() + 0.5, p.getLocation().getBlockY() - 0.96 + p.getLocation().getY() % 1, p.getLocation().getBlockZ() + 0.5);
         loc.setYaw(p.getLocation().getYaw());
         ArmorStand as = loc.getWorld().spawn(loc, ArmorStand.class);
         as.setBasePlate(false);

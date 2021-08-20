@@ -36,6 +36,7 @@ public final class Main extends JavaPlugin {
         new Leave(this);
         new Move(this);
         new ChannelRegister(this);
+        new EntityDismount(this);
 
         Messenger ms = Bukkit.getMessenger();
 
