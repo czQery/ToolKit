@@ -34,6 +34,10 @@ public class PInfo implements CommandExecutor {
                         @Override
                         public void run() {
                             Player target = Bukkit.getServer().getPlayer(args[0]);
+                            if(target == null){
+                                p.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+                                return;
+                            }
                             String name = target.getName();
                             String ip = target.getAddress().getHostName();
                             String client;

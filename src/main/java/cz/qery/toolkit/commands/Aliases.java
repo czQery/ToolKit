@@ -33,6 +33,10 @@ public class Aliases implements CommandExecutor {
                 Player target;
                 if (args.length > 0) {
                     target = Bukkit.getServer().getPlayer(args[0]);
+                    if(target == null){
+                        p.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+                        return false;
+                    }
                 } else {
                     target = p;
                 }

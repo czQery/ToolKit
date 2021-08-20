@@ -32,6 +32,10 @@ public class RP implements CommandExecutor {
                         @Override
                         public void run() {
                             Player target = Bukkit.getServer().getPlayer(args[0]);
+                            if(target == null){
+                                p.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+                                return;
+                            }
                             String url = args[1];
 
                             target.setResourcePack(url);
