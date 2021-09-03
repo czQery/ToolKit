@@ -41,8 +41,8 @@ public class PInfo implements CommandExecutor {
                             String name = target.getName();
                             String ip = target.getAddress().getHostName();
                             String client;
-                            if (p.getMetadata("client").toString() != "[]") {
-                                client = p.getMetadata("client").get(0).asString();
+                            if (target.getMetadata("client").toString() != "[]") {
+                                client = target.getMetadata("client").get(0).asString();
                             } else {
                                 client = "Vanilla";
                             }
