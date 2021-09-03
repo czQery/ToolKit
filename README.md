@@ -3,7 +3,7 @@
 </p>
 
 [![Version](https://img.shields.io/badge/version-v2.6-informational.svg)](https://github.com/czQery/ToolKit/releases)
-[![Releases](https://img.shields.io/badge/download-1.17-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit.jar)
+[![Releases](https://img.shields.io/badge/download-1.17-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-2.6.jar)
 
 ## Commands
 
