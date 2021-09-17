@@ -2,6 +2,7 @@ package cz.qery.toolkit;
 
 import cz.qery.toolkit.commands.*;
 import cz.qery.toolkit.events.*;
+import cz.qery.toolkit.lunar.Waypoint;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
@@ -12,9 +13,12 @@ import java.util.Objects;
 
 public final class Main extends JavaPlugin {
 
+
     @Override
     public void onEnable() {
+
         loadConfiguration();
+
 
         Objects.requireNonNull(getCommand("crash")).setExecutor(new Crash());
         Objects.requireNonNull(getCommand("crawl")).setExecutor(new Crawl());
@@ -24,6 +28,7 @@ public final class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("troll")).setExecutor(new Troll());
         Objects.requireNonNull(getCommand("pinfo")).setExecutor(new PInfo());
         Objects.requireNonNull(getCommand("rp")).setExecutor(new RP());
+        Objects.requireNonNull(getCommand("lunar")).setExecutor(new Lunar());
 
         //Aliases
         Objects.requireNonNull(getCommand("gmc")).setExecutor(new Aliases());
@@ -44,33 +49,26 @@ public final class Main extends JavaPlugin {
         ms.registerIncomingPluginChannel(this, "fml:handshake", new ChannelListener());
         ms.registerIncomingPluginChannel(this, "fml:loginwrapper", new ChannelListener());
         ms.registerIncomingPluginChannel(this, "fml:play", new ChannelListener());
+        ms.registerIncomingPluginChannel(this, "lunarclient:pm", new ChannelListener());
 
         ms.registerOutgoingPluginChannel(this, "minecraft:brand");
         ms.registerOutgoingPluginChannel(this, "fml:handshake");
         ms.registerOutgoingPluginChannel(this, "fml:loginwrapper");
         ms.registerOutgoingPluginChannel(this, "fml:play");
+        ms.registerOutgoingPluginChannel(this, "lunarclient:pm");
 
 
 
         //bStats
         int pluginId = 11896;
         Metrics metrics = new Metrics(this, pluginId);
+
+        Waypoint.Load();
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Waypoint.Send(), 0, 600);
     }
 
     public void loadConfiguration() {
-        //JOIN
-        this.getConfig().addDefault("join.alert", true);
-        this.getConfig().addDefault("join.message", "&8[&cSERVER&8]&6 %player%&7 joined!");
-        this.getConfig().addDefault("join.teleport", true);
-        this.getConfig().addDefault("join.world", "world");
-        //LEAVE
-        this.getConfig().addDefault("leave.alert", true);
-        this.getConfig().addDefault("leave.message", "&8[&cSERVER&8]&6 %player%&7 disconnected!");
-        //COLORS
-        this.getConfig().addDefault("color.bracket", "&8");
-        this.getConfig().addDefault("color.name", "&c");
-        this.getConfig().addDefault("color.text", "&7");
-        this.getConfig().addDefault("color.highlight", "&6");
+        saveDefaultConfig();
 
         //SAVE
         this.getConfig().options().copyDefaults(true);

@@ -1,9 +1,13 @@
 package cz.qery.toolkit;
 
+import com.lunarclient.bukkitapi.nethandler.LCPacket;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class Tools {
@@ -33,5 +37,16 @@ public class Tools {
     }
     public static void log(String message) {
         Bukkit.getConsoleSender().sendMessage(chat(message));
+    }
+
+    public static boolean sendLunarPacket(Player player, LCPacket packet) {
+        if (player.getMetadata("client").toString() != "[]") {
+            if (player.getMetadata("client").get(0).asString() == "LunarClient") {
+                player.sendPluginMessage(plugin, "lunarclient:pm", LCPacket.getPacketData(packet));
+                player.sendPluginMessage(plugin, "lunarclient:pm", LCPacket.getPacketData(packet));
+                return true;
+            }
+        }
+        return false;
     }
 }

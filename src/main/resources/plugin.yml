@@ -23,6 +23,8 @@ commands:
     description: Show info about player (even their client)
   rp:
     description: Set player resource pack
+  lunar:
+    description: LunarClient tools
   # Aliases
   gmc:
     description: Switch to CREATIVE mode
@@ -54,6 +56,8 @@ permissions:
     description: Pinfo command
   toolkit.rp:
     description: Rp command
+  toolkit.lunar:
+    description: Lunar command
   # Aliases
   toolkit.gmc:
     description: Gmc command

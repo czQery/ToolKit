@@ -1,0 +1,22 @@
+join:
+  alert: true
+  message: '&8[&cSERVER&8]&6 %player%&7 joined!'
+  teleport: true
+  world: world
+leave:
+  alert: true
+  message: '&8[&cSERVER&8]&6 %player%&7 disconnected!'
+color:
+  bracket: '&8'
+  name: '&c'
+  text: '&7'
+  highlight: '&6'
+lunar:
+  waypoints:
+    - Spawn:
+        name: 'Spawn'
+        color: '#ba1e0d'
+        world: 'world'
+        x: 0
+        y: 100
+        z: 0

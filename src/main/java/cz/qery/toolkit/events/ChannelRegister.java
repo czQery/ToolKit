@@ -43,6 +43,8 @@ public class ChannelRegister implements Listener {
             p.sendPluginMessage(plugin, "fml:handshake", new byte[] {0, 2, 0, 0, 0, 0});
             p.sendPluginMessage(plugin, "fml:handshake", new byte[] {2, 0, 0, 0, 0});
             */
+        } else if ("lunarclient:pm".equals(event.getChannel())) {
+            p.setMetadata("client", new FixedMetadataValue(plugin, "LunarClient"));
         } else {
             Tools.log(b + "[" + n + "SERVER" + b + "] " + h + event.getPlayer().getName() + t + " registered channel " + h + event.getChannel());
         }

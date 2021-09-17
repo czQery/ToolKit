@@ -1,7 +1,8 @@
 package cz.qery.toolkit.events;
 
-import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
+import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
+import cz.qery.toolkit.Scripts;
+import cz.qery.toolkit.lunar.Waypoint;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -9,6 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+
+import cz.qery.toolkit.Main;
+import cz.qery.toolkit.Tools;
 
 public class Join implements Listener {
     private final Main plugin;
@@ -36,5 +40,10 @@ public class Join implements Listener {
         } else {
             e.setJoinMessage("");
         }
+
+        //LUNAR STAFF
+        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Waypoint.SendOne(p), 20);
+        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Waypoint.SendOne(p), 40);
+        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Waypoint.SendOne(p), 60);
     }
 }

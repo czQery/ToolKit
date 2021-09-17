@@ -3,7 +3,7 @@ package cz.qery.toolkit;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.scheduler.BukkitRunnable;
+
 
 public class Scripts {
     static Main plugin = Main.getPlugin(Main.class);
