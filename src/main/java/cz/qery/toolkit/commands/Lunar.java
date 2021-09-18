@@ -57,10 +57,14 @@ public class Lunar implements CommandExecutor {
                                                     return false;
                                                 }
                                             }
-                                            Waypoint waypoint = new Waypoint(args[2], p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getWorld().getName(), args[3]);
-                                            Waypoint.waypoints.add(waypoint);
-                                            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> Waypoint.Update());
-                                            p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint created!"));
+                                            if (args[3].contains("#") && args[3].matches("^[a-fA-F0-9#]{0,7}$")) {
+                                                Waypoint waypoint = new Waypoint(args[2], p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getWorld().getName(), args[3]);
+                                                Waypoint.waypoints.add(waypoint);
+                                                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> Waypoint.Update());
+                                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint created!"));
+                                            } else {
+                                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " You must use HEX color (example: white = #FFFFFF)!"));
+                                            }
                                         }
                                         break;
                                     case "remove":
