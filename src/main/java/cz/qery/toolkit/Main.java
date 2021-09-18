@@ -2,6 +2,7 @@ package cz.qery.toolkit;
 
 import cz.qery.toolkit.commands.*;
 import cz.qery.toolkit.events.*;
+import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Waypoint;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -66,7 +67,10 @@ public final class Main extends JavaPlugin {
         Metrics metrics = new Metrics(this, pluginId);
 
         Waypoint.Load();
+        Mod.Load();
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> Scripts.checkForUpdate());
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Waypoint.Send(), 0, 1200);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Mod.Send(), 0, 12000);
     }
 
     public void loadConfiguration() {

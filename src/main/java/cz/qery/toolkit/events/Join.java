@@ -1,8 +1,12 @@
 package cz.qery.toolkit.events;
 
-import com.lunarclient.bukkitapi.nethandler.client.LCPacketUpdateWorld;
+import com.lunarclient.bukkitapi.nethandler.LCPacket;
+import com.lunarclient.bukkitapi.nethandler.client.*;
+import com.lunarclient.bukkitapi.nethandler.server.LCPacketStaffModStatus;
+import com.lunarclient.bukkitapi.nethandler.shared.LCPacketEmoteBroadcast;
 import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
 import cz.qery.toolkit.Scripts;
+import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Waypoint;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -43,8 +47,8 @@ public class Join implements Listener {
         }
 
         //LUNAR STAFF
-        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Waypoint.SendOne(p), 20);
         Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Waypoint.SendOne(p), 40);
-        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Waypoint.SendOne(p), 60);
+        //
+        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Mod.SendOne(p), 40);
     }
 }

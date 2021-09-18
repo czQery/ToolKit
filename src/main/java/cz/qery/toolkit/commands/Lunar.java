@@ -1,9 +1,6 @@
 package cz.qery.toolkit.commands;
 
-import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
-import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointRemove;
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
 import cz.qery.toolkit.lunar.Waypoint;
 import org.bukkit.Bukkit;
@@ -14,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
 
 public class Lunar implements CommandExecutor {
     Plugin plugin = Main.getPlugin(Main.class);
@@ -43,8 +39,8 @@ public class Lunar implements CommandExecutor {
                             p.sendMessage(Tools.chat(b + "----------------------"));
                             break;
                         case "waypoint":
-                            if(args.length < 3) {
-                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <add/remove> <name>"));
+                            if(args.length < 2) {
+                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <add/remove/list>"));
                             } else {
                                 switch (args[1].toLowerCase()) {
                                     case "add":
@@ -68,18 +64,29 @@ public class Lunar implements CommandExecutor {
                                         }
                                         break;
                                     case "remove":
-                                        for (Waypoint waypoint : Waypoint.waypoints) {
-                                            if (waypoint.getName().equals(args[2].toString())) {
-                                                Waypoint.waypoints.remove(waypoint);
-                                                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> Waypoint.Remove(waypoint.getName(), Bukkit.getWorld(waypoint.getWorld()).getUID().toString()));
-                                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint removed!"));
-                                                return false;
+                                        if(args.length < 3) {
+                                            p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <remove> <name>"));
+                                        } else {
+                                            for (Waypoint waypoint : Waypoint.waypoints) {
+                                                if (waypoint.getName().equals(args[2].toString())) {
+                                                    Waypoint.waypoints.remove(waypoint);
+                                                    Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> Waypoint.Remove(waypoint.getName(), Bukkit.getWorld(waypoint.getWorld()).getUID().toString()));
+                                                    p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint removed!"));
+                                                    return false;
+                                                }
                                             }
+                                            p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint with this name does not exists!"));
                                         }
-                                        p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint with this name does not exists!"));
+                                        break;
+                                    case "list":
+                                        p.sendMessage(Tools.chat(b + "-------[" + n + "LUNAR-WAYPOINTS" + b + "]--------"));
+                                        for (Waypoint waypoint : Waypoint.waypoints) {
+                                            p.sendMessage(Tools.chat(b + "- " + t + waypoint.getName()));
+                                        }
+                                        p.sendMessage(Tools.chat(b + "--------------------------------"));
                                         break;
                                     default:
-                                        p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <add/remove> <name>"));
+                                        p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <add/remove/list>"));
                                         break;
                                 }
                             }

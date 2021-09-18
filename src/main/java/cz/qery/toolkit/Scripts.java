@@ -1,8 +1,16 @@
 package cz.qery.toolkit;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 
 public class Scripts {
@@ -89,6 +97,26 @@ public class Scripts {
             if (l8.getBlock().getType() == Material.BARRIER) {
                 l8.getBlock().setType(Material.AIR);
             }
+        }
+    }
+
+    public static void checkForUpdate() {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("https://api.github.com/repos/czQery/ToolKit/releases/latest")).build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            JsonObject json = new JsonParser().parse(response.body()).getAsJsonObject();
+            String version = Bukkit.getServer().getPluginManager().getPlugin("ToolKit").getDescription().getVersion();
+            if (!("v"+version).equals(json.get("tag_name").getAsString())) {
+                Tools.log(b+"-------["+n+"TOOLKIT"+b+"]-------");
+                Tools.log(b+"- "+t+"Latest version "+h+json.get("tag_name").getAsString().replaceFirst("v", ""));
+                Tools.log(b+"- "+t+"This version "+h+version);
+                Tools.log(b+"- "+t+"Download newer version from GitHub "+h+"https://github.com/czQery/ToolKit/releases");
+                Tools.log(b+"----------------------");
+            }
+        } catch (Exception e) {
+            Tools.log(b+"["+n+"ToolKit"+b+"] &cAPI version check failed");
         }
     }
 }

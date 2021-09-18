@@ -53,5 +53,17 @@ public class Move implements Listener {
                 Scripts.bCheck(p);
             }
         }
+
+        //LUNAR
+        if (plugin.getConfig().getBoolean("lunar.kick")) {
+            if (p.getPlayer().getMetadata("client").toString() != "[]") {
+                if (!p.getPlayer().getMetadata("client").get(0).asString().equals("LunarClient")) {
+                    System.out.println(p.getPlayer().getMetadata("client").get(0).asString());
+                    e.getPlayer().kickPlayer(Tools.chat(plugin.getConfig().getString("lunar.kick_message")));
+                }
+            } else {
+                e.getPlayer().kickPlayer(Tools.chat(plugin.getConfig().getString("lunar.kick_message")));
+            }
+        }
     }
 }

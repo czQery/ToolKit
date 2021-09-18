@@ -43,7 +43,6 @@ public class Tools {
         if (player.getMetadata("client").toString() != "[]") {
             if (player.getMetadata("client").get(0).asString() == "LunarClient") {
                 player.sendPluginMessage(plugin, "lunarclient:pm", LCPacket.getPacketData(packet));
-                player.sendPluginMessage(plugin, "lunarclient:pm", LCPacket.getPacketData(packet));
                 return true;
             }
         }
