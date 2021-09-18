@@ -1,5 +1,6 @@
 package cz.qery.toolkit.lunar;
 
+import com.lunarclient.bukkitapi.nethandler.client.LCPacketUpdateWorld;
 import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
@@ -68,6 +69,7 @@ public final class Waypoint {
         List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
         for (Player p : players) {
             for (Waypoint waypoint : waypoints) {
+                Tools.sendLunarPacket(p, new LCPacketUpdateWorld(p.getWorld().getUID().toString()));
                 Tools.sendLunarPacket(p, new LCPacketWaypointAdd(waypoint.getName(), Bukkit.getWorld(waypoint.getWorld()).getUID().toString(), Integer.parseInt(waypoint.getColor().replaceFirst("#", ""), 16), waypoint.getX(), waypoint.getY(), waypoint.getZ(), true, true));
             }
         }
@@ -75,6 +77,7 @@ public final class Waypoint {
 
     public static void SendOne(Player p) {
         for (Waypoint waypoint : waypoints) {
+            Tools.sendLunarPacket(p, new LCPacketUpdateWorld(p.getWorld().getUID().toString()));
             Tools.sendLunarPacket(p, new LCPacketWaypointAdd(waypoint.getName(), Bukkit.getWorld(waypoint.getWorld()).getUID().toString(), Integer.parseInt(waypoint.getColor().replaceFirst("#", ""), 16), waypoint.getX(), waypoint.getY(), waypoint.getZ(), true, true));
         }
     }

@@ -45,8 +45,7 @@ public class Lunar implements CommandExecutor {
                             if(args.length < 3) {
                                 p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <name> <HEX-color>"));
                             } else {
-                                Tools.sendLunarPacket(p, new LCPacketWaypointAdd(args[1], p.getWorld().getName(), Integer.parseInt(args[2].replaceFirst("#", ""), 16) , (int) p.getLocation().getX(), (int) p.getLocation().getY(), (int) p.getLocation().getZ()-1, true, true));
-                                Waypoint waypoint = new Waypoint(args[1], (int) p.getLocation().getX(), (int) p.getLocation().getY(), (int) p.getLocation().getZ()-1, p.getWorld().getName(), args[2]);
+                                Waypoint waypoint = new Waypoint(args[1], p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getWorld().getName(), args[2]);
                                 Waypoint.waypoints.add(waypoint);
                                 Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> Waypoint.Update());
                                 p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint created!"));

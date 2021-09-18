@@ -5,6 +5,7 @@ import cz.qery.toolkit.events.*;
 import cz.qery.toolkit.lunar.Waypoint;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.Messenger;
@@ -42,6 +43,7 @@ public final class Main extends JavaPlugin {
         new Move(this);
         new ChannelRegister(this);
         new EntityDismount(this);
+        new WorldChange(this);
 
         Messenger ms = Bukkit.getMessenger();
 
@@ -64,7 +66,7 @@ public final class Main extends JavaPlugin {
         Metrics metrics = new Metrics(this, pluginId);
 
         Waypoint.Load();
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Waypoint.Send(), 0, 600);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Waypoint.Send(), 0, 1200);
     }
 
     public void loadConfiguration() {
