@@ -1,6 +1,7 @@
 package cz.qery.toolkit.commands;
 
 import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
+import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointRemove;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
@@ -43,12 +44,40 @@ public class Lunar implements CommandExecutor {
                             break;
                         case "waypoint":
                             if(args.length < 3) {
-                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <name> <HEX-color>"));
+                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <add/remove> <name>"));
                             } else {
-                                Waypoint waypoint = new Waypoint(args[1], p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getWorld().getName(), args[2]);
-                                Waypoint.waypoints.add(waypoint);
-                                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> Waypoint.Update());
-                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint created!"));
+                                switch (args[1].toLowerCase()) {
+                                    case "add":
+                                        if(args.length < 4) {
+                                            p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <add> <name> <HEX-color>"));
+                                        } else {
+                                            for (Waypoint waypoint : Waypoint.waypoints) {
+                                                if (waypoint.getName().equals(args[2].toString())) {
+                                                    p.sendMessage(Tools.chat(b+"["+n+"LUNAR"+b+"]"+t+" Waypoint with this name already exists!"));
+                                                    return false;
+                                                }
+                                            }
+                                            Waypoint waypoint = new Waypoint(args[2], p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getWorld().getName(), args[3]);
+                                            Waypoint.waypoints.add(waypoint);
+                                            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> Waypoint.Update());
+                                            p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint created!"));
+                                        }
+                                        break;
+                                    case "remove":
+                                        for (Waypoint waypoint : Waypoint.waypoints) {
+                                            if (waypoint.getName().equals(args[2].toString())) {
+                                                Waypoint.waypoints.remove(waypoint);
+                                                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> Waypoint.Remove(waypoint.getName(), Bukkit.getWorld(waypoint.getWorld()).getUID().toString()));
+                                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint removed!"));
+                                                return false;
+                                            }
+                                        }
+                                        p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint with this name does not exists!"));
+                                        break;
+                                    default:
+                                        p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <add/remove> <name>"));
+                                        break;
+                                }
                             }
                             break;
                         default:

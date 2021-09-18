@@ -2,6 +2,7 @@ package cz.qery.toolkit.lunar;
 
 import com.lunarclient.bukkitapi.nethandler.client.LCPacketUpdateWorld;
 import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
+import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointRemove;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
 import lombok.AllArgsConstructor;
@@ -80,5 +81,13 @@ public final class Waypoint {
             Tools.sendLunarPacket(p, new LCPacketUpdateWorld(p.getWorld().getUID().toString()));
             Tools.sendLunarPacket(p, new LCPacketWaypointAdd(waypoint.getName(), Bukkit.getWorld(waypoint.getWorld()).getUID().toString(), Integer.parseInt(waypoint.getColor().replaceFirst("#", ""), 16), waypoint.getX(), waypoint.getY(), waypoint.getZ(), true, true));
         }
+    }
+
+    public static void Remove(String name, String world) {
+        List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+        for (Player pp : players) {
+            Tools.sendLunarPacket(pp, new LCPacketWaypointRemove(name, world));
+        }
+        Update();
     }
 }
