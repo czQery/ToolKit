@@ -21,28 +21,45 @@ public class Crash implements CommandExecutor {
     String h = plugin.getConfig().getString("color.highlight");
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
+        Player target = null;
+
         if (!(sender instanceof Player)) {
-            Tools.log(b+"["+n+"SERVER"+b+"]"+t+" This command cannot be used by the console!");
-        } else {
-            Player p =(Player) sender;
-            if(!p.hasPermission("toolkit.crash")){
-                p.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" You're not allowed to do this!"));
+            if (args.length > 0) {
+                target = Bukkit.getServer().getPlayer(args[0]);
+                if(target == null){
+                    sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+                    return false;
+                }
             } else {
-                if(args.length == 0) {
-                    p.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Please use "+h+"/crash <player>"));
-                } else {
-                    Player target = Bukkit.getServer().getPlayer(args[0]);
-                    if(target == null){
-                        p.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
-                    } else if(target.hasPermission("toolkit.crash.bypass")){
-                        p.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" You cannot crash this player!"));
-                    } else {
-                        Location loc = target.getLocation();
-                        target.spawnParticle(Particle.EXPLOSION_HUGE, loc, Integer.MAX_VALUE);
-                        p.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Player "+h+target.getName()+t+" has been crashed!"));
+                Tools.log(b+"["+n+"CRASH"+b+"]"+t+" Please use "+h+"/crash <player>");
+                return false;
+            }
+        } else {
+            Player p = (Player) sender;
+            if (!p.hasPermission("toolkit.crash")) {
+                p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " You're not allowed to do this!"));
+                return false;
+            } else {
+                if (args.length > 0) {
+                    target = Bukkit.getServer().getPlayer(args[0]);
+                    if (target == null) {
+                        p.sendMessage(Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
+                        return false;
                     }
+                } else {
+                    p.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Please use "+h+"/crash <player>"));
+                    return false;
                 }
             }
+        }
+
+
+        if(target.hasPermission("toolkit.crash.bypass")){
+            sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" You cannot crash this player!"));
+        } else {
+            Location loc = target.getLocation();
+            target.spawnParticle(Particle.EXPLOSION_HUGE, loc, Integer.MAX_VALUE);
+            sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Player "+h+target.getName()+t+" has been crashed!"));
         }
 
         return false;

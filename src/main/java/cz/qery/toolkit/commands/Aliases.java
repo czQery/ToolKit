@@ -23,42 +23,54 @@ public class Aliases implements CommandExecutor {
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
+        Player target = null;
+
         if (!(sender instanceof Player)) {
-            Tools.log(b+"["+n+"SERVER"+b+"]"+t+" This command cannot be used by the console!");
+            if (args.length > 0) {
+                target = Bukkit.getServer().getPlayer(args[0]);
+                if(target == null){
+                    sender.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+                    return false;
+                }
+            } else {
+                Tools.log(b+"["+n+"SERVER"+b+"]"+t+" Please use "+h+"/"+cmd.getName().toLowerCase()+" <player>");
+                return false;
+            }
         } else {
             Player p = (Player) sender;
             if (!p.hasPermission("toolkit."+cmd.getName().toLowerCase())) {
                 p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " You're not allowed to do this!"));
+                return false;
             } else {
-                Player target;
                 if (args.length > 0) {
                     target = Bukkit.getServer().getPlayer(args[0]);
-                    if(target == null){
-                        p.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+                    if (target == null) {
+                        p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                         return false;
                     }
                 } else {
                     target = p;
                 }
-                switch (cmd.getName().toLowerCase()) {
-                    case "gmc":
-                        target.setGameMode(GameMode.CREATIVE);
-                        p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "CREATIVE"));
-                        break;
-                    case "gms":
-                        target.setGameMode(GameMode.SURVIVAL);
-                        p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SURVIVAL"));
-                        break;
-                    case "gma":
-                        target.setGameMode(GameMode.ADVENTURE);
-                        p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "ADVENTURE"));
-                        break;
-                    case "gmsp":
-                        target.setGameMode(GameMode.SPECTATOR);
-                        p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SPECTATOR"));
-                        break;
-                }
             }
+        }
+
+        switch (cmd.getName().toLowerCase()) {
+            case "gmc":
+                target.setGameMode(GameMode.CREATIVE);
+                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "CREATIVE"));
+                break;
+            case "gms":
+                target.setGameMode(GameMode.SURVIVAL);
+                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SURVIVAL"));
+                break;
+            case "gma":
+                target.setGameMode(GameMode.ADVENTURE);
+                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "ADVENTURE"));
+                break;
+            case "gmsp":
+                target.setGameMode(GameMode.SPECTATOR);
+                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SPECTATOR"));
+                break;
         }
         return false;
     }

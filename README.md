@@ -32,7 +32,7 @@
 ## Trolls
 
 - Sneak
-- Sleep
+- Sleep (it must be night, and you must stand on the bed)
 - Close
 - Glow
 - PickUp

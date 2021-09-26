@@ -24,38 +24,58 @@ public class RP implements CommandExecutor {
 
     @SuppressWarnings("deprecation")
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        Player target = null;
+
         if (!(sender instanceof Player)) {
-            Tools.log(b + "[" + n + "SERVER" + b + "]" + t + " This command cannot be used by the console!");
+            if (args.length > 1) {
+                target = Bukkit.getServer().getPlayer(args[0]);
+                if(target == null){
+                    sender.sendMessage(Tools.chat(b+"["+n+"RP"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+                    return false;
+                }
+            } else {
+                Tools.log(b+"["+n+"RP"+b+"]"+t+" Please use "+h+"/rp <player> <url>");
+                return false;
+            }
         } else {
             Player p = (Player) sender;
             if (!p.hasPermission("toolkit.rp")) {
                 p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " You're not allowed to do this!"));
+                return false;
             } else {
-                if (args.length < 2) {
-                    p.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Please use " + h + "/rp <player> <url>"));
+                if (args.length > 1) {
+                    target = Bukkit.getServer().getPlayer(args[0]);
+                    if (target == null) {
+                        p.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
+                        return false;
+                    }
                 } else {
-                    Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
-                        @Override
-                        public void run() {
-                            Player target = Bukkit.getServer().getPlayer(args[0]);
-                            if (target == null) {
-                                p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0]+ t + " is not online!"));
-                                return;
-                            }
-                            String url = args[1];
-
-                            EntityPlayer target_entity = (EntityPlayer) ((CraftPlayer) target).getHandle();
-                            final PacketPlayOutResourcePackSend packet = new PacketPlayOutResourcePackSend(url, "", true, null);
-
-                            target_entity.b.sendPacket(packet);
-
-                            target.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + p.getName() + t + " has sent you" + h + " resource pack" + t + "!"));
-                            p.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " resource pack" + t + "!"));
-                        }
-                    });
+                    p.sendMessage(Tools.chat(b+"["+n+"RP"+b+"]"+t+" Please use "+h+"/rp <player> <url>"));
+                    return false;
                 }
             }
         }
+
+
+        Player finalTarget = target;
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+            @Override
+            public void run() {
+                if (finalTarget == null) {
+                    sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0]+ t + " is not online!"));
+                    return;
+                }
+                String url = args[1];
+
+                EntityPlayer target_entity = (EntityPlayer) ((CraftPlayer) finalTarget).getHandle();
+                final PacketPlayOutResourcePackSend packet = new PacketPlayOutResourcePackSend(url, "", true, null);
+
+                target_entity.b.sendPacket(packet);
+
+                finalTarget.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + sender.getName() + t + " has sent you" + h + " resource pack" + t + "!"));
+                sender.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + finalTarget.getName() + t + " has been set" + h + " resource pack" + t + "!"));
+            }
+        });
         return false;
     }
 }

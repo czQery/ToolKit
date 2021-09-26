@@ -24,23 +24,18 @@ public class ToolKit implements CommandExecutor {
     @SuppressWarnings("deprecation")
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if (!(sender instanceof Player)) {
-            Tools.log(b+"["+n+"SERVER"+b+"]"+t+" This command cannot be used by the console!");
-        } else {
-            Player p =(Player) sender;
-            String version = Bukkit.getServer().getPluginManager().getPlugin("ToolKit").getDescription().getVersion();
+        String version = Bukkit.getServer().getPluginManager().getPlugin("ToolKit").getDescription().getVersion();
 
-            TextComponent github = Tools.schat(b+"- "+t+"GitHub "+h+"https://github.com/czQery/ToolKit");
-            github.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Tools.schat(t+"Click to open")).create()));
-            github.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/czQery/ToolKit"));
+        TextComponent github = Tools.schat(b+"- "+t+"GitHub "+h+"https://github.com/czQery/ToolKit");
+        github.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Tools.schat(t+"Click to open")).create()));
+        github.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/czQery/ToolKit"));
 
-            p.sendMessage(Tools.chat(b+"-------["+n+"TOOLKIT"+b+"]-------"));
-            p.sendMessage(Tools.chat(b+"- "+t+"Set of useful tools"));
-            p.sendMessage(Tools.chat(b+"- "+t+"Version "+h+version));
-            p.spigot().sendMessage(github);
-            p.sendMessage(Tools.chat(b+"- "+t+"Made by "+h+"czQery"));
-            p.sendMessage(Tools.chat(b+"----------------------"));
-        }
+        sender.sendMessage(Tools.chat(b+"-------["+n+"TOOLKIT"+b+"]-------"));
+        sender.sendMessage(Tools.chat(b+"- "+t+"Set of useful tools"));
+        sender.sendMessage(Tools.chat(b+"- "+t+"Version "+h+version));
+        sender.spigot().sendMessage(github);
+        sender.sendMessage(Tools.chat(b+"- "+t+"Made by "+h+"czQery"));
+        sender.sendMessage(Tools.chat(b+"----------------------"));
         return false;
     }
 }
