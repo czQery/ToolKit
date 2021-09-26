@@ -9,7 +9,7 @@
 
 | Command           | Permission            | Protection                | Description                                   |
 | ----------------- | --------------------- | ------------------------- | --------------------------------------------- |
-| /crasher          | toolkit.crasher       | toolkit.crasher.bypass    | Lag/Crash players game                        |
+| /crasher          | toolkit.crash         | toolkit.crash.bypass      | Lag/Crash players game                        |
 | /crawl            | toolkit.crawl         | null                      | Allows the player to crawl                    |
 | /sit              | toolkit.sit           | null                      | Allows the player to sit down                 |
 | /skick            | toolkit.skick         | toolkit.skick.bypass      | Badlion users cannot exit kick screen         |
