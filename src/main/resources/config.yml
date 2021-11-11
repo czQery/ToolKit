@@ -14,13 +14,3 @@ color:
 lunar:
   kick: false
   kick_message: '&8[&cSERVER&8]&7 This is lunar only server!'
-  waypoints:
-    - Spawn:
-        name: Spawn
-        color: '#ba1e0d'
-        world: world
-        x: 0
-        y: 100
-        z: 0
-  disabled_mods:
-    - "freelook"

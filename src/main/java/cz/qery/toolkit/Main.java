@@ -7,10 +7,22 @@ import cz.qery.toolkit.lunar.Waypoint;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.craftbukkit.libs.org.apache.commons.io.IOUtils;
+import org.bukkit.craftbukkit.libs.org.codehaus.plexus.util.FileUtils;
+import org.bukkit.craftbukkit.libs.org.codehaus.plexus.util.io.InputStreamFacade;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.Messenger;
+import org.jetbrains.annotations.Nullable;
 
+import java.io.*;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 
 public final class Main extends JavaPlugin {
@@ -20,7 +32,6 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
 
         loadConfiguration();
-
 
         Objects.requireNonNull(getCommand("crash")).setExecutor(new Crash());
         Objects.requireNonNull(getCommand("crawl")).setExecutor(new Crawl());
@@ -60,25 +71,22 @@ public final class Main extends JavaPlugin {
         ms.registerOutgoingPluginChannel(this, "fml:play");
         ms.registerOutgoingPluginChannel(this, "lunarclient:pm");
 
-
-
         //bStats
-        int pluginId = 11896;
-        Metrics metrics = new Metrics(this, pluginId);
+        new Metrics(this, 11896);
 
         Waypoint.Load();
         Mod.Load();
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> Scripts.checkForUpdate());
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Waypoint.Send(), 0, 1200);
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Mod.Send(), 0, 12000);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Mod.Send(), 0, 36000);
     }
 
     public void loadConfiguration() {
         saveDefaultConfig();
 
         //SAVE
-        this.getConfig().options().copyDefaults(true);
-        this.saveConfig();
+        getConfig().options().copyDefaults(true);
+        saveConfig();
 
         String b = this.getConfig().getString("color.bracket");
         String n = this.getConfig().getString("color.name");

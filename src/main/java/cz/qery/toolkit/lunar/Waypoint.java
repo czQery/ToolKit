@@ -27,7 +27,13 @@ public final class Waypoint {
 
 
     static Main plugin = Main.getPlugin(Main.class);
+    static String b = plugin.getConfig().getString("color.bracket");
+    static String n = plugin.getConfig().getString("color.name");
+    static String h = plugin.getConfig().getString("color.highlight");
+    static String t = plugin.getConfig().getString("color.text");
+
     public static List<Waypoint> waypoints = new ArrayList<>();
+
 
     public static void Load() {
         if (!plugin.getConfig().contains("lunar.waypoints")) {
@@ -71,7 +77,13 @@ public final class Waypoint {
         for (Player p : players) {
             for (Waypoint waypoint : waypoints) {
                 Tools.sendLunarPacket(p, new LCPacketUpdateWorld(p.getWorld().getUID().toString()));
-                Tools.sendLunarPacket(p, new LCPacketWaypointAdd(waypoint.getName(), Bukkit.getWorld(waypoint.getWorld()).getUID().toString(), Integer.parseInt(waypoint.getColor().replaceFirst("#", ""), 16), waypoint.getX(), waypoint.getY(), waypoint.getZ(), true, true));
+                if (Bukkit.getWorld(waypoint.getWorld()) == null) {
+                    Tools.log(b+"["+n+"ToolKit"+b+"] "+t+"Lunar waypoint "+h+waypoint.getName()+t+" has invalid world "+h+waypoint.getWorld());
+                } else if (!waypoint.getColor().contains("#") && !waypoint.getColor().matches("^[a-fA-F0-9#]{0,7}$")) {
+                    Tools.log(b+"["+n+"ToolKit"+b+"] "+t+"Lunar waypoint "+h+waypoint.getName()+t+" has invalid color "+h+waypoint.getColor());
+                } else {
+                    Tools.sendLunarPacket(p, new LCPacketWaypointAdd(waypoint.getName(), Bukkit.getWorld(waypoint.getWorld()).getUID().toString(), Integer.parseInt(waypoint.getColor().replaceFirst("#", ""), 16), waypoint.getX(), waypoint.getY(), waypoint.getZ(), true, true));
+                }
             }
         }
     }
@@ -79,7 +91,13 @@ public final class Waypoint {
     public static void SendOne(Player p) {
         for (Waypoint waypoint : waypoints) {
             Tools.sendLunarPacket(p, new LCPacketUpdateWorld(p.getWorld().getUID().toString()));
-            Tools.sendLunarPacket(p, new LCPacketWaypointAdd(waypoint.getName(), Bukkit.getWorld(waypoint.getWorld()).getUID().toString(), Integer.parseInt(waypoint.getColor().replaceFirst("#", ""), 16), waypoint.getX(), waypoint.getY(), waypoint.getZ(), true, true));
+            if (Bukkit.getWorld(waypoint.getWorld()) == null) {
+                Tools.log(b+"["+n+"ToolKit"+b+"] "+t+"Lunar waypoint "+h+waypoint.getName()+t+" has invalid world "+h+waypoint.getWorld());
+            } else if (!waypoint.getColor().contains("#") && !waypoint.getColor().matches("^[a-fA-F0-9#]{0,7}$")) {
+                Tools.log(b+"["+n+"ToolKit"+b+"] "+t+"Lunar waypoint "+h+waypoint.getName()+t+" has invalid color "+h+waypoint.getColor());
+            } else {
+                Tools.sendLunarPacket(p, new LCPacketWaypointAdd(waypoint.getName(), Bukkit.getWorld(waypoint.getWorld()).getUID().toString(), Integer.parseInt(waypoint.getColor().replaceFirst("#", ""), 16), waypoint.getX(), waypoint.getY(), waypoint.getZ(), true, true));
+            }
         }
     }
 
