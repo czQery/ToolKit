@@ -1,7 +1,7 @@
 name: ToolKit
 version: ${project.version}
 main: cz.qery.toolkit.Main
-api-version: 1.17
+api-version: 1.18
 authors: [ czQery ]
 description: Set of useful tools
 website: github.com/czQery/ToolKit
@@ -24,6 +24,8 @@ commands:
   rp:
     description: Set player resource pack
   lunar:
+    description: LunarClient tools
+  cmdblock:
     description: LunarClient tools
   # Aliases
   gmc:
@@ -58,6 +60,10 @@ permissions:
     description: Rp command
   toolkit.lunar:
     description: Lunar command
+  toolkit.commandblock:
+    description: Cmdblock command
+  toolkit.commandblock.bypass:
+    description: Bypass cmdblock command
   # Aliases
   toolkit.gmc:
     description: Gmc command

@@ -44,6 +44,8 @@ public class ChannelListener implements PluginMessageListener {
                 p.setMetadata("client", new FixedMetadataValue(plugin, "Fabric"));
             } else if (msg.toLowerCase().contains("worlddownloader")) {
                 p.setMetadata("client", new FixedMetadataValue(plugin, "WorldDownloader"));
+            } else if (msg.toLowerCase().contains("badlion")) {
+                p.setMetadata("client", new FixedMetadataValue(plugin, "Badlion"));
             } else {
                 Tools.log(b + "[" + n + "SERVER" + b + "] " + h + p.getName() + t + " sent " + h + channel + " " + t + msg);
             }

@@ -6,27 +6,12 @@ import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Waypoint;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.IOUtils;
-import org.bukkit.craftbukkit.libs.org.codehaus.plexus.util.FileUtils;
-import org.bukkit.craftbukkit.libs.org.codehaus.plexus.util.io.InputStreamFacade;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.Messenger;
-import org.jetbrains.annotations.Nullable;
-
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 
 public final class Main extends JavaPlugin {
-
 
     @Override
     public void onEnable() {
@@ -42,6 +27,7 @@ public final class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("pinfo")).setExecutor(new PInfo());
         Objects.requireNonNull(getCommand("rp")).setExecutor(new RP());
         Objects.requireNonNull(getCommand("lunar")).setExecutor(new Lunar());
+        Objects.requireNonNull(getCommand("cmdblock")).setExecutor(new Cmdblock());
 
         //Aliases
         Objects.requireNonNull(getCommand("gmc")).setExecutor(new Aliases());
@@ -56,6 +42,7 @@ public final class Main extends JavaPlugin {
         new ChannelRegister(this);
         new EntityDismount(this);
         new WorldChange(this);
+        new Command(this);
 
         Messenger ms = Bukkit.getMessenger();
 
@@ -64,18 +51,21 @@ public final class Main extends JavaPlugin {
         ms.registerIncomingPluginChannel(this, "fml:loginwrapper", new ChannelListener());
         ms.registerIncomingPluginChannel(this, "fml:play", new ChannelListener());
         ms.registerIncomingPluginChannel(this, "lunarclient:pm", new ChannelListener());
+        ms.registerIncomingPluginChannel(this, "badlion:mods", new ChannelListener());
 
         ms.registerOutgoingPluginChannel(this, "minecraft:brand");
         ms.registerOutgoingPluginChannel(this, "fml:handshake");
         ms.registerOutgoingPluginChannel(this, "fml:loginwrapper");
         ms.registerOutgoingPluginChannel(this, "fml:play");
         ms.registerOutgoingPluginChannel(this, "lunarclient:pm");
+        ms.registerOutgoingPluginChannel(this, "badlion:mods");
 
         //bStats
         new Metrics(this, 11896);
 
         Waypoint.Load();
         Mod.Load();
+        CommandBlock.Load();
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> Scripts.checkForUpdate());
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Waypoint.Send(), 0, 1200);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Mod.Send(), 0, 36000);

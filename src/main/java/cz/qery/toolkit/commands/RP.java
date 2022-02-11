@@ -11,9 +11,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 
 public class RP implements CommandExecutor {
     Plugin plugin = Main.getPlugin(Main.class);
@@ -40,7 +40,7 @@ public class RP implements CommandExecutor {
         } else {
             Player p = (Player) sender;
             if (!p.hasPermission("toolkit.rp")) {
-                p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " You're not allowed to do this!"));
+                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                 return false;
             } else {
                 if (args.length > 1) {
@@ -66,11 +66,10 @@ public class RP implements CommandExecutor {
                     return;
                 }
                 String url = args[1];
-
                 EntityPlayer target_entity = (EntityPlayer) ((CraftPlayer) finalTarget).getHandle();
                 final PacketPlayOutResourcePackSend packet = new PacketPlayOutResourcePackSend(url, "", true, null);
 
-                target_entity.b.sendPacket(packet);
+                target_entity.b.a(packet);
 
                 finalTarget.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + sender.getName() + t + " has sent you" + h + " resource pack" + t + "!"));
                 sender.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + finalTarget.getName() + t + " has been set" + h + " resource pack" + t + "!"));

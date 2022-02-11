@@ -37,7 +37,7 @@ public class Crash implements CommandExecutor {
         } else {
             Player p = (Player) sender;
             if (!p.hasPermission("toolkit.crash")) {
-                p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " You're not allowed to do this!"));
+                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                 return false;
             } else {
                 if (args.length > 0) {

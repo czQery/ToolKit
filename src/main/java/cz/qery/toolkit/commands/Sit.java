@@ -27,7 +27,7 @@ public class Sit implements CommandExecutor {
             Player p = (Player) sender;
 
             if (!p.hasPermission("toolkit.sit")) {
-                p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " You're not allowed to do this!"));
+                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
             } else {
                 if (p.getMetadata("sit").toString() == "[]") {
                     if (p.isOnGround()) {

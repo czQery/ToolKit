@@ -1,16 +1,18 @@
 join:
   alert: true
-  message: '&8[&cSERVER&8]&6 %player%&7 joined!'
+  message: "&8[&cSERVER&8]&6 %player%&7 joined!"
   teleport: true
   world: world
 leave:
   alert: true
-  message: '&8[&cSERVER&8]&6 %player%&7 disconnected!'
+  message: "&8[&cSERVER&8]&6 %player%&7 disconnected!"
 color:
-  bracket: '&8'
-  name: '&c'
-  text: '&7'
-  highlight: '&6'
+  bracket: "&8"
+  name: "&c"
+  text: "&7"
+  highlight: "&6"
 lunar:
   kick: false
-  kick_message: '&8[&cSERVER&8]&7 This is lunar only server!'
+  message: "&8[&cSERVER&8]&7 This is lunar only server!"
+commandblock:
+  message: "&8[&cSERVER&8]&7 You're not allowed to do this!"

@@ -36,7 +36,7 @@ public class PInfo implements CommandExecutor {
         } else {
             Player p = (Player) sender;
             if (!p.hasPermission("toolkit.pinfo")) {
-                p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " You're not allowed to do this!"));
+                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                 return false;
             } else {
                 if (args.length > 0) {

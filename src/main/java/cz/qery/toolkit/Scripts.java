@@ -3,6 +3,9 @@ package cz.qery.toolkit;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import cz.qery.toolkit.lunar.Waypoint;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -11,7 +14,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Scripts {
     static Main plugin = Main.getPlugin(Main.class);
@@ -19,6 +23,9 @@ public class Scripts {
     static String n = plugin.getConfig().getString("color.name");
     static String t = plugin.getConfig().getString("color.text");
     static String h = plugin.getConfig().getString("color.highlight");
+
+
+    public static List<Waypoint> waypoints = new ArrayList<>();
 
     @SuppressWarnings("deprecation")
     public static void bCheck(Player p) {

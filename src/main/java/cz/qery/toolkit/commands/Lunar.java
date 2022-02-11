@@ -27,7 +27,7 @@ public class Lunar implements CommandExecutor {
         } else {
             Player p = (Player) sender;
             if (!p.hasPermission("toolkit.lunar")) {
-                p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " You're not allowed to do this!"));
+                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
             } else {
                 if (args.length < 1) {
                     p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar <tool>"));

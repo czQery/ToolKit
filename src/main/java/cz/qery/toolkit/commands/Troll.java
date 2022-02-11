@@ -10,7 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
@@ -45,7 +45,7 @@ public class Troll implements CommandExecutor {
         } else {
             p = ((Player) sender).getPlayer();
             if (!p.hasPermission("toolkit.troll")) {
-                p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " You're not allowed to do this!"));
+                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                 return false;
             } else {
                 if (args.length > 1) {
@@ -174,10 +174,9 @@ public class Troll implements CommandExecutor {
                     sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been struck by lightning!"));
                     break;
                 case "fakedemo":
-                    EntityPlayer target_entity = (EntityPlayer) ((CraftPlayer) target).getHandle();
+                    EntityPlayer target_entity = ((CraftPlayer) target).getHandle();
                     final PacketPlayOutGameStateChange packet = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.f, 0.0F);
-
-                    target_entity.b.sendPacket(packet);
+                    target_entity.b.a(packet);
 
                     sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " fakedemo" + t + "!"));
                     break;
