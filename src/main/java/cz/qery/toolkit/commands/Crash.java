@@ -1,10 +1,9 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
+import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -57,9 +56,15 @@ public class Crash implements CommandExecutor {
         if(target.hasPermission("toolkit.crash.bypass")){
             sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" You cannot crash this player!"));
         } else {
-            Location loc = target.getLocation();
-            target.spawnParticle(Particle.EXPLOSION_HUGE, loc, Integer.MAX_VALUE);
-            sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Player "+h+target.getName()+t+" has been crashed!"));
+            Player finalTarget = target;
+            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                try {
+                    Scripts.crash(finalTarget);
+                    sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Player "+h+finalTarget.getName()+t+" has been crashed!"));
+                } catch (InterruptedException e) {
+                    sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]&c Failed to crash player "+h+finalTarget.getName()));
+                }
+            });
         }
 
         return false;

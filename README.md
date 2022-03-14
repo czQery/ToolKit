@@ -22,7 +22,7 @@
 | /gma              | toolkit.gma                 | null                        | Switch player's gamemode to ADVENTURE         |
 | /gmsp             | toolkit.gmsp                | null                        | Switch player's gamemode to SPECTATOR         |
 | /lunar            | toolkit.lunar               | null                        | Lunar tools                                   |
-| /cmdblock         | toolkit.toolkit.commandblock| toolkit.commandblock.bypass | Allows to block specific commands             |
+| /cmdblock         | toolkit.commandblock| toolkit.commandblock.bypass | Allows to block specific commands             |
 
 ## Lunar
 

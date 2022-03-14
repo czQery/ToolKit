@@ -26,7 +26,7 @@ commands:
   lunar:
     description: LunarClient tools
   cmdblock:
-    description: LunarClient tools
+    description: Tool for blocking specific commands
   # Aliases
   gmc:
     description: Switch to CREATIVE mode
