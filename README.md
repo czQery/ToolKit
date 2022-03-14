@@ -2,8 +2,8 @@
     <img src="https://github.com/czQery/ToolKit/blob/master/banner.png?raw=true">
 </p>
 
-[![Version](https://img.shields.io/badge/version-v3.0-informational.svg)](https://github.com/czQery/ToolKit/releases)
-[![Releases](https://img.shields.io/badge/download-1.18-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-2.8.jar)
+[![Version](https://img.shields.io/badge/version-v3.2-informational.svg)](https://github.com/czQery/ToolKit/releases)
+[![Releases](https://img.shields.io/badge/download-1.18.2-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-3.2.jar)
 
 ## Commands
 
@@ -22,7 +22,7 @@
 | /gma              | toolkit.gma                 | null                        | Switch player's gamemode to ADVENTURE         |
 | /gmsp             | toolkit.gmsp                | null                        | Switch player's gamemode to SPECTATOR         |
 | /lunar            | toolkit.lunar               | null                        | Lunar tools                                   |
-| /cmdblock         | toolkit.commandblock| toolkit.commandblock.bypass | Allows to block specific commands             |
+| /cmdblock         | toolkit.commandblock        | toolkit.commandblock.bypass | Allows to block specific commands             |
 
 ## Lunar
 
