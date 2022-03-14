@@ -1,23 +1,15 @@
 package cz.qery.toolkit;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import cz.qery.toolkit.lunar.Waypoint;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import net.minecraft.network.protocol.game.PacketPlayOutAnimation;
 import net.minecraft.network.protocol.game.PacketPlayOutExplosion;
 import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntityExperienceOrb;
-import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntityLiving;
 import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.world.entity.EntityExperienceOrb;
-import net.minecraft.world.entity.EntityLiving;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
-import org.bukkit.entity.EntityType;
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
@@ -166,7 +158,7 @@ public class Scripts {
         Thread.sleep(1000);
 
         for (int i = 0; i < 30000; i++) {
-            EntityExperienceOrb dd = new EntityExperienceOrb(p_entity.t, p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), Integer.MAX_VALUE);
+            EntityExperienceOrb dd = new EntityExperienceOrb(p_entity.s, p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), Integer.MAX_VALUE);
             PacketPlayOutSpawnEntityExperienceOrb packet = new PacketPlayOutSpawnEntityExperienceOrb(dd);
             p_entity.b.a(packet);
         }
