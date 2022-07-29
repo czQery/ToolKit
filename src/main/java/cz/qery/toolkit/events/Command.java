@@ -28,7 +28,7 @@ public class Command implements Listener {
         Player p = e.getPlayer();
         if (!p.hasPermission("toolkit.commandblock.bypass")) {
             for (CommandBlock cmdb : CommandBlock.cmdlist) {
-                if (e.getMessage().toLowerCase().contains(cmdb.getName())) {
+                if (e.getMessage().toLowerCase().startsWith("/"+cmdb.getName())) {
                     e.setCancelled(true);
                     e.getPlayer().sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                 }

