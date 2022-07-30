@@ -28,6 +28,7 @@ public final class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("rp")).setExecutor(new RP());
         Objects.requireNonNull(getCommand("lunar")).setExecutor(new Lunar());
         Objects.requireNonNull(getCommand("cmdblock")).setExecutor(new Cmdblock());
+        Objects.requireNonNull(getCommand("vanish")).setExecutor(new Vanish());
 
         //Aliases
         Objects.requireNonNull(getCommand("gmc")).setExecutor(new Aliases());
@@ -43,6 +44,7 @@ public final class Main extends JavaPlugin {
         new EntityDismount(this);
         new WorldChange(this);
         new Command(this);
+        new Silent(this);
 
         Messenger ms = Bukkit.getMessenger();
 

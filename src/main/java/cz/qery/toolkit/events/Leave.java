@@ -3,6 +3,8 @@ package cz.qery.toolkit.events;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.Vnsh;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,10 +28,10 @@ public class Leave implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
 
-        if (plugin.getConfig().getBoolean("leave.alert")) {
-            e.setQuitMessage(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName()));
+        if (plugin.getConfig().getBoolean("leave.alert") && !Vnsh.Enabled(p)) {
+            e.quitMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName())));
         } else {
-            e.setQuitMessage("");
+            e.quitMessage(Component.text(""));
         }
 
         //Sit check

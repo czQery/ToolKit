@@ -3,9 +3,12 @@ package cz.qery.toolkit.events;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +27,6 @@ public class Move implements Listener {
     }
 
     @EventHandler
-    @SuppressWarnings("deprecation")
     public void onPlayerMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
 
@@ -45,9 +47,6 @@ public class Move implements Listener {
             if (p.getMetadata("crawl").get(0).asBoolean()) {
                 Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY()+1, p.getLocation().getBlockZ());
                 if (loc.getBlock().isEmpty()) {
-                    for (Player all : Bukkit.getOnlinePlayers()) {
-                        all.sendBlockChange(new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY()+1, p.getLocation().getBlockZ()), Material.BARRIER, (byte)0);
-                    }
                     loc.getBlock().setType(Material.BARRIER);
                 }
                 Scripts.bCheck(p);
@@ -59,10 +58,10 @@ public class Move implements Listener {
             if (p.getPlayer().getMetadata("client").toString() != "[]") {
                 if (!p.getPlayer().getMetadata("client").get(0).asString().equals("LunarClient")) {
                     System.out.println(p.getPlayer().getMetadata("client").get(0).asString());
-                    e.getPlayer().kickPlayer(Tools.chat(plugin.getConfig().getString("lunar.message")));
+                    e.getPlayer().kick(Component.text(Tools.chat(plugin.getConfig().getString("lunar.message"))));
                 }
             } else {
-                e.getPlayer().kickPlayer(Tools.chat(plugin.getConfig().getString("lunar.message")));
+                e.getPlayer().kick(Component.text(Tools.chat(plugin.getConfig().getString("lunar.message"))));
             }
         }
     }

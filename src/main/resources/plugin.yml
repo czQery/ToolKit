@@ -27,6 +27,8 @@ commands:
     description: LunarClient tools
   cmdblock:
     description: Tool for blocking specific commands
+  vanish:
+    description: Hide from other players
   # Aliases
   gmc:
     description: Switch to CREATIVE mode
@@ -64,6 +66,10 @@ permissions:
     description: Cmdblock command
   toolkit.commandblock.bypass:
     description: Bypass cmdblock command
+  toolkit.vanish:
+    description: Vanish command
+  toolkit.vanish.list:
+    description: Vanish list command
   # Aliases
   toolkit.gmc:
     description: Gmc command

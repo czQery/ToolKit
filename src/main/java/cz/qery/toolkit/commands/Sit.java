@@ -11,6 +11,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public class Sit implements CommandExecutor {
@@ -20,7 +21,7 @@ public class Sit implements CommandExecutor {
     String n = plugin.getConfig().getString("color.name");
     String t = plugin.getConfig().getString("color.text");
 
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if (!(sender instanceof Player)) {
             Tools.log(b + "[" + n + "SERVER" + b + "]" + t + " This command cannot be used by the console!");
         } else {
@@ -67,7 +68,6 @@ public class Sit implements CommandExecutor {
         as.setGravity(false);
         as.setSmall(true);
         as.setPassenger(p);
-        int id = as.getEntityId();
-        return id;
+        return as.getEntityId();
     }
 }

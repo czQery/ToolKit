@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 public class RP implements CommandExecutor {
     Plugin plugin = Main.getPlugin(Main.class);
@@ -20,8 +21,7 @@ public class RP implements CommandExecutor {
     String t = plugin.getConfig().getString("color.text");
     String h = plugin.getConfig().getString("color.highlight");
 
-    @SuppressWarnings("deprecation")
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         Player target = null;
 
         if (!(sender instanceof Player)) {
@@ -59,10 +59,6 @@ public class RP implements CommandExecutor {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
             @Override
             public void run() {
-                if (finalTarget == null) {
-                    sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0]+ t + " is not online!"));
-                    return;
-                }
                 String url = args[1];
                 EntityPlayer target_entity = (EntityPlayer) ((CraftPlayer) finalTarget).getHandle();
                 final PacketPlayOutResourcePackSend packet = new PacketPlayOutResourcePackSend(url, "", true, null);

@@ -6,8 +6,10 @@ import com.lunarclient.bukkitapi.nethandler.server.LCPacketStaffModStatus;
 import com.lunarclient.bukkitapi.nethandler.shared.LCPacketEmoteBroadcast;
 import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
 import cz.qery.toolkit.Scripts;
+import cz.qery.toolkit.Vnsh;
 import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Waypoint;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -49,15 +51,31 @@ public class Join implements Listener {
                 p.teleport(location);
             }
         }
-        if (plugin.getConfig().getBoolean("join.alert")) {
-            e.setJoinMessage(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName()));
+
+        if (plugin.getConfig().getBoolean("join.alert") && !Vnsh.Enabled(p)) {
+            e.joinMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName())));
         } else {
-            e.setJoinMessage("");
+            e.joinMessage(Component.text(""));
         }
 
-        //LUNAR STAFF
+        // vanish
+        for (String pl : Vnsh.players) {
+            if (pl.equalsIgnoreCase(p.getName())) {
+                Vnsh.Hide(p, false);
+            } else {
+                Player target = Bukkit.getServer().getPlayer(pl);
+                if (target != null) {
+                    if (p.hasPermission("toolkit.vanish")) {
+                        p.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Player "+h+target.getName()+t+" has &aentered"+t+" vanish mode!"));
+                    } else {
+                        p.hidePlayer(plugin, target);
+                    }
+                }
+            }
+        }
+
+        // lunar
         Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Waypoint.SendOne(p), 40);
-        //
         Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Mod.SendOne(p), 40);
     }
 }

@@ -18,7 +18,6 @@ public class Cmdblock implements CommandExecutor {
     String t = plugin.getConfig().getString("color.text");
     String h = plugin.getConfig().getString("color.highlight");
 
-    @SuppressWarnings("deprecation")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
         CommandSender p = null;
@@ -56,7 +55,7 @@ public class Cmdblock implements CommandExecutor {
                         }
                         CommandBlock cmdc = new CommandBlock(args[1]);
                         CommandBlock.cmdlist.add(cmdc);
-                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> CommandBlock.Update());
+                        Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandBlock::Update);
                         p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command added to block list!"));
                     }
                     break;
@@ -67,7 +66,7 @@ public class Cmdblock implements CommandExecutor {
                         for (CommandBlock cmdb : CommandBlock.cmdlist) {
                             if (cmdb.getName().equals(args[1].toString())) {
                                 CommandBlock.cmdlist.remove(cmdb);
-                                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> CommandBlock.Update());
+                                Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandBlock::Update);
                                 p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command removed!"));
                                 return false;
                             }

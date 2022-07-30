@@ -1,16 +1,11 @@
 package cz.qery.toolkit;
 
-import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointRemove;
-import cz.qery.toolkit.lunar.Waypoint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @AllArgsConstructor
