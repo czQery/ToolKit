@@ -31,21 +31,16 @@ public class Vanish implements CommandExecutor {
                 return false;
             } else if (args.length > 0) {
                 if (args[0].equalsIgnoreCase("list")) {
-                    if (p.hasPermission("toolkit.vanish.list")) {
-                        if (Vnsh.players.size() > 0) {
-                            p.sendMessage(Tools.chat(b + "-------[" + n + "VANISH" + b + "]--------"));
-                            for (String pl : Vnsh.players) {
-                                p.sendMessage(Tools.chat(b + "- " + t + pl));
-                            }
-                            p.sendMessage(Tools.chat(b + "-----------------------"));
-                        } else {
-                            p.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" There are no players in vanish mode"));
+                    if (Vnsh.players.size() > 0) {
+                        p.sendMessage(Tools.chat(b + "-------[" + n + "VANISH" + b + "]--------"));
+                        for (String pl : Vnsh.players) {
+                            p.sendMessage(Tools.chat(b + "- " + t + pl));
                         }
-                        return false;
+                        p.sendMessage(Tools.chat(b + "-----------------------"));
                     } else {
-                        p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
-                        return false;
+                        p.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" There are no players in vanish mode"));
                     }
+                    return false;
                 } else {
                     target = Bukkit.getServer().getPlayer(args[0]);
                     if (target == null) {

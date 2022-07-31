@@ -2,6 +2,7 @@ package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.Vnsh;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -62,10 +63,16 @@ public class Aliases implements CommandExecutor {
             case "gms":
                 target.setGameMode(GameMode.SURVIVAL);
                 sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SURVIVAL"));
+                if (Vnsh.Enabled(target)) {
+                    target.setAllowFlight(true);
+                }
                 break;
             case "gma":
                 target.setGameMode(GameMode.ADVENTURE);
                 sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "ADVENTURE"));
+                if (Vnsh.Enabled(target)) {
+                    target.setAllowFlight(true);
+                }
                 break;
             case "gmsp":
                 target.setGameMode(GameMode.SPECTATOR);

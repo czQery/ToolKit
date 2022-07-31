@@ -31,7 +31,7 @@ public class Leave implements Listener {
         if (plugin.getConfig().getBoolean("leave.alert") && !Vnsh.Enabled(p)) {
             e.quitMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName())));
         } else {
-            e.quitMessage(Component.text(""));
+            e.quitMessage(null);
         }
 
         //Sit check

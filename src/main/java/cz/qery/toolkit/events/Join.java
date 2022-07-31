@@ -55,7 +55,7 @@ public class Join implements Listener {
         if (plugin.getConfig().getBoolean("join.alert") && !Vnsh.Enabled(p)) {
             e.joinMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName())));
         } else {
-            e.joinMessage(Component.text(""));
+            e.joinMessage(null);
         }
 
         // vanish
@@ -67,9 +67,8 @@ public class Join implements Listener {
                 if (target != null) {
                     if (p.hasPermission("toolkit.vanish")) {
                         p.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Player "+h+target.getName()+t+" has &aentered"+t+" vanish mode!"));
-                    } else {
-                        p.hidePlayer(plugin, target);
                     }
+                    p.hidePlayer(plugin, target);
                 }
             }
         }

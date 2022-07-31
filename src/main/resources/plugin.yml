@@ -68,8 +68,6 @@ permissions:
     description: Bypass cmdblock command
   toolkit.vanish:
     description: Vanish command
-  toolkit.vanish.list:
-    description: Vanish list command
   # Aliases
   toolkit.gmc:
     description: Gmc command
