@@ -6,6 +6,7 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,8 @@ public final class Vnsh {
                 p.hidePlayer(plugin, target);
             }
         }
+
+        p.setMetadata("vanished", new FixedMetadataValue(plugin, false));
     }
 
     public static void Hide(Player p, boolean init) {
@@ -75,6 +78,8 @@ public final class Vnsh {
                 p.showPlayer(plugin, target);
             }
         }
+
+        p.setMetadata("vanished", new FixedMetadataValue(plugin, true));
     }
 
     public static boolean Enabled(Player p) {
