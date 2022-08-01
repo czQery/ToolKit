@@ -35,6 +35,7 @@ public final class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("gms")).setExecutor(new Aliases());
         Objects.requireNonNull(getCommand("gma")).setExecutor(new Aliases());
         Objects.requireNonNull(getCommand("gmsp")).setExecutor(new Aliases());
+        Objects.requireNonNull(getCommand("spawn")).setExecutor(new Aliases());
 
         new Interact(this);
         new Join(this);
@@ -45,6 +46,7 @@ public final class Main extends JavaPlugin {
         new WorldChange(this);
         new Command(this);
         new Silent(this);
+        new Respawn(this);
 
         Messenger ms = Bukkit.getMessenger();
 

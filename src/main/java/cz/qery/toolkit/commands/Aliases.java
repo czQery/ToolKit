@@ -1,6 +1,7 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
+import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
 import cz.qery.toolkit.Vnsh;
 import org.bukkit.Bukkit;
@@ -11,8 +12,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 public class Aliases implements CommandExecutor {
 
@@ -44,10 +43,15 @@ public class Aliases implements CommandExecutor {
                 return false;
             } else {
                 if (args.length > 0) {
-                    target = Bukkit.getServer().getPlayer(args[0]);
-                    if (target == null) {
-                        p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
+                    if (!p.hasPermission("toolkit."+cmd.getName().toLowerCase()+".other")) {
+                        p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                         return false;
+                    } else {
+                        target = Bukkit.getServer().getPlayer(args[0]);
+                        if (target == null) {
+                            p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
+                            return false;
+                        }
                     }
                 } else {
                     target = p;
@@ -77,6 +81,10 @@ public class Aliases implements CommandExecutor {
             case "gmsp":
                 target.setGameMode(GameMode.SPECTATOR);
                 sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SPECTATOR"));
+                break;
+            case "spawn":
+                Scripts.spawnTeleport(target);
+                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Teleported to " + h + "SPAWN"));
                 break;
         }
         return false;

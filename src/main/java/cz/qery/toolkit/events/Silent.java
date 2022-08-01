@@ -1,18 +1,15 @@
 package cz.qery.toolkit.events;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
 import cz.qery.toolkit.Vnsh;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Creature;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
-import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class Silent implements Listener {

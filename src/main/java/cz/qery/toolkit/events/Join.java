@@ -1,5 +1,6 @@
 package cz.qery.toolkit.events;
 
+import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Vnsh;
 import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Waypoint;
@@ -32,18 +33,8 @@ public class Join implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        if (plugin.getConfig().getBoolean("join.teleport")) {
-            if (Bukkit.getWorld(plugin.getConfig().getString("join.world")) == null) {
-                Tools.log(b+"["+n+"ToolKit"+b+"] "+t+"Join teleport has invalid world "+h+plugin.getConfig().getString("join.world"));
-            } else {
-                String config_world = plugin.getConfig().getString("join.world");
-                World world = Bukkit.getWorld(config_world).getSpawnLocation().getWorld();
-                double x = Bukkit.getWorld(config_world).getSpawnLocation().getX() + 0.5;
-                double y = Bukkit.getWorld(config_world).getSpawnLocation().getY() + 0.5;
-                double z = Bukkit.getWorld(config_world).getSpawnLocation().getZ() + 0.5;
-                Location location = new Location(world, x, y, z);
-                p.teleport(location);
-            }
+        if (plugin.getConfig().getBoolean("spawn.join")) {
+            Scripts.spawnTeleport(p);
         }
 
         if (plugin.getConfig().getBoolean("join.alert") && !Vnsh.Enabled(p)) {

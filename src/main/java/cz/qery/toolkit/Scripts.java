@@ -168,4 +168,19 @@ public class Scripts {
             Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+" true client "+h+client);
         }
     }
+
+    public static Location spawnTeleport(Player p) {
+        World world = plugin.getServer().getWorld(plugin.getConfig().getString("spawn.world"));
+        if (world == null) {
+            Tools.log(b+"["+n+"SERVER"+b+"] "+t+"Spawn has invalid world "+h+plugin.getConfig().getString("spawn.world"));
+        } else {
+            double x = world.getSpawnLocation().getX() + 0.5;
+            double y = world.getSpawnLocation().getY() + 0.5;
+            double z = world.getSpawnLocation().getZ() + 0.5;
+            Location location = new Location(world, x, y, z);
+            p.teleport(location);
+            return location;
+        }
+        return null;
+    }
 }

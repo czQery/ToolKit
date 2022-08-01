@@ -1,8 +1,10 @@
+spawn:
+  world: world
+  join: true
+  death: true
 join:
   alert: true
   message: "&8[&cSERVER&8]&6 %player%&7 joined!"
-  teleport: true
-  world: world
 leave:
   alert: true
   message: "&8[&cSERVER&8]&6 %player%&7 disconnected!"

@@ -38,6 +38,8 @@ commands:
     description: Switch to ADVENTURE mode
   gmsp:
     description: Switch to SPECTATOR mode
+  spawn:
+    description: Teleport to spawn
 
 permissions:
   toolkit.crash:
@@ -71,9 +73,21 @@ permissions:
   # Aliases
   toolkit.gmc:
     description: Gmc command
+  toolkit.gmc.other:
+    description: Gmc command
   toolkit.gms:
+    description: Gms command
+  toolkit.gms.other:
     description: Gms command
   toolkit.gma:
     description: Gma command
+  toolkit.gma.other:
+    description: Gma command
   toolkit.gmsp:
     description: Gmsp command
+  toolkit.gmsp.other:
+    description: Gmsp command
+  toolkit.spawn:
+    description: Spawn command
+  toolkit.spawn.other:
+    description: Spawn command
