@@ -1,6 +1,7 @@
 package cz.qery.toolkit.events;
 
 import cz.qery.toolkit.Main;
+import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -26,25 +27,15 @@ public class ChannelRegister implements Listener {
         String n = plugin.getConfig().getString("color.name");
         String t = plugin.getConfig().getString("color.text");
 
-        if ("fml:handshake".equals(event.getChannel())) {
-            event.getPlayer().setMetadata("client", new FixedMetadataValue(plugin, "Forge"));
 
-            /*
-            event.getPlayer().sendPluginMessage(plugin, "fml:handshake", new byte[]{-2, 0});
-            final byte[] array = new byte[6];
-            array[1] = 2;
-            p.sendPluginMessage(plugin, "fml:handshake", array);
-            final byte[] array2 = new byte[5];
-            array2[0] = 2;
-            p.sendPluginMessage(plugin, "fml:handshake", array2);
-
-            p.sendPluginMessage(plugin, "fml:handshake", new byte[] {0,2,0});
-            p.sendPluginMessage(plugin, "fml:handshake", new byte[] {2,0,0,0});
-            p.sendPluginMessage(plugin, "fml:handshake", new byte[] {0, 2, 0, 0, 0, 0});
-            p.sendPluginMessage(plugin, "fml:handshake", new byte[] {2, 0, 0, 0, 0});
-            */
-        } else if ("lunarclient:pm".equals(event.getChannel())) {
-            p.setMetadata("client", new FixedMetadataValue(plugin, "LunarClient"));
+        if (event.getChannel().startsWith("lunarclient:")) {
+            Scripts.addTrueClient(p, "LunarClient");
+        } else if (event.getChannel().startsWith("feather:")) {
+            Scripts.addTrueClient(p, "FeatherClient");
+        } else if (event.getChannel().startsWith("fabric:") || event.getChannel().startsWith("fabric-screen-handler-api")) {
+            Scripts.addTrueClient(p, "Fabric");
+        } else if (event.getChannel().startsWith("fml:")) {
+            Scripts.addTrueClient(p, "Forge");
         } else {
             Tools.log(b + "[" + n + "SERVER" + b + "] " + h + event.getPlayer().getName() + t + " registered channel " + h + event.getChannel());
         }

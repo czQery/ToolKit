@@ -30,27 +30,12 @@ public class ChannelListener implements PluginMessageListener {
         */
 
         if ("minecraft:brand".equals(channel)) {
-            if (msg.toLowerCase().contains("vanilla")) {
-                p.setMetadata("client", new FixedMetadataValue(plugin, "Vanilla"));
-            } else if (msg.toLowerCase().contains("lunarclient")) {
-                p.setMetadata("client", new FixedMetadataValue(plugin, "LunarClient"));
-            } else if (msg.toLowerCase().contains("forge")) {
-                p.setMetadata("client", new FixedMetadataValue(plugin, "Forge"));
-            }  else if (msg.toLowerCase().contains("liteloader")) {
-                p.setMetadata("client", new FixedMetadataValue(plugin, "LiteLoader"));
-            } else if (msg.toLowerCase().contains("rift")) {
-                p.setMetadata("client", new FixedMetadataValue(plugin, "Rift"));
-            } else if (msg.toLowerCase().contains("fabric")) {
-                p.setMetadata("client", new FixedMetadataValue(plugin, "Fabric"));
-            } else if (msg.toLowerCase().contains("worlddownloader")) {
-                p.setMetadata("client", new FixedMetadataValue(plugin, "WorldDownloader"));
-            } else if (msg.toLowerCase().contains("badlion")) {
-                p.setMetadata("client", new FixedMetadataValue(plugin, "Badlion"));
-            } else {
-                Tools.log(b + "[" + n + "SERVER" + b + "] " + h + p.getName() + t + " sent " + h + channel + " " + t + msg);
+            if (!msg.toLowerCase().contains("vannila") && !msg.toLowerCase().contains("lunarclient") && !msg.toLowerCase().contains("fabric") && !msg.toLowerCase().contains("feather")) {
+                p.setMetadata("client", new FixedMetadataValue(plugin, msg));
+                Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+" client "+h+msg);
             }
         } else {
-            Tools.log(b + "[" + n + "SERVER" + b + "] " + h + p.getName() + t + " sent " + h + channel + " " + t + msg);
+            Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+ " sent "+h+channel+" "+t+msg);
         }
     }
 }

@@ -158,4 +158,14 @@ public class Scripts {
             p_entity.b.a(packet);
         }
     }
+
+    public static void addTrueClient(Player p , String client) {
+        if (p.getMetadata("client").toString() == "[]") {
+            p.setMetadata("client", new FixedMetadataValue(plugin, client));
+            Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+" client "+h+client);
+        } else if (p.getMetadata("trueclient").toString() == "[]"){
+            p.setMetadata("trueclient", new FixedMetadataValue(plugin, client));
+            Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+" true client "+h+client);
+        }
+    }
 }

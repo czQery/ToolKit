@@ -58,15 +58,26 @@ public class PInfo implements CommandExecutor {
                 String name = finalTarget.getName();
                 String ip = finalTarget.getAddress().getHostName();
                 String client;
+                String trueclient = null;
+
                 if (finalTarget.getMetadata("client").toString() != "[]") {
                     client = finalTarget.getMetadata("client").get(0).asString();
                 } else {
                     client = "Vanilla";
                 }
+
+                if (finalTarget.getMetadata("trueclient").toString() != "[]") {
+                    trueclient = finalTarget.getMetadata("trueclient").get(0).asString();
+                }
+
                 sender.sendMessage(Tools.chat(b+"-------["+n+"PlayerInfo"+b+"]-------"));
                 sender.sendMessage(Tools.chat(b+"- "+t+"Username "+h+name));
                 sender.sendMessage(Tools.chat(b+"- "+t+"Ip "+h+ip));
-                sender.sendMessage(Tools.chat(b+"- "+t+"Client "+h+client));
+                if (trueclient != null) {
+                    sender.sendMessage(Tools.chat(b+"- "+t+"Client "+h+client+" ("+trueclient+")"));
+                } else {
+                    sender.sendMessage(Tools.chat(b+"- "+t+"Client "+h+client));
+                }
                 sender.sendMessage(Tools.chat(b+"------------------------"));
             }
         });

@@ -1,11 +1,5 @@
 package cz.qery.toolkit.events;
 
-import com.lunarclient.bukkitapi.nethandler.LCPacket;
-import com.lunarclient.bukkitapi.nethandler.client.*;
-import com.lunarclient.bukkitapi.nethandler.server.LCPacketStaffModStatus;
-import com.lunarclient.bukkitapi.nethandler.shared.LCPacketEmoteBroadcast;
-import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
-import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Vnsh;
 import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Waypoint;

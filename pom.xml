@@ -4,7 +4,7 @@
 
     <groupId>cz.qery</groupId>
     <artifactId>ToolKit</artifactId>
-    <version>3.4</version>
+    <version>3.5.Dev</version>
     <packaging>jar</packaging>
 
     <name>ToolKit</name>
