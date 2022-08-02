@@ -32,7 +32,7 @@ public class RP implements CommandExecutor {
                     return false;
                 }
             } else {
-                Tools.log(b+"["+n+"RP"+b+"]"+t+" Please use "+h+"/rp <player> <url>");
+                sender.sendMessage(Tools.chat(b+"["+n+"RP"+b+"]"+t+" Please use "+h+"/rp <player> <url>"));
                 return false;
             }
         } else {

@@ -34,12 +34,12 @@ public class EntityDismount implements Listener {
         if (en.getType() == EntityType.ARMOR_STAND && p.getType() == EntityType.PLAYER) {
             if (p.getMetadata("sit").toString() != "[]") {
                 if (p.getMetadata("sit").get(0).asInt() != 0) {
-                    Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
+                    Location loc = p.getLocation();
                     for (Entity ent: loc.getChunk().getEntities()){
                         if (ent.getEntityId() == p.getMetadata("sit").get(0).asInt()) {
                             ent.remove();
 
-                            p.teleport(loc.add(+0.5, 1.7, +0.5));
+                            p.teleport(loc.add(0, 1.7, 0));
                             p.setMetadata("sit", new FixedMetadataValue(plugin, 0));
                             p.sendMessage(Tools.chat(b+"["+n+"SIT"+b+"]"+t+" Sit mode has been turned &cOFF"+t+"!"));
                         }

@@ -30,7 +30,7 @@ public class PInfo implements CommandExecutor {
                     return false;
                 }
             } else {
-                Tools.log(b+"["+n+"PINFO"+b+"]"+t+" Please use "+h+"/pinfo <player>");
+                sender.sendMessage(Tools.chat(b+"["+n+"PINFO"+b+"]"+t+" Please use "+h+"/pinfo <player>"));
                 return false;
             }
         } else {

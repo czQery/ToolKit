@@ -2,7 +2,6 @@ package cz.qery.toolkit.events;
 
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Scripts;
-import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

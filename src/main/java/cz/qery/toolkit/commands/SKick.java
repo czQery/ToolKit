@@ -30,7 +30,7 @@ public class SKick implements CommandExecutor {
                     return false;
                 }
             } else {
-                Tools.log(b+"["+n+"SKICK"+b+"]"+t+" Please use "+h+"/skick <player>");
+                sender.sendMessage(Tools.chat(b+"["+n+"SKICK"+b+"]"+t+" Please use "+h+"/skick <player>"));
                 return false;
             }
         } else {

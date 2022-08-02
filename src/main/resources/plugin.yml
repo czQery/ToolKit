@@ -56,6 +56,8 @@ permissions:
     description: Bypass troll command
   toolkit.crawl:
     description: Crawl command
+  toolkit.crawl.other:
+    description: Crawl command
   toolkit.sit:
     description: Sit command
   toolkit.pinfo:

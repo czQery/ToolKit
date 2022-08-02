@@ -37,7 +37,7 @@ public class Troll implements CommandExecutor {
                     return false;
                 }
             } else {
-                Tools.log(b+"["+n+"TROLL"+b+"]"+t+" Please use "+h+"/troll <player> <troll>");
+                sender.sendMessage(Tools.chat(b+"["+n+"TROLL"+b+"]"+t+" Please use "+h+"/troll <player> <troll>"));
                 return false;
             }
         } else {

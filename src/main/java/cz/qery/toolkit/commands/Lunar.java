@@ -22,7 +22,7 @@ public class Lunar implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
         if (!(sender instanceof Player)) {
-            Tools.log(b + "[" + n + "SERVER" + b + "]" + t + " This command cannot be used by the console!");
+            sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " This command cannot be used by the console!"));
         } else {
             Player p = (Player) sender;
             if (!p.hasPermission("toolkit.lunar")) {

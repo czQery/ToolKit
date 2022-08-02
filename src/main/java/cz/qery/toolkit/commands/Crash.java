@@ -30,7 +30,7 @@ public class Crash implements CommandExecutor {
                     return false;
                 }
             } else {
-                Tools.log(b+"["+n+"CRASH"+b+"]"+t+" Please use "+h+"/crash <player>");
+                sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Please use "+h+"/crash <player>"));
                 return false;
             }
         } else {

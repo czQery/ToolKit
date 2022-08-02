@@ -33,7 +33,7 @@ public class Aliases implements CommandExecutor {
                     return false;
                 }
             } else {
-                Tools.log(b+"["+n+"SERVER"+b+"]"+t+" Please use "+h+"/"+cmd.getName().toLowerCase()+" <player>");
+                sender.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Please use "+h+"/"+cmd.getName().toLowerCase()+" <player>"));
                 return false;
             }
         } else {

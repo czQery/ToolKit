@@ -3,6 +3,7 @@ package cz.qery.toolkit.commands;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -19,56 +20,71 @@ public class Crawl implements CommandExecutor {
     String b = plugin.getConfig().getString("color.bracket");
     String n = plugin.getConfig().getString("color.name");
     String t = plugin.getConfig().getString("color.text");
+    String h = plugin.getConfig().getString("color.highlight");
 
-    @SuppressWarnings("deprecation")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
+        Player target = null;
+        String who = null;
 
         if (!(sender instanceof Player)) {
-            Tools.log(b+"["+n+"SERVER"+b+"]"+t+" This command cannot be used by the console!");
-        } else {
-            Player p = (Player) sender;
-            if(!p.hasPermission("toolkit.crawl")) {
-                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
-            } else {
-                Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY()+1, p.getLocation().getBlockZ());
-                if (p.getMetadata("crawl").toString() == "[]") {
-                    if (p.isOnGround()) {
-                        if (p.getLocation().getY() % 1 <= 0.25) {
-                            p.setMetadata("crawl", new FixedMetadataValue(plugin, true));
-                            p.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &aON"+t+"!"));
-                            if (loc.getBlock().isEmpty()) {
-                                loc.getBlock().setType(Material.BARRIER);
-                            }
-                        } else {
-                            p.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" You must stand on a full block or lower than slab!"));
-                        }
-                    } else {
-                        p.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" You must stand on a block!"));
-                    }
-                } else {
-                    if (p.getMetadata("crawl").get(0).asBoolean()) {
-                        p.setMetadata("crawl", new FixedMetadataValue(plugin, false));
-                        p.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &cOFF"+t+"!"));
-                        Scripts.bCheck(p);
-                        if (loc.getBlock().getType() == Material.BARRIER){loc.getBlock().setType(Material.AIR);}
-                    } else {
-                        if (p.isOnGround()) {
-                            if (p.getLocation().getY() % 1 <= 0.25) {
-                                p.setMetadata("crawl", new FixedMetadataValue(plugin, true));
-                                p.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &aON"+t+"!"));
-                                if (loc.getBlock().isEmpty()) {
-                                    loc.getBlock().setType(Material.BARRIER);
-                                }
-                            } else {
-                                p.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" You must stand on a full block or lower than slab!"));
-                            }
-                        } else {
-                            p.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" You must stand on a block!"));
-                        }
-                    }
+            if (args.length > 0) {
+                target = Bukkit.getServer().getPlayer(args[0]);
+                if(target == null){
+                    sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+                    return false;
                 }
+                who = "Player";
+            } else {
+                sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Please use "+h+"/crawl <player>"));
+                return false;
+            }
+        } else {
+            if (args.length > 0) {
+                if(!sender.hasPermission("toolkit.crawl.other")) {
+                    sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+                    return false;
+                }
+                target = Bukkit.getServer().getPlayer(args[0]);
+                if(target == null){
+                    sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+                    return false;
+                }
+                who = "Player";
+            } else {
+                if(!sender.hasPermission("toolkit.crawl")) {
+                    sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+                    return false;
+                }
+                target = (Player) sender;
+                who = "You";
             }
         }
+
+        Location loc = new Location(target.getWorld(), target.getLocation().getBlockX(), target.getLocation().getBlockY()+1, target.getLocation().getBlockZ());
+
+        if ((target.getMetadata("crawl").toString() != "[]" && !target.getMetadata("crawl").get(0).asBoolean()) || target.getMetadata("crawl").toString() == "[]") {
+            if (target.isOnGround()) {
+                if (target.getLocation().getY() % 1 <= 0.25) {
+                    target.setMetadata("crawl", new FixedMetadataValue(plugin, true));
+                    sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &aON"+t+"!"));
+                    if (loc.getBlock().isEmpty()) {
+                        loc.getBlock().setType(Material.BARRIER);
+                    }
+                } else {
+                    sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" "+who+" must stand on a full block or lower than slab!"));
+                }
+            } else {
+                sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" "+who+" must stand on a block!"));
+            }
+        } else {
+            target.setMetadata("crawl", new FixedMetadataValue(plugin, false));
+            sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &cOFF"+t+"!"));
+            Scripts.bCheck(target);
+            if (loc.getBlock().getType() == Material.BARRIER){
+                loc.getBlock().setType(Material.AIR);
+            }
+        }
+
         return false;
     }
 }
