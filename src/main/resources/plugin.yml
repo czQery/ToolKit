@@ -1,7 +1,7 @@
 name: ToolKit
 version: ${project.version}
 main: cz.qery.toolkit.Main
-api-version: 1.18
+api-version: 1.19
 authors: [ czQery ]
 description: Set of useful tools
 website: github.com/czQery/ToolKit
@@ -40,6 +40,8 @@ commands:
     description: Switch to SPECTATOR mode
   spawn:
     description: Teleport to spawn
+  fly:
+    description: Allows the player to fly
 
 permissions:
   toolkit.crash:
@@ -59,6 +61,8 @@ permissions:
   toolkit.crawl.other:
     description: Crawl command
   toolkit.sit:
+    description: Sit command
+  toolkit.sit.other:
     description: Sit command
   toolkit.pinfo:
     description: Pinfo command
@@ -93,3 +97,7 @@ permissions:
     description: Spawn command
   toolkit.spawn.other:
     description: Spawn command
+  toolkit.fly:
+    description: Fly command
+  toolkit.fly.other:
+    description: Fly command

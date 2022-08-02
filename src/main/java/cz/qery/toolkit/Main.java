@@ -36,6 +36,7 @@ public final class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("gma")).setExecutor(new Aliases());
         Objects.requireNonNull(getCommand("gmsp")).setExecutor(new Aliases());
         Objects.requireNonNull(getCommand("spawn")).setExecutor(new Aliases());
+        Objects.requireNonNull(getCommand("fly")).setExecutor(new Aliases());
 
         new Interact(this);
         new Join(this);

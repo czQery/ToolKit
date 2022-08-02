@@ -86,6 +86,15 @@ public class Aliases implements CommandExecutor {
                 Scripts.spawnTeleport(target);
                 sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Teleported to " + h + "SPAWN"));
                 break;
+            case "fly":
+                if (target.getAllowFlight()) {
+                    target.setAllowFlight(false);
+                    sender.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Fly mode has been turned &cOFF"+t+"!"));
+                } else {
+                    target.setAllowFlight(true);
+                    sender.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Fly mode has been turned &aON"+t+"!"));
+                }
+                break;
         }
         return false;
     }
