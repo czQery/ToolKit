@@ -34,7 +34,7 @@ public class Leave implements Listener {
             e.quitMessage(null);
         }
 
-        //Sit check
+        // Sit check
         if (p.getMetadata("sit").toString() != "[]") {
             if (p.getMetadata("sit").get(0).asInt() != 0) {
                 Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
@@ -46,7 +46,7 @@ public class Leave implements Listener {
             }
         }
 
-        //Crawl check
+        // Crawl check
         if (p.getMetadata("crawl").toString() != "[]") {
             if (p.getMetadata("crawl").get(0).asBoolean()) {
                 Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY()+1, p.getLocation().getBlockZ());
@@ -55,5 +55,9 @@ public class Leave implements Listener {
                 if (loc.getBlock().getType() == Material.BARRIER){loc.getBlock().setType(Material.AIR);}
             }
         }
+
+        // Client
+        p.removeMetadata("client", plugin);
+        p.removeMetadata("trueclient", plugin);
     }
 }

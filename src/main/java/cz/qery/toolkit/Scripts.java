@@ -163,7 +163,7 @@ public class Scripts {
         if (p.getMetadata("client").toString() == "[]") {
             p.setMetadata("client", new FixedMetadataValue(plugin, client));
             Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+" client "+h+client);
-        } else if (p.getMetadata("trueclient").toString() == "[]"){
+        } else if (p.getMetadata("trueclient").toString() == "[]" && !p.getMetadata("client").get(0).asString().equalsIgnoreCase(client)){
             p.setMetadata("trueclient", new FixedMetadataValue(plugin, client));
             Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+" true client "+h+client);
         }

@@ -22,12 +22,6 @@ public class ChannelListener implements PluginMessageListener {
         data = Arrays.copyOfRange(data, 1, data.length);
         String msg = new String(data, StandardCharsets.US_ASCII);
 
-        /*
-        String array = "";
-        for (int i = 0; i < data.length; ++i) {
-            array = array+" "+data[i];
-        }
-        */
 
         if ("minecraft:brand".equals(channel)) {
             if (!msg.toLowerCase().contains("vannila") && !msg.toLowerCase().contains("lunarclient") && !msg.toLowerCase().contains("fabric") && !msg.toLowerCase().contains("feather") && !msg.toLowerCase().contains("forge")) {

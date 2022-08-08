@@ -27,7 +27,6 @@ public class ChannelRegister implements Listener {
         String n = plugin.getConfig().getString("color.name");
         String t = plugin.getConfig().getString("color.text");
 
-
         if (event.getChannel().startsWith("lunarclient:")) {
             Scripts.addTrueClient(p, "LunarClient");
         } else if (event.getChannel().startsWith("feather:")) {
