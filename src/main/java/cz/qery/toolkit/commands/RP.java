@@ -4,7 +4,6 @@ import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
 import net.minecraft.network.protocol.game.PacketPlayOutResourcePackSend;
 import net.minecraft.server.level.EntityPlayer;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

@@ -1,7 +1,6 @@
 package cz.qery.toolkit;
 
 import com.lunarclient.bukkitapi.nethandler.LCPacket;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -13,6 +12,7 @@ public class Tools {
     static String b = plugin.getConfig().getString("color.bracket");
     static String n = plugin.getConfig().getString("color.name");
     static String t = plugin.getConfig().getString("color.text");
+    public static boolean isPaper = false;
 
     public static String chat (String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
@@ -22,9 +22,6 @@ public class Tools {
             return false;
         }
         return true;
-    }
-    public static TextComponent schat(String input){
-        return new TextComponent(net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', input));
     }
     public static void delay(int ms) {
         try {
@@ -45,5 +42,14 @@ public class Tools {
             }
         }
         return false;
+    }
+
+    public static void paperCheck() {
+        try {
+            Class.forName("com.destroystokyo.paper.ParticleBuilder");
+            isPaper = true;
+        } catch (ClassNotFoundException ignored) {
+            isPaper = false;
+        }
     }
 }

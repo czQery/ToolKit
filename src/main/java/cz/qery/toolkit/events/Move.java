@@ -7,14 +7,11 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.metadata.FixedMetadataValue;
 
 public class Move implements Listener {
@@ -57,11 +54,34 @@ public class Move implements Listener {
         if (plugin.getConfig().getBoolean("lunar.kick")) {
             if (p.getPlayer().getMetadata("client").toString() != "[]") {
                 if (!p.getPlayer().getMetadata("client").get(0).asString().equals("LunarClient")) {
-                    System.out.println(p.getPlayer().getMetadata("client").get(0).asString());
-                    e.getPlayer().kick(Component.text(Tools.chat(plugin.getConfig().getString("lunar.message"))));
+                    if (Tools.isPaper) {
+                        e.getPlayer().kick(Component.text(Tools.chat(plugin.getConfig().getString("lunar.message"))));
+                    } else {
+                        e.getPlayer().kickPlayer(Tools.chat(plugin.getConfig().getString("lunar.message")));
+                    }
                 }
             } else {
-                e.getPlayer().kick(Component.text(Tools.chat(plugin.getConfig().getString("lunar.message"))));
+                if (Tools.isPaper) {
+                    e.getPlayer().kick(Component.text(Tools.chat(plugin.getConfig().getString("lunar.message"))));
+                } else {
+                    e.getPlayer().kickPlayer(Tools.chat(plugin.getConfig().getString("lunar.message")));
+                }
+            }
+        }
+
+        //SIT
+        if (p.getMetadata("sit").toString() != "[]") {
+            if (p.getMetadata("sit").get(0).asInt() != 0) {
+                Location loc = p.getLocation();
+                for (Entity ent: loc.getChunk().getEntities()){
+                    if (ent.getEntityId() == p.getMetadata("sit").get(0).asInt()) {
+                        ent.remove();
+
+                        p.teleport(loc.add(0, 1.7, 0));
+                        p.setMetadata("sit", new FixedMetadataValue(plugin, 0));
+                        p.sendMessage(Tools.chat(b+"["+n+"SIT"+b+"]"+t+" Sit mode has been turned &cOFF"+t+"!"));
+                    }
+                }
             }
         }
     }

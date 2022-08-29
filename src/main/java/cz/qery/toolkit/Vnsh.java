@@ -37,7 +37,11 @@ public final class Vnsh {
         }
         if (init) {
             Vnsh.players.remove(p.getName());
-            plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName())));
+            if (Tools.isPaper) {
+                plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName())));
+            } else {
+                plugin.getServer().broadcastMessage(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName()));
+            }
         }
 
         for (String pl : players) {
@@ -62,7 +66,11 @@ public final class Vnsh {
         }
         if (init) {
             Vnsh.players.add(p.getName());
-            plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName())));
+            if (Tools.isPaper) {
+                plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName())));
+            } else {
+                plugin.getServer().broadcastMessage(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName()));
+            }
         }
         p.setSleepingIgnored(true);
         p.setAllowFlight(true);

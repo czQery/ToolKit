@@ -2,10 +2,10 @@ package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,14 +26,20 @@ public class ToolKit implements CommandExecutor {
 
         String version = Bukkit.getServer().getPluginManager().getPlugin("ToolKit").getDescription().getVersion();
 
-        TextComponent github = Tools.schat(b+"- "+t+"GitHub "+h+"https://github.com/czQery/ToolKit");
-        github.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Tools.schat(t+"Click to open")).create()));
-        github.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/czQery/ToolKit"));
+        final @NotNull TextComponent link = Component.text()
+                .content(Tools.chat(b+"- "+t+"GitHub "+h+"https://github.com/czQery/ToolKit"))
+                .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/czQery/ToolKit"))
+                .hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, Component.text("")))
+                .build();
 
         sender.sendMessage(Tools.chat(b+"-------["+n+"TOOLKIT"+b+"]-------"));
         sender.sendMessage(Tools.chat(b+"- "+t+"Set of useful tools"));
         sender.sendMessage(Tools.chat(b+"- "+t+"Version "+h+version));
-        sender.spigot().sendMessage(github);
+        if (Tools.isPaper) {
+            sender.sendMessage(link);
+        } else {
+            sender.sendMessage(Tools.chat(b+"- "+t+"GitHub "+h+"https://github.com/czQery/ToolKit"));
+        }
         sender.sendMessage(Tools.chat(b+"- "+t+"Made by "+h+"czQery"));
         sender.sendMessage(Tools.chat(b+"----------------------"));
         return false;

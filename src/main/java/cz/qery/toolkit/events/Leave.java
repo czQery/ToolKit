@@ -29,7 +29,11 @@ public class Leave implements Listener {
         Player p = e.getPlayer();
 
         if (plugin.getConfig().getBoolean("leave.alert") && !Vnsh.Enabled(p)) {
-            e.quitMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName())));
+            if (Tools.isPaper) {
+                e.quitMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName())));
+            } else {
+                e.setQuitMessage(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName()));
+            }
         } else {
             e.quitMessage(null);
         }

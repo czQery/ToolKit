@@ -1,20 +1,17 @@
 package cz.qery.toolkit.events;
 
+import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Scripts;
+import cz.qery.toolkit.Tools;
 import cz.qery.toolkit.Vnsh;
 import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Waypoint;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
 import org.bukkit.plugin.Plugin;
 
 public class Join implements Listener {
@@ -38,7 +35,11 @@ public class Join implements Listener {
         }
 
         if (plugin.getConfig().getBoolean("join.alert") && !Vnsh.Enabled(p)) {
-            e.joinMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName())));
+            if (Tools.isPaper) {
+                e.joinMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName())));
+            } else {
+                e.setJoinMessage(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName()));
+            }
         } else {
             e.joinMessage(null);
         }

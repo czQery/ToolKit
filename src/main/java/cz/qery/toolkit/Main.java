@@ -4,19 +4,34 @@ import cz.qery.toolkit.commands.*;
 import cz.qery.toolkit.events.*;
 import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Waypoint;
+import lombok.NonNull;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.Messenger;
+
 import java.util.Objects;
 
 public final class Main extends JavaPlugin {
 
+    private BukkitAudiences adventure;
+
+    public @NonNull BukkitAudiences adventure() {
+        if(this.adventure == null) {
+            throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
+        }
+        return this.adventure;
+    }
+
     @Override
     public void onEnable() {
+        this.adventure = BukkitAudiences.create(this);
 
         loadConfiguration();
+
+        Tools.paperCheck();
 
         Objects.requireNonNull(getCommand("crash")).setExecutor(new Crash());
         Objects.requireNonNull(getCommand("crawl")).setExecutor(new Crawl());
@@ -91,5 +106,9 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         HandlerList.unregisterAll(this);
+        if(this.adventure != null) {
+            this.adventure.close();
+            this.adventure = null;
+        }
     }
 }
