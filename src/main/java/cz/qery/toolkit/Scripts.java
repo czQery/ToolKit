@@ -31,6 +31,34 @@ public class Scripts {
     static String t = plugin.getConfig().getString("color.text");
     static String h = plugin.getConfig().getString("color.highlight");
 
+    public static void cleanup(Player p) {
+        // Sit check
+        if (!Objects.equals(p.getMetadata("sit").toString(), "[]")) {
+            if (p.getMetadata("sit").get(0).asInt() != 0) {
+                Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
+                for (Entity ent: loc.getChunk().getEntities()){
+                    if (ent.getEntityId() == p.getMetadata("sit").get(0).asInt()) {
+                        ent.remove();
+                    }
+                }
+            }
+        }
+
+        // Crawl check
+        if (!Objects.equals(p.getMetadata("crawl").toString(), "[]")) {
+            if (p.getMetadata("crawl").get(0).asBoolean()) {
+                Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY()+1, p.getLocation().getBlockZ());
+                p.setMetadata("crawl", new FixedMetadataValue(plugin, false));
+                Scripts.bCheck(p);
+                if (loc.getBlock().getType() == Material.BARRIER){loc.getBlock().setType(Material.AIR);}
+            }
+        }
+
+        // Client
+        p.removeMetadata("client", plugin);
+        p.removeMetadata("trueclient", plugin);
+    }
+
     public static void sCheck(Player p, Boolean nw) {
         if (!Objects.equals(p.getMetadata("sit").toString(), "[]") && p.getMetadata("sit").get(0).asInt() != 0 || nw) {
             Location loc = p.getLocation();
@@ -45,6 +73,8 @@ public class Scripts {
             }
         }
     }
+
+   /* public static HashMap<UUID, BlockPosition[]> bMap = new HashMap<UUID,BlockPosition[]>();*/
 
     @SuppressWarnings("deprecation")
     public static void bCheck(Player p) {

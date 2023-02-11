@@ -8,6 +8,7 @@ import lombok.NonNull;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.Messenger;
@@ -105,6 +106,10 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            Scripts.cleanup(p);
+        }
+
         HandlerList.unregisterAll(this);
         if(this.adventure != null) {
             this.adventure.close();

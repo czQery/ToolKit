@@ -8,7 +8,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public final class Vnsh {
     static Main plugin = Main.getPlugin(Main.class);
@@ -17,7 +19,7 @@ public final class Vnsh {
     static String h = plugin.getConfig().getString("color.highlight");
     static String t = plugin.getConfig().getString("color.text");
 
-    public static ArrayList<String> players = new ArrayList<String>();
+    public static HashMap<UUID, String> players = new HashMap<UUID, String>();
 
     @SuppressWarnings("deprecation")
     public static void Show(Player p, boolean init) {
@@ -36,7 +38,7 @@ public final class Vnsh {
             p.setAllowFlight(false);
         }
         if (init) {
-            Vnsh.players.remove(p.getName());
+            Vnsh.players.remove(p.getUniqueId());
             if (Tools.isPaper) {
                 plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName())));
             } else {
@@ -44,8 +46,8 @@ public final class Vnsh {
             }
         }
 
-        for (String pl : players) {
-            Player target = Bukkit.getServer().getPlayer(pl);
+        for (Map.Entry<UUID, String> pl : players.entrySet()) {
+            Player target = Bukkit.getServer().getPlayer(pl.getKey());
             if (target != null) {
                 p.hidePlayer(plugin, target);
             }
@@ -66,7 +68,7 @@ public final class Vnsh {
             pl.hidePlayer(plugin, p);
         }
         if (init) {
-            Vnsh.players.add(p.getName());
+            Vnsh.players.put(p.getUniqueId(), p.getName());
             if (Tools.isPaper) {
                 plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName())));
             } else {
@@ -81,8 +83,8 @@ public final class Vnsh {
             }
         }
 
-        for (String pl : players) {
-            Player target = Bukkit.getServer().getPlayer(pl);
+        for (Map.Entry<UUID, String> pl : players.entrySet()) {
+            Player target = Bukkit.getServer().getPlayer(pl.getKey());
             if (target != null) {
                 p.showPlayer(plugin, target);
             }
@@ -93,7 +95,7 @@ public final class Vnsh {
 
     public static boolean Enabled(Player p) {
         try {
-            return players.contains(p.getName());
+            return players.containsKey(p.getUniqueId());
         } catch (Exception e) {
             return false;
         }

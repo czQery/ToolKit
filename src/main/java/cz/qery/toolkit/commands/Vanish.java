@@ -11,6 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
+import java.util.UUID;
+
 public class Vanish implements CommandExecutor {
 
     Plugin plugin = Main.getPlugin(Main.class);
@@ -22,57 +25,35 @@ public class Vanish implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         Player target = null;
 
-        if ((sender instanceof Player p)) {
-            if (!p.hasPermission("toolkit.vanish")) {
-                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
-                return false;
-            } else if (args.length > 0) {
-                if (args[0].equalsIgnoreCase("list")) {
-                    if (Vnsh.players.size() > 0) {
-                        p.sendMessage(Tools.chat(b + "-------[" + n + "VANISH" + b + "]--------"));
-                        for (String pl : Vnsh.players) {
-                            p.sendMessage(Tools.chat(b + "- " + t + pl));
-                        }
-                        p.sendMessage(Tools.chat(b + "-----------------------"));
-                    } else {
-                        p.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" There are no players in vanish mode"));
+        if ((sender instanceof Player) && !sender.hasPermission("toolkit.vanish")) {
+            sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+            return false;
+        }
+
+        if (args.length > 0) {
+            if (args[0].equalsIgnoreCase("list")) {
+                if (Vnsh.players.size() > 0) {
+                    sender.sendMessage(Tools.chat(b + "-------[" + n + "VANISH" + b + "]--------"));
+                    for (Map.Entry<UUID, String> pl : Vnsh.players.entrySet()) {
+                        sender.sendMessage(Tools.chat(b + "- " + t + pl.getValue()));
                     }
-                    return false;
+                    sender.sendMessage(Tools.chat(b + "----------------------"));
                 } else {
-                    target = Bukkit.getServer().getPlayer(args[0]);
-                    if (target == null) {
-                        p.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Player "+h+args[0]+t+ " is not online!"));
-                        return false;
-                    }
+                    sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" There are no players in vanish mode"));
                 }
-            } else {
-                target = p;
+                return false;
+            }
+
+            target = Bukkit.getServer().getPlayer(args[0]);
+            if(target == null){
+                sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+                return false;
             }
         } else {
-            if (args.length > 0) {
-                if (args[0].equalsIgnoreCase("list")) {
-                    if (Vnsh.players.size() > 0) {
-                        sender.sendMessage(Tools.chat(b + "-------[" + n + "VANISH" + b + "]--------"));
-                        for (String pl : Vnsh.players) {
-                            sender.sendMessage(Tools.chat(b + "- " + t + pl));
-                        }
-                        sender.sendMessage(Tools.chat(b + "----------------------"));
-                    } else {
-                        sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" There are no players in vanish mode"));
-                    }
-                    return false;
-                } else {
-                    target = Bukkit.getServer().getPlayer(args[0]);
-                    if (target == null) {
-                        sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Player "+h+args[0]+t+ " is not online!"));
-                        return false;
-                    }
-                }
-            } else {
-                sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Please use "+h+"/vanish <player/list>"));
-                return false;
-            }
+            sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Please use "+h+"/vanish <player/list>"));
+            return false;
         }
+
 
         // turn on/off logic
         if (!Vnsh.Enabled(target)) {

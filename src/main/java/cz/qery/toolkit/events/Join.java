@@ -14,6 +14,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Map;
+import java.util.UUID;
+
 public class Join implements Listener {
     static Plugin plugin = Main.getPlugin(Main.class);
     static String b = plugin.getConfig().getString("color.bracket");
@@ -45,11 +48,12 @@ public class Join implements Listener {
         }
 
         // vanish
-        for (String pl : Vnsh.players) {
-            if (pl.equalsIgnoreCase(p.getName())) {
+
+        for (Map.Entry<UUID, String> pl : Vnsh.players.entrySet()) {
+            if (p.getUniqueId() == pl.getKey()) {
                 Vnsh.Hide(p, false);
             } else {
-                Player target = Bukkit.getServer().getPlayer(pl);
+                Player target = Bukkit.getServer().getPlayer(pl.getKey());
                 if (target != null) {
                     if (p.hasPermission("toolkit.vanish")) {
                         p.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Player "+h+target.getName()+t+" has &aentered"+t+" vanish mode!"));
