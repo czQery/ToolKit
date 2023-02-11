@@ -1,17 +1,10 @@
 package cz.qery.toolkit;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-public final class CommandBlock {
-    private final String name;
-
+public record CommandBlock(String name) {
     static Main plugin = Main.getPlugin(Main.class);
     static String b = plugin.getConfig().getString("color.bracket");
     static String n = plugin.getConfig().getString("color.name");
@@ -25,6 +18,11 @@ public final class CommandBlock {
             return;
         }
         List<?> inp_list = plugin.getConfig().getList("commandblock.list");
+        if (inp_list == null) {
+            Tools.log(b + "[" + n + "SERVER" + b + "] " + t + "Command block list is empty");
+            return;
+        }
+
         for (Object cmdc : inp_list) {
             CommandBlock cmdd = new CommandBlock(cmdc.toString());
             cmdlist.add(cmdd);
@@ -32,12 +30,12 @@ public final class CommandBlock {
     }
 
     public static void Update() {
-        List<HashMap<String, HashMap<String, Object>>> l = new ArrayList();
+        List<HashMap<String, HashMap<String, Object>>> l = new ArrayList<>();
         String[] cmdl = new String[cmdlist.size()];
         int cmdi = 0;
         for (CommandBlock cmdc : cmdlist) {
-            cmdl[cmdi] = cmdc.getName();
-            cmdi = cmdi+1;
+            cmdl[cmdi] = cmdc.name();
+            cmdi = cmdi + 1;
         }
         plugin.getConfig().set("commandblock.list", null);
         plugin.getConfig().set("commandblock.list", cmdl);

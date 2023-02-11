@@ -11,10 +11,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 
 public class WorldChange implements Listener {
-    private Main plugin;
 
     public WorldChange(Main plugin) {
-        this.plugin = plugin;
 
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }

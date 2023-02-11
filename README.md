@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/czQery/ToolKit/blob/master/banner.png?raw=true">
+    <img src="https://github.com/czQery/ToolKit/blob/master/banner.png?raw=true" alt="Logo">
 </p>
 
 [![Version](https://img.shields.io/badge/version-v3.6-informational.svg)](https://github.com/czQery/ToolKit/releases)
@@ -7,31 +7,31 @@
 
 ## Commands
 
-| Command           | Permission                  | Protection                  | Description                                   |
-| ----------------- | --------------------------- | --------------------------- | --------------------------------------------- |
-| /crash            | toolkit.crash               | toolkit.crash.bypass        | Lag/Crash players game                        |
-| /skick            | toolkit.skick               | toolkit.skick.bypass        | Badlion users cannot exit kick screen         |
-| /troll            | toolkit.troll               | toolkit.troll.bypass        | Just troll command :)                         |
-| /cmdblock         | toolkit.commandblock        | toolkit.commandblock.bypass | Allows to block specific commands             |
+| Command   | Permission           | Protection                  | Description                           |
+|-----------|----------------------|-----------------------------|---------------------------------------|
+| /crash    | toolkit.crash        | toolkit.crash.bypass        | Lag/Crash players game                |
+| /skick    | toolkit.skick        | toolkit.skick.bypass        | Badlion users cannot exit kick screen |
+| /troll    | toolkit.troll        | toolkit.troll.bypass        | Just troll command :)                 |
+| /cmdblock | toolkit.commandblock | toolkit.commandblock.bypass | Allows to block specific commands     |
 
-| Command           | Permission                  | Other                       | Description                                   |
-| ----------------- | --------------------------- | --------------------------- | --------------------------------------------- |
-| /crawl            | toolkit.crawl               | toolkit.crawl.other         | Allows the player to crawl                    |
-| /sit              | toolkit.sit                 | toolkit.sit.other           | Allows the player to sit down                 |
-| /gmc              | toolkit.gmc                 | toolkit.gmc.other           | Switch player's gamemode to CREATIVE          |
-| /gms              | toolkit.gms                 | toolkit.gms.other           | Switch player's gamemode to SURVIVAL          |
-| /gma              | toolkit.gma                 | toolkit.gma.other           | Switch player's gamemode to ADVENTURE         |
-| /gmsp             | toolkit.gmsp                | toolkit.gmsp.other          | Switch player's gamemode to SPECTATOR         |
-| /spawn            | toolkit.spawn               | toolkit.spawn.other         | Teleports player to spawn                     |
-| /fly              | toolkit.fly                 | toolkit.fly.other           | Allows the player to fly                      |
+| Command | Permission    | Other               | Description                           |
+|---------|---------------|---------------------|---------------------------------------|
+| /crawl  | toolkit.crawl | toolkit.crawl.other | Allows the player to crawl            |
+| /sit    | toolkit.sit   | toolkit.sit.other   | Allows the player to sit down         |
+| /gmc    | toolkit.gmc   | toolkit.gmc.other   | Switch player's gamemode to CREATIVE  |
+| /gms    | toolkit.gms   | toolkit.gms.other   | Switch player's gamemode to SURVIVAL  |
+| /gma    | toolkit.gma   | toolkit.gma.other   | Switch player's gamemode to ADVENTURE |
+| /gmsp   | toolkit.gmsp  | toolkit.gmsp.other  | Switch player's gamemode to SPECTATOR |
+| /spawn  | toolkit.spawn | toolkit.spawn.other | Teleports player to spawn             |
+| /fly    | toolkit.fly   | toolkit.fly.other   | Allows the player to fly              |
 
-| Command           | Permission                  | Description                                   |
-| ----------------- | --------------------------- | --------------------------------------------- |
-| /vanish           | toolkit.vanish              | Allows the player to be hidden                |
-| /pinfo            | toolkit.pinfo               | Show info about player (even their client)    |
-| /rp               | toolkit.rp                  | Set player's resource pack                    |
-| /lunar            | toolkit.lunar               | Lunar tools                                   |
-| /toolkit          | null                        | Show info about plugin                        |
+| Command  | Permission     | Description                                |
+|----------|----------------|--------------------------------------------|
+| /vanish  | toolkit.vanish | Allows the player to be hidden             |
+| /pinfo   | toolkit.pinfo  | Show info about player (even their client) |
+| /rp      | toolkit.rp     | Set player's resource pack                 |
+| /lunar   | toolkit.lunar  | Lunar tools                                |
+| /toolkit | null           | Show info about plugin                     |
 
 ## Lunar
 

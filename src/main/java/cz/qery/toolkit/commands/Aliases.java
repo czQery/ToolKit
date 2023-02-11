@@ -25,7 +25,7 @@ public class Aliases implements CommandExecutor {
 
         Player target = null;
 
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player p)) {
             if (args.length > 0) {
                 target = Bukkit.getServer().getPlayer(args[0]);
                 if(target == null){
@@ -37,7 +37,6 @@ public class Aliases implements CommandExecutor {
                 return false;
             }
         } else {
-            Player p = (Player) sender;
             if (!p.hasPermission("toolkit."+cmd.getName().toLowerCase())) {
                 p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                 return false;
@@ -60,41 +59,41 @@ public class Aliases implements CommandExecutor {
         }
 
         switch (cmd.getName().toLowerCase()) {
-            case "gmc":
+            case "gmc" -> {
                 target.setGameMode(GameMode.CREATIVE);
                 sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "CREATIVE"));
-                break;
-            case "gms":
+            }
+            case "gms" -> {
                 target.setGameMode(GameMode.SURVIVAL);
                 sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SURVIVAL"));
                 if (Vnsh.Enabled(target)) {
                     target.setAllowFlight(true);
                 }
-                break;
-            case "gma":
+            }
+            case "gma" -> {
                 target.setGameMode(GameMode.ADVENTURE);
                 sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "ADVENTURE"));
                 if (Vnsh.Enabled(target)) {
                     target.setAllowFlight(true);
                 }
-                break;
-            case "gmsp":
+            }
+            case "gmsp" -> {
                 target.setGameMode(GameMode.SPECTATOR);
                 sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SPECTATOR"));
-                break;
-            case "spawn":
+            }
+            case "spawn" -> {
                 Scripts.spawnTeleport(target);
                 sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Teleported to " + h + "SPAWN"));
-                break;
-            case "fly":
+            }
+            case "fly" -> {
                 if (target.getAllowFlight()) {
                     target.setAllowFlight(false);
-                    sender.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Fly mode has been turned &cOFF"+t+"!"));
+                    sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Fly mode has been turned &cOFF" + t + "!"));
                 } else {
                     target.setAllowFlight(true);
-                    sender.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Fly mode has been turned &aON"+t+"!"));
+                    sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Fly mode has been turned &aON" + t + "!"));
                 }
-                break;
+            }
         }
         return false;
     }

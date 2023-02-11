@@ -2,13 +2,17 @@ package cz.qery.toolkit;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.lunarclient.bukkitapi.nethandler.client.LCPacketUpdateWorld;
+import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
+import cz.qery.toolkit.lunar.Waypoint;
 import net.minecraft.network.protocol.game.PacketPlayOutExplosion;
 import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntityExperienceOrb;
 import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.world.entity.EntityExperienceOrb;
 import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R2.entity.CraftPlayer;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
@@ -17,6 +21,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 public class Scripts {
     static Main plugin = Main.getPlugin(Main.class);
@@ -25,7 +31,22 @@ public class Scripts {
     static String t = plugin.getConfig().getString("color.text");
     static String h = plugin.getConfig().getString("color.highlight");
 
+    public static void sCheck(Player p, Boolean nw) {
+        if (!Objects.equals(p.getMetadata("sit").toString(), "[]") && p.getMetadata("sit").get(0).asInt() != 0 || nw) {
+            Location loc = p.getLocation();
+            for (Entity ent : loc.getChunk().getEntities()) {
+                if (ent.getEntityId() == p.getMetadata("sit").get(0).asInt()) {
+                    ent.remove();
 
+                    p.teleport(loc.add(0, 1.7, 0));
+                    p.setMetadata("sit", new FixedMetadataValue(plugin, 0));
+                    p.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " Sit mode has been turned &cOFF" + t + "!"));
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("deprecation")
     public static void bCheck(Player p) {
         World world = p.getWorld();
         int x = p.getLocation().getBlockX();
@@ -35,18 +56,7 @@ public class Scripts {
         Location d1 = new Location(world, x, y - 1, z);
         Location d2 = new Location(world, x, y - 2, z);
 
-        if (p.isOnGround()) {
-            if (p.getLocation().getY() % 1 > 0.25) {
-                p.setMetadata("crawl", new FixedMetadataValue(plugin, false));
-                p.sendMessage(Tools.chat(b + "[" + n + "CRAWL" + b + "]" + t + " Crawl mode has been turned &cOFF" + t + "!"));
-                Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY() + 1, p.getLocation().getBlockZ());
-                if (loc.getBlock().getType() == Material.BARRIER) {
-                    loc.getBlock().setType(Material.AIR);
-                }
-            }
-        }
-
-        if (d1.getBlock().isEmpty() && d2.getBlock().isEmpty()) {
+        if (d1.getBlock().isEmpty() && d2.getBlock().isEmpty() || (p.isOnGround() && p.getLocation().getY() % 1 > 0.25)) {
             p.setMetadata("crawl", new FixedMetadataValue(plugin, false));
             p.sendMessage(Tools.chat(b + "[" + n + "CRAWL" + b + "]" + t + " Crawl mode has been turned &cOFF" + t + "!"));
             Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY() + 1, p.getLocation().getBlockZ());
@@ -111,17 +121,17 @@ public class Scripts {
             HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create("https://api.github.com/repos/czQery/ToolKit/releases/latest")).build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            JsonObject json = new JsonParser().parse(response.body()).getAsJsonObject();
-            String version = Bukkit.getServer().getPluginManager().getPlugin("ToolKit").getDescription().getVersion();
-            if (!("v"+version).equals(json.get("tag_name").getAsString())) {
-                Tools.log(b+"-------["+n+"TOOLKIT"+b+"]-------");
-                Tools.log(b+"- "+t+"Latest version "+h+json.get("tag_name").getAsString().replaceFirst("v", ""));
-                Tools.log(b+"- "+t+"This version "+h+version);
-                Tools.log(b+"- "+t+"Download newer version from GitHub "+h+"https://github.com/czQery/ToolKit/releases");
-                Tools.log(b+"----------------------");
+            JsonObject json = JsonParser.parseString(response.body()).getAsJsonObject();
+            String version = Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("ToolKit")).getDescription().getVersion();
+            if (!("v" + version).equals(json.get("tag_name").getAsString())) {
+                Tools.log(b + "-------[" + n + "TOOLKIT" + b + "]-------");
+                Tools.log(b + "- " + t + "Latest version " + h + json.get("tag_name").getAsString().replaceFirst("v", ""));
+                Tools.log(b + "- " + t + "This version " + h + version);
+                Tools.log(b + "- " + t + "Download newer version from GitHub " + h + "https://github.com/czQery/ToolKit/releases");
+                Tools.log(b + "----------------------");
             }
         } catch (Exception e) {
-            Tools.log(b+"["+n+"ToolKit"+b+"] &cAPI version check failed");
+            Tools.log(b + "[" + n + "ToolKit" + b + "] &cAPI version check failed");
         }
     }
 
@@ -130,7 +140,7 @@ public class Scripts {
         Location loc = p.getLocation();
 
         for (int i = 0; i < 100; i++) {
-            PacketPlayOutExplosion packet = new PacketPlayOutExplosion(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Float.MAX_VALUE, Collections.EMPTY_LIST, new Vec3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE));
+            PacketPlayOutExplosion packet = new PacketPlayOutExplosion(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Float.MAX_VALUE, Collections.emptyList(), new Vec3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE));
             p_entity.b.a(packet);
         }
 
@@ -159,20 +169,20 @@ public class Scripts {
         }
     }
 
-    public static void addTrueClient(Player p , String client) {
-        if (p.getMetadata("client").toString() == "[]") {
+    public static void addTrueClient(Player p, String client) {
+        if (Objects.equals(p.getMetadata("client").toString(), "[]")) {
             p.setMetadata("client", new FixedMetadataValue(plugin, client));
-            Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+" client "+h+client);
-        } else if (p.getMetadata("trueclient").toString() == "[]" && !p.getMetadata("client").get(0).asString().equalsIgnoreCase(client)){
+            Tools.log(b + "[" + n + "SERVER" + b + "] " + h + p.getName() + t + " client " + h + client);
+        } else if (Objects.equals(p.getMetadata("trueclient").toString(), "[]") && !p.getMetadata("client").get(0).asString().equalsIgnoreCase(client)) {
             p.setMetadata("trueclient", new FixedMetadataValue(plugin, client));
-            Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+" true client "+h+client);
+            Tools.log(b + "[" + n + "SERVER" + b + "] " + h + p.getName() + t + " true client " + h + client);
         }
     }
 
     public static Location spawnTeleport(Player p) {
-        World world = plugin.getServer().getWorld(plugin.getConfig().getString("spawn.world"));
+        World world = plugin.getServer().getWorld(Objects.requireNonNull(plugin.getConfig().getString("spawn.world")));
         if (world == null) {
-            Tools.log(b+"["+n+"SERVER"+b+"] "+t+"Spawn has invalid world "+h+plugin.getConfig().getString("spawn.world"));
+            Tools.log(b + "[" + n + "SERVER" + b + "] " + t + "Spawn has invalid world " + h + plugin.getConfig().getString("spawn.world"));
         } else {
             double x = world.getSpawnLocation().getX() + 0.5;
             double y = world.getSpawnLocation().getY() + 0.5;
@@ -182,5 +192,18 @@ public class Scripts {
             return location;
         }
         return null;
+    }
+
+    public static void sendWaypoints(Player p, List<Waypoint> waypoints) {
+        for (Waypoint waypoint : waypoints) {
+            Tools.sendLunarPacket(p, new LCPacketUpdateWorld(p.getWorld().getUID().toString()));
+            if (Bukkit.getWorld(waypoint.world()) == null) {
+                Tools.log(b + "[" + n + "ToolKit" + b + "] " + t + "Lunar waypoint " + h + waypoint.name() + t + " has invalid world " + h + waypoint.world());
+            } else if (!waypoint.color().contains("#") && !waypoint.color().matches("^[a-fA-F0-9#]{0,7}$")) {
+                Tools.log(b + "[" + n + "ToolKit" + b + "] " + t + "Lunar waypoint " + h + waypoint.name() + t + " has invalid color " + h + waypoint.color());
+            } else {
+                Tools.sendLunarPacket(p, new LCPacketWaypointAdd(waypoint.name(), Objects.requireNonNull(Bukkit.getWorld(waypoint.world())).getUID().toString(), Integer.parseInt(waypoint.color().replaceFirst("#", ""), 16), waypoint.x(), waypoint.y(), waypoint.z(), true, true));
+            }
+        }
     }
 }

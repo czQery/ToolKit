@@ -19,7 +19,7 @@ public final class Vnsh {
 
     public static ArrayList<String> players = new ArrayList<String>();
 
-
+    @SuppressWarnings("deprecation")
     public static void Show(Player p, boolean init) {
         for (Player pl : plugin.getServer().getOnlinePlayers()) {
             if (pl == p || pl.hasPermission("toolkit.vanish") || Enabled(pl)) {
@@ -54,6 +54,7 @@ public final class Vnsh {
         p.setMetadata("vanished", new FixedMetadataValue(plugin, false));
     }
 
+    @SuppressWarnings("deprecation")
     public static void Hide(Player p, boolean init) {
         for (Player pl : plugin.getServer().getOnlinePlayers()) {
             if (pl == p || pl.hasPermission("toolkit.vanish") || Enabled(pl)) {

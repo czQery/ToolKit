@@ -15,6 +15,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 
+import java.util.Objects;
+
 public class Leave implements Listener {
     private final Main plugin;
 
@@ -25,6 +27,7 @@ public class Leave implements Listener {
     }
 
     @EventHandler
+    @SuppressWarnings("deprecation")
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
 
@@ -39,7 +42,7 @@ public class Leave implements Listener {
         }
 
         // Sit check
-        if (p.getMetadata("sit").toString() != "[]") {
+        if (!Objects.equals(p.getMetadata("sit").toString(), "[]")) {
             if (p.getMetadata("sit").get(0).asInt() != 0) {
                 Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
                 for (Entity ent: loc.getChunk().getEntities()){
@@ -51,7 +54,7 @@ public class Leave implements Listener {
         }
 
         // Crawl check
-        if (p.getMetadata("crawl").toString() != "[]") {
+        if (!Objects.equals(p.getMetadata("crawl").toString(), "[]")) {
             if (p.getMetadata("crawl").get(0).asBoolean()) {
                 Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY()+1, p.getLocation().getBlockZ());
                 p.setMetadata("crawl", new FixedMetadataValue(plugin, false));

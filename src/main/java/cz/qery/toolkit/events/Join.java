@@ -22,7 +22,7 @@ public class Join implements Listener {
     static String h = plugin.getConfig().getString("color.highlight");
 
     public Join(Main plugin) {
-        this.plugin = plugin;
+        Join.plugin = plugin;
 
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }

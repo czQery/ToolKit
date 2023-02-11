@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class PInfo implements CommandExecutor {
 
     Plugin plugin = Main.getPlugin(Main.class);
@@ -22,33 +24,20 @@ public class PInfo implements CommandExecutor {
 
         Player target = null;
 
-        if (!(sender instanceof Player)) {
-            if (args.length > 0) {
-                target = Bukkit.getServer().getPlayer(args[0]);
-                if(target == null){
-                    sender.sendMessage(Tools.chat(b+"["+n+"PINFO"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
-                    return false;
-                }
-            } else {
-                sender.sendMessage(Tools.chat(b+"["+n+"PINFO"+b+"]"+t+" Please use "+h+"/pinfo <player>"));
+        if ((sender instanceof Player) && !sender.hasPermission("toolkit.pinfo")) {
+            sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+            return false;
+        }
+
+        if (args.length > 0) {
+            target = Bukkit.getServer().getPlayer(args[0]);
+            if(target == null){
+                sender.sendMessage(Tools.chat(b+"["+n+"PINFO"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
                 return false;
             }
         } else {
-            Player p = (Player) sender;
-            if (!p.hasPermission("toolkit.pinfo")) {
-                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
-                return false;
-            } else {
-                if (args.length > 0) {
-                    target = Bukkit.getServer().getPlayer(args[0]);
-                    if (target == null) {
-                        p.sendMessage(Tools.chat(b + "[" + n + "PINFO" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
-                        return false;
-                    }
-                } else {
-                    target = p;
-                }
-            }
+            sender.sendMessage(Tools.chat(b+"["+n+"PINFO"+b+"]"+t+" Please use "+h+"/pinfo <player>"));
+            return false;
         }
 
         Player finalTarget = target;
@@ -56,17 +45,17 @@ public class PInfo implements CommandExecutor {
             @Override
             public void run() {
                 String name = finalTarget.getName();
-                String ip = finalTarget.getAddress().getHostName();
+                String ip = Objects.requireNonNull(finalTarget.getAddress()).getHostName();
                 String client;
                 String trueclient = null;
 
-                if (finalTarget.getMetadata("client").toString() != "[]") {
+                if (!Objects.equals(finalTarget.getMetadata("client").toString(), "[]")) {
                     client = finalTarget.getMetadata("client").get(0).asString();
                 } else {
                     client = "Vanilla";
                 }
 
-                if (finalTarget.getMetadata("trueclient").toString() != "[]") {
+                if (!Objects.equals(finalTarget.getMetadata("trueclient").toString(), "[]")) {
                     trueclient = finalTarget.getMetadata("trueclient").get(0).asString();
                 }
 

@@ -13,6 +13,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class ToolKit implements CommandExecutor {
 
     Plugin plugin = Main.getPlugin(Main.class);
@@ -21,10 +23,9 @@ public class ToolKit implements CommandExecutor {
     String t = plugin.getConfig().getString("color.text");
     String h = plugin.getConfig().getString("color.highlight");
 
-    @SuppressWarnings("deprecation")
     public boolean onCommand(CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
-        String version = Bukkit.getServer().getPluginManager().getPlugin("ToolKit").getDescription().getVersion();
+        String version = Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("ToolKit")).getDescription().getVersion();
 
         final @NotNull TextComponent link = Component.text()
                 .content(Tools.chat(b+"- "+t+"GitHub "+h+"https://github.com/czQery/ToolKit"))

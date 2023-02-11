@@ -19,37 +19,24 @@ public class SKick implements CommandExecutor {
     String t = plugin.getConfig().getString("color.text");
     String h = plugin.getConfig().getString("color.highlight");
 
+    @SuppressWarnings("deprecation")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         Player target = null;
 
-        if (!(sender instanceof Player)) {
-            if (args.length > 0) {
-                target = Bukkit.getServer().getPlayer(args[0]);
-                if(target == null){
-                    sender.sendMessage(Tools.chat(b+"["+n+"SKICK"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
-                    return false;
-                }
-            } else {
-                sender.sendMessage(Tools.chat(b+"["+n+"SKICK"+b+"]"+t+" Please use "+h+"/skick <player>"));
+        if ((sender instanceof Player) && !sender.hasPermission("toolkit.skick")) {
+            sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+            return false;
+        }
+
+        if (args.length > 0) {
+            target = Bukkit.getServer().getPlayer(args[0]);
+            if(target == null){
+                sender.sendMessage(Tools.chat(b+"["+n+"SKICK"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
                 return false;
             }
         } else {
-            Player p = (Player) sender;
-            if (!p.hasPermission("toolkit.skick")) {
-                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
-                return false;
-            } else {
-                if (args.length > 0) {
-                    target = Bukkit.getServer().getPlayer(args[0]);
-                    if (target == null) {
-                        p.sendMessage(Tools.chat(b + "[" + n + "SKICK" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
-                        return false;
-                    }
-                } else {
-                    p.sendMessage(Tools.chat(b+"["+n+"SKICK"+b+"]"+t+" Please use "+h+"/skick <player>"));
-                    return false;
-                }
-            }
+            sender.sendMessage(Tools.chat(b+"["+n+"SKICK"+b+"]"+t+" Please use "+h+"/skick <player>"));
+            return false;
         }
 
         if (target.hasPermission("toolkit.skick.bypass")){

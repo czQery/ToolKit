@@ -86,9 +86,9 @@ public final class Main extends JavaPlugin {
         Waypoint.Load();
         Mod.Load();
         CommandBlock.Load();
-        Bukkit.getScheduler().runTaskAsynchronously(this, () -> Scripts.checkForUpdate());
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Waypoint.Send(), 0, 1200);
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Mod.Send(), 0, 36000);
+        Bukkit.getScheduler().runTaskAsynchronously(this, Scripts::checkForUpdate);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, Waypoint::Send, 0, 1200);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, Mod::Send, 0, 36000);
     }
 
     public void loadConfiguration() {

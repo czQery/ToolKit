@@ -14,6 +14,8 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class Crawl implements CommandExecutor {
 
     Plugin plugin = Main.getPlugin(Main.class);
@@ -22,47 +24,41 @@ public class Crawl implements CommandExecutor {
     String t = plugin.getConfig().getString("color.text");
     String h = plugin.getConfig().getString("color.highlight");
 
+    @SuppressWarnings("deprecation")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         Player target = null;
         String who = null;
 
-        if (!(sender instanceof Player)) {
-            if (args.length > 0) {
-                target = Bukkit.getServer().getPlayer(args[0]);
-                if(target == null){
-                    sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
-                    return false;
-                }
-                who = "Player";
-            } else {
-                sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Please use "+h+"/crawl <player>"));
+        if (args.length > 0) {
+            if ((sender instanceof Player) && !sender.hasPermission("toolkit.crawl.other")) {
+                sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                 return false;
             }
+
+            target = Bukkit.getServer().getPlayer(args[0]);
+            if (target == null) {
+                sender.sendMessage(Tools.chat(b + "[" + n + "CRAWL" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
+                return false;
+            }
+            who = "Player";
         } else {
-            if (args.length > 0) {
-                if(!sender.hasPermission("toolkit.crawl.other")) {
+            if (sender instanceof Player) {
+                if (!sender.hasPermission("toolkit.crawl")) {
                     sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                     return false;
                 }
-                target = Bukkit.getServer().getPlayer(args[0]);
-                if(target == null){
-                    sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
-                    return false;
-                }
-                who = "Player";
-            } else {
-                if(!sender.hasPermission("toolkit.crawl")) {
-                    sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
-                    return false;
-                }
+
                 target = (Player) sender;
                 who = "You";
+            } else {
+                sender.sendMessage(Tools.chat(b + "[" + n + "CRAWL" + b + "]" + t + " Please use " + h + "/crawl <player>"));
+                return false;
             }
         }
 
         Location loc = new Location(target.getWorld(), target.getLocation().getBlockX(), target.getLocation().getBlockY()+1, target.getLocation().getBlockZ());
 
-        if ((target.getMetadata("crawl").toString() != "[]" && !target.getMetadata("crawl").get(0).asBoolean()) || target.getMetadata("crawl").toString() == "[]") {
+        if ((!Objects.equals(target.getMetadata("crawl").toString(), "[]") && !target.getMetadata("crawl").get(0).asBoolean()) || Objects.equals(target.getMetadata("crawl").toString(), "[]")) {
             if (target.isOnGround()) {
                 if (target.getLocation().getY() % 1 <= 0.25) {
                     target.setMetadata("crawl", new FixedMetadataValue(plugin, true));

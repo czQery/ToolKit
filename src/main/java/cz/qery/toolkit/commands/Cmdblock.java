@@ -48,7 +48,7 @@ public class Cmdblock implements CommandExecutor {
                         p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock add <cmd>"));
                     } else {
                         for (CommandBlock cmdb : CommandBlock.cmdlist) {
-                            if (cmdb.getName().equals(args[1].toString())) {
+                            if (cmdb.name().equals(args[1].toString())) {
                                 p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command is already blocked!"));
                                 return false;
                             }
@@ -64,7 +64,7 @@ public class Cmdblock implements CommandExecutor {
                         p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock remove <cmd>"));
                     } else {
                         for (CommandBlock cmdb : CommandBlock.cmdlist) {
-                            if (cmdb.getName().equals(args[1].toString())) {
+                            if (cmdb.name().equals(args[1].toString())) {
                                 CommandBlock.cmdlist.remove(cmdb);
                                 Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandBlock::Update);
                                 p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command removed!"));
@@ -77,7 +77,7 @@ public class Cmdblock implements CommandExecutor {
                 case "list":
                     p.sendMessage(Tools.chat(b + "-------[" + n + "CMDBLOCK" + b + "]--------"));
                     for (CommandBlock cmdb : CommandBlock.cmdlist) {
-                        p.sendMessage(Tools.chat(b + "- " + t + cmdb.getName()));
+                        p.sendMessage(Tools.chat(b + "- " + t + cmdb.name()));
                     }
                     p.sendMessage(Tools.chat(b + "-------------------------"));
                     break;

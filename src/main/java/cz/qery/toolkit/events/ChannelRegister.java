@@ -8,10 +8,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRegisterChannelEvent;
-import org.bukkit.metadata.FixedMetadataValue;
 
 public class ChannelRegister implements Listener {
-    private Main plugin;
+    private final Main plugin;
 
     public ChannelRegister(Main plugin) {
         this.plugin = plugin;

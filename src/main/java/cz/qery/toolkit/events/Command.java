@@ -18,7 +18,7 @@ public class Command implements Listener {
     static String h = plugin.getConfig().getString("color.highlight");
 
     public Command(Main plugin) {
-        this.plugin = plugin;
+        Command.plugin = plugin;
 
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
@@ -28,7 +28,7 @@ public class Command implements Listener {
         Player p = e.getPlayer();
         if (!p.hasPermission("toolkit.commandblock.bypass")) {
             for (CommandBlock cmdb : CommandBlock.cmdlist) {
-                if (e.getMessage().toLowerCase().startsWith("/"+cmdb.getName())) {
+                if (e.getMessage().toLowerCase().startsWith("/"+cmdb.name())) {
                     e.setCancelled(true);
                     e.getPlayer().sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                 }

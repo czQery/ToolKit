@@ -7,12 +7,10 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.metadata.FixedMetadataValue;
 
 public class Move implements Listener {
     private Main plugin;
@@ -70,19 +68,6 @@ public class Move implements Listener {
         }
 
         //SIT
-        if (p.getMetadata("sit").toString() != "[]") {
-            if (p.getMetadata("sit").get(0).asInt() != 0) {
-                Location loc = p.getLocation();
-                for (Entity ent: loc.getChunk().getEntities()){
-                    if (ent.getEntityId() == p.getMetadata("sit").get(0).asInt()) {
-                        ent.remove();
-
-                        p.teleport(loc.add(0, 1.7, 0));
-                        p.setMetadata("sit", new FixedMetadataValue(plugin, 0));
-                        p.sendMessage(Tools.chat(b+"["+n+"SIT"+b+"]"+t+" Sit mode has been turned &cOFF"+t+"!"));
-                    }
-                }
-            }
-        }
+        Scripts.sCheck(p, false);
     }
 }

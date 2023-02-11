@@ -4,7 +4,7 @@
   <groupId>cz.qery</groupId>
   <artifactId>ToolKit</artifactId>
   <name>ToolKit</name>
-  <version>3.7</version>
+  <version>3.8-Dev</version>
   <description>Very useful plugin</description>
   <url>github.com/czQery/ToolKit</url>
   <build>
@@ -14,17 +14,23 @@
         <directory>src/main/resources</directory>
       </resource>
     </resources>
+    <finalName>${project.name}-${project.version}</finalName>
     <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+      </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.10.1</version>
         <configuration>
-          <release>17</release>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.2-SNAPSHOT</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -33,18 +39,6 @@
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <relocations>
-            <relocation>
-              <pattern>org.bstats</pattern>
-              <shadedPattern>cz.qery.toolkit</shadedPattern>
-            </relocation>
-            <relocation>
-              <pattern>net.kyori</pattern>
-              <shadedPattern>cz.qery.toolkit</shadedPattern>
-            </relocation>
-          </relocations>
-        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -62,6 +56,12 @@
       <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
     </repository>
   </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven-snapshots</id>
+      <url>https://repository.apache.org/content/repositories/snapshots/</url>
+    </pluginRepository>
+  </pluginRepositories>
   <dependencies>
     <dependency>
       <groupId>io.papermc.paper</groupId>
@@ -72,7 +72,7 @@
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot</artifactId>
-      <version>1.19.2-R0.1-SNAPSHOT</version>
+      <version>1.19.3-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
