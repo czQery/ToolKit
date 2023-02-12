@@ -78,7 +78,7 @@ public final class Vnsh {
         p.setSleepingIgnored(true);
         p.setAllowFlight(true);
         for(Entity e : p.getWorld().getEntities()) {
-            if (e instanceof Creature && ((Creature) e).getTarget() != null && ((Creature) e).getTarget().getName() == p.getName()) {
+            if (e instanceof Creature && ((Creature) e).getTarget() != null && ((Creature) e).getTarget().getUniqueId() == p.getUniqueId()) {
                 ((Creature) e).setTarget(null);
             }
         }

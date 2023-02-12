@@ -21,7 +21,7 @@ public class SKick implements CommandExecutor {
 
     @SuppressWarnings("deprecation")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        Player target = null;
+        Player target;
 
         if ((sender instanceof Player) && !sender.hasPermission("toolkit.skick")) {
             sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));

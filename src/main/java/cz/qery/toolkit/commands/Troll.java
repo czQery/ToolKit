@@ -26,37 +26,22 @@ public class Troll implements CommandExecutor {
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
-        Player target = null;
-        Player p = null;
+        Player target;
 
-        if (!(sender instanceof Player)) {
-            if (args.length > 1) {
-                target = Bukkit.getServer().getPlayer(args[0]);
-                if(target == null){
-                    sender.sendMessage(Tools.chat(b+"["+n+"TROLL"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
-                    return false;
-                }
-            } else {
-                sender.sendMessage(Tools.chat(b+"["+n+"TROLL"+b+"]"+t+" Please use "+h+"/troll <player> <troll>"));
+        if ((sender instanceof Player) && !sender.hasPermission("toolkit.troll")) {
+            sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+            return false;
+        }
+
+        if (args.length > 1) {
+            target = Bukkit.getServer().getPlayer(args[0]);
+            if(target == null){
+                sender.sendMessage(Tools.chat(b+"["+n+"TROLL"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
                 return false;
             }
         } else {
-            p = ((Player) sender).getPlayer();
-            if (!p.hasPermission("toolkit.troll")) {
-                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
-                return false;
-            } else {
-                if (args.length > 1) {
-                    target = Bukkit.getServer().getPlayer(args[0]);
-                    if (target == null) {
-                        p.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
-                        return false;
-                    }
-                } else {
-                    p.sendMessage(Tools.chat(b+"["+n+"TROLL"+b+"]"+t+" Please use "+h+"/troll <player> <troll>"));
-                    return false;
-                }
-            }
+            sender.sendMessage(Tools.chat(b+"["+n+"TROLL"+b+"]"+t+" Please use "+h+"/troll <player> <troll>"));
+            return false;
         }
 
         if (target.hasPermission("toolkit.troll.bypass")) {
@@ -64,7 +49,7 @@ public class Troll implements CommandExecutor {
         } else {
             //SNEAK
             switch (args[1].toLowerCase()) {
-                case "help":
+                case "help" -> {
                     sender.sendMessage(Tools.chat(b + "-------[" + n + "TROLL" + b + "]-------"));
                     sender.sendMessage(Tools.chat(b + "- " + t + "Sneak"));
                     sender.sendMessage(Tools.chat(b + "- " + t + "Sleep (it must be night, and you must stand on the bed)"));
@@ -77,8 +62,8 @@ public class Troll implements CommandExecutor {
                     sender.sendMessage(Tools.chat(b + "- " + t + "Thor"));
                     sender.sendMessage(Tools.chat(b + "- " + t + "Fakedemo"));
                     sender.sendMessage(Tools.chat(b + "----------------------"));
-                    break;
-                case "sneak":
+                }
+                case "sneak" -> {
                     if (args.length == 2) {
                         sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> sneak <boolean>"));
                     } else {
@@ -92,22 +77,21 @@ public class Troll implements CommandExecutor {
                             sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> sneak <boolean>"));
                         }
                     }
-                    break;
-                case "sleep":
+                }
+                case "sleep" -> {
                     if (!(sender instanceof Player)) {
                         sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " This troll cannot be used by the console!"));
-                        break;
                     } else {
-                        Location loc = p.getLocation();
+                        Location loc =  ((Player) sender).getLocation();
                         target.sleep(loc, true);
-                        p.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " sleep" + t + "!"));
-                        break;
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " sleep" + t + "!"));
                     }
-                case "close":
+                }
+                case "close" -> {
                     target.closeInventory();
                     sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " close" + t + "!"));
-                    break;
-                case "glow":
+                }
+                case "glow" -> {
                     if (args.length == 2) {
                         sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> glow <boolean>"));
                     } else {
@@ -121,8 +105,8 @@ public class Troll implements CommandExecutor {
                             sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> glow <boolean>"));
                         }
                     }
-                    break;
-                case "pickup":
+                }
+                case "pickup" -> {
                     if (args.length == 2) {
                         sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> pickup <boolean>"));
                     } else {
@@ -136,8 +120,8 @@ public class Troll implements CommandExecutor {
                             sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> pickup <boolean>"));
                         }
                     }
-                    break;
-                case "freeze":
+                }
+                case "freeze" -> {
                     if (args.length == 2) {
                         sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> freeze <boolean>"));
                     } else {
@@ -151,12 +135,12 @@ public class Troll implements CommandExecutor {
                             sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> freeze <boolean>"));
                         }
                     }
-                    break;
-                case "fakeop":
+                }
+                case "fakeop" -> {
                     target.sendMessage(Tools.chat("&7&o[") + sender.getName() + ": Made " + target.getName() + " a server operator]");
                     sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " fakeop" + t + "!"));
-                    break;
-                case "flip":
+                }
+                case "flip" -> {
                     final Location targetLocation = target.getLocation().clone();
                     float newYaw;
                     newYaw = targetLocation.getYaw() + 180.0f;
@@ -166,21 +150,19 @@ public class Troll implements CommandExecutor {
                     targetLocation.setYaw(newYaw);
                     target.teleport(targetLocation);
                     sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " flip" + t + "!"));
-                    break;
-                case "thor":
+                }
+                case "thor" -> {
                     target.getWorld().strikeLightning(target.getLocation());
                     sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been struck by lightning!"));
-                    break;
-                case "fakedemo":
+                }
+                case "fakedemo" -> {
                     EntityPlayer target_entity = ((CraftPlayer) target).getHandle();
                     final PacketPlayOutGameStateChange packet = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.f, 0.0F);
                     target_entity.b.a(packet);
-
                     sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " fakedemo" + t + "!"));
-                    break;
-                default:
-                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> <troll>"));
-                    break;
+                }
+                default ->
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> <troll>"));
             }
         }
         return false;

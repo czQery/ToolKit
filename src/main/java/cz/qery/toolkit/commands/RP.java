@@ -21,52 +21,36 @@ public class RP implements CommandExecutor {
     String h = plugin.getConfig().getString("color.highlight");
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        Player target = null;
 
-        if (!(sender instanceof Player)) {
-            if (args.length > 1) {
-                target = Bukkit.getServer().getPlayer(args[0]);
-                if(target == null){
-                    sender.sendMessage(Tools.chat(b+"["+n+"RP"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
-                    return false;
-                }
-            } else {
-                sender.sendMessage(Tools.chat(b+"["+n+"RP"+b+"]"+t+" Please use "+h+"/rp <player> <url>"));
+        Player target;
+
+        if ((sender instanceof Player) && !sender.hasPermission("toolkit.rp")) {
+            sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+            return false;
+        }
+
+        if (args.length > 1) {
+            target = Bukkit.getServer().getPlayer(args[0]);
+            if(target == null){
+                sender.sendMessage(Tools.chat(b+"["+n+"RP"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
                 return false;
             }
         } else {
-            Player p = (Player) sender;
-            if (!p.hasPermission("toolkit.rp")) {
-                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
-                return false;
-            } else {
-                if (args.length > 1) {
-                    target = Bukkit.getServer().getPlayer(args[0]);
-                    if (target == null) {
-                        p.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
-                        return false;
-                    }
-                } else {
-                    p.sendMessage(Tools.chat(b+"["+n+"RP"+b+"]"+t+" Please use "+h+"/rp <player> <url>"));
-                    return false;
-                }
-            }
+            sender.sendMessage(Tools.chat(b+"["+n+"RP"+b+"]"+t+" Please use "+h+"/rp <player> <url>"));
+            return false;
         }
 
 
         Player finalTarget = target;
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
-            @Override
-            public void run() {
-                String url = args[1];
-                EntityPlayer target_entity = (EntityPlayer) ((CraftPlayer) finalTarget).getHandle();
-                final PacketPlayOutResourcePackSend packet = new PacketPlayOutResourcePackSend(url, "", true, null);
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            String url = args[1];
+            EntityPlayer target_entity = ((CraftPlayer) finalTarget).getHandle();
+            final PacketPlayOutResourcePackSend packet = new PacketPlayOutResourcePackSend(url, "", true, null);
 
-                target_entity.b.a(packet);
+            target_entity.b.a(packet);
 
-                finalTarget.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + sender.getName() + t + " has sent you" + h + " resource pack" + t + "!"));
-                sender.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + finalTarget.getName() + t + " has been set" + h + " resource pack" + t + "!"));
-            }
+            finalTarget.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + sender.getName() + t + " has sent you" + h + " resource pack" + t + "!"));
+            sender.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + finalTarget.getName() + t + " has been set" + h + " resource pack" + t + "!"));
         });
         return false;
     }

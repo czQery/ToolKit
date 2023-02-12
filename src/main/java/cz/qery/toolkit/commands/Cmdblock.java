@@ -20,7 +20,7 @@ public class Cmdblock implements CommandExecutor {
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
-        CommandSender p = null;
+        CommandSender p;
 
         if ((sender instanceof Player)) {
             p = (Player) sender;

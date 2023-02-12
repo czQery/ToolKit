@@ -10,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
+import java.util.Objects;
+
 public class EntityDismount implements Listener {
     private final Main plugin;
 
@@ -29,7 +31,9 @@ public class EntityDismount implements Listener {
         String t = plugin.getConfig().getString("color.text");
 
         if (en.getType() == EntityType.ARMOR_STAND && p.getType() == EntityType.PLAYER) {
-            Scripts.sCheck((Player) p, false);
+            if (!Objects.equals(p.getMetadata("sit").toString(), "[]") && p.getMetadata("sit").get(0).asInt() != 0) {
+                Scripts.sCheck((Player) p);
+            }
         }
     }
 }

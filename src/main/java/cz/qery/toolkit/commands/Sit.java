@@ -26,8 +26,8 @@ public class Sit implements CommandExecutor {
 
     @SuppressWarnings("deprecation")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        Player target = null;
-        String who = null;
+        Player target;
+        String who;
 
         if (args.length > 0) {
             if ((sender instanceof Player) && !sender.hasPermission("toolkit.sit.other")) {
@@ -80,7 +80,7 @@ public class Sit implements CommandExecutor {
                 sender.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " " + who + " must stand on a block!"));
             }
         } else {
-            Scripts.sCheck(target, true);
+            Scripts.sCheck(target);
 
             if (!target.getName().equals(sender.getName())) {
                 sender.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " Sit mode has been turned &cOFF" + t + "!"));

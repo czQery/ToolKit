@@ -26,8 +26,8 @@ public class Crawl implements CommandExecutor {
 
     @SuppressWarnings("deprecation")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        Player target = null;
-        String who = null;
+        Player target;
+        String who;
 
         if (args.length > 0) {
             if ((sender instanceof Player) && !sender.hasPermission("toolkit.crawl.other")) {
@@ -62,6 +62,7 @@ public class Crawl implements CommandExecutor {
             if (target.isOnGround()) {
                 if (target.getLocation().getY() % 1 <= 0.25) {
                     target.setMetadata("crawl", new FixedMetadataValue(plugin, true));
+                    Scripts.bMap.put(target.getUniqueId(), new Location[]{loc});
                     sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &aON"+t+"!"));
                     if (loc.getBlock().isEmpty()) {
                         loc.getBlock().setType(Material.BARRIER);
@@ -73,12 +74,7 @@ public class Crawl implements CommandExecutor {
                 sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" "+who+" must stand on a block!"));
             }
         } else {
-            target.setMetadata("crawl", new FixedMetadataValue(plugin, false));
-            sender.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &cOFF"+t+"!"));
-            Scripts.bCheck(target);
-            if (loc.getBlock().getType() == Material.BARRIER){
-                loc.getBlock().setType(Material.AIR);
-            }
+            Scripts.bDisable(target, false);
         }
 
         return false;

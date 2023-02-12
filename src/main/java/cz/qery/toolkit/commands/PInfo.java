@@ -22,7 +22,7 @@ public class PInfo implements CommandExecutor {
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
-        Player target = null;
+        Player target;
 
         if ((sender instanceof Player) && !sender.hasPermission("toolkit.pinfo")) {
             sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));

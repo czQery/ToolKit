@@ -20,7 +20,7 @@ public class Crash implements CommandExecutor {
     String h = plugin.getConfig().getString("color.highlight");
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        Player target = null;
+        Player target;
 
         if ((sender instanceof Player) && !sender.hasPermission("toolkit.crash")) {
             sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
@@ -41,13 +41,12 @@ public class Crash implements CommandExecutor {
         if(target.hasPermission("toolkit.crash.bypass")){
             sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" You cannot crash this player!"));
         } else {
-            Player finalTarget = target;
             Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                 try {
-                    Scripts.crash(finalTarget);
-                    sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Player "+h+finalTarget.getName()+t+" has been crashed!"));
+                    Scripts.crash(target);
+                    sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Player "+h+ target.getName()+t+" has been crashed!"));
                 } catch (InterruptedException e) {
-                    sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]&c Failed to crash player "+h+finalTarget.getName()));
+                    sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]&c Failed to crash player "+h+ target.getName()));
                 }
             });
         }

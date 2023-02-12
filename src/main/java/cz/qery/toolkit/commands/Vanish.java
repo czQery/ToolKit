@@ -23,7 +23,7 @@ public class Vanish implements CommandExecutor {
     String h = plugin.getConfig().getString("color.highlight");
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        Player target = null;
+        Player target;
 
         if ((sender instanceof Player) && !sender.hasPermission("toolkit.vanish")) {
             sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));

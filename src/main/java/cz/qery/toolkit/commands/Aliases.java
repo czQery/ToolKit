@@ -23,7 +23,7 @@ public class Aliases implements CommandExecutor {
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
-        Player target = null;
+        Player target;
 
         if (!(sender instanceof Player p)) {
             if (args.length > 0) {

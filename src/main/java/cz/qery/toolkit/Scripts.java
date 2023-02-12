@@ -20,9 +20,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Scripts {
     static Main plugin = Main.getPlugin(Main.class);
@@ -36,7 +34,7 @@ public class Scripts {
         if (!Objects.equals(p.getMetadata("sit").toString(), "[]")) {
             if (p.getMetadata("sit").get(0).asInt() != 0) {
                 Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getLocation().getYaw(), p.getLocation().getPitch());
-                for (Entity ent: loc.getChunk().getEntities()){
+                for (Entity ent : loc.getChunk().getEntities()) {
                     if (ent.getEntityId() == p.getMetadata("sit").get(0).asInt()) {
                         ent.remove();
                     }
@@ -47,10 +45,7 @@ public class Scripts {
         // Crawl check
         if (!Objects.equals(p.getMetadata("crawl").toString(), "[]")) {
             if (p.getMetadata("crawl").get(0).asBoolean()) {
-                Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY()+1, p.getLocation().getBlockZ());
-                p.setMetadata("crawl", new FixedMetadataValue(plugin, false));
-                Scripts.bCheck(p);
-                if (loc.getBlock().getType() == Material.BARRIER){loc.getBlock().setType(Material.AIR);}
+                bDisable(p, false);
             }
         }
 
@@ -59,89 +54,64 @@ public class Scripts {
         p.removeMetadata("trueclient", plugin);
     }
 
-    public static void sCheck(Player p, Boolean nw) {
-        if (!Objects.equals(p.getMetadata("sit").toString(), "[]") && p.getMetadata("sit").get(0).asInt() != 0 || nw) {
-            Location loc = p.getLocation();
-            for (Entity ent : loc.getChunk().getEntities()) {
-                if (ent.getEntityId() == p.getMetadata("sit").get(0).asInt()) {
-                    ent.remove();
+    public static void sCheck(Player p) {
+        Location loc = p.getLocation();
+        for (Entity ent : loc.getChunk().getEntities()) {
+            if (ent.getEntityId() == p.getMetadata("sit").get(0).asInt()) {
+                ent.remove();
 
-                    p.teleport(loc.add(0, 1.7, 0));
-                    p.setMetadata("sit", new FixedMetadataValue(plugin, 0));
-                    p.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " Sit mode has been turned &cOFF" + t + "!"));
-                }
+                p.teleport(loc.add(0, 1.7, 0));
+                p.setMetadata("sit", new FixedMetadataValue(plugin, 0));
+                p.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " Sit mode has been turned &cOFF" + t + "!"));
             }
         }
     }
 
-   /* public static HashMap<UUID, BlockPosition[]> bMap = new HashMap<UUID,BlockPosition[]>();*/
+    public static HashMap<UUID, Location[]> bMap = new HashMap<UUID, Location[]>();
 
     @SuppressWarnings("deprecation")
     public static void bCheck(Player p) {
-        World world = p.getWorld();
-        int x = p.getLocation().getBlockX();
-        int y = p.getLocation().getBlockY();
-        int z = p.getLocation().getBlockZ();
 
-        Location d1 = new Location(world, x, y - 1, z);
-        Location d2 = new Location(world, x, y - 2, z);
+        if (!bMap.containsKey(p.getUniqueId())) {
+            return;
+        }
 
-        if (d1.getBlock().isEmpty() && d2.getBlock().isEmpty() || (p.isOnGround() && p.getLocation().getY() % 1 > 0.25)) {
-            p.setMetadata("crawl", new FixedMetadataValue(plugin, false));
-            p.sendMessage(Tools.chat(b + "[" + n + "CRAWL" + b + "]" + t + " Crawl mode has been turned &cOFF" + t + "!"));
-            Location loc = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY() + 1, p.getLocation().getBlockZ());
-            if (loc.getBlock().getType() == Material.BARRIER) {
-                loc.getBlock().setType(Material.AIR);
+        Location pH = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY() + 1, p.getLocation().getBlockZ());
+        Location[] locations = bMap.get(p.getUniqueId());
+
+        for (Location location : locations) {
+            if (location.getBlock().getType() == Material.BARRIER) {
+                location.getBlock().setType(Material.AIR);
             }
         }
 
+        Location d1 = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY() - 1, p.getLocation().getBlockZ());
+        Location d2 = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY() - 2, p.getLocation().getBlockZ());
 
-        for (int i = 1; i < 3; i++) {
-            if (i == 2) {
-                Location l0 = new Location(world, x, y + i, z);
-                if (l0.getBlock().getType() == Material.BARRIER) {
-                    l0.getBlock().setType(Material.AIR);
-                }
-            }
-            Location l1 = new Location(world, x + 1, y + i, z);
-            if (l1.getBlock().getType() == Material.BARRIER) {
-                l1.getBlock().setType(Material.AIR);
-            }
-            //
-            Location l2 = new Location(world, x - 1, y + i, z);
-            if (l2.getBlock().getType() == Material.BARRIER) {
-                l2.getBlock().setType(Material.AIR);
-            }
-            //
-            Location l3 = new Location(world, x, y + i, z + 1);
-            if (l3.getBlock().getType() == Material.BARRIER) {
-                l3.getBlock().setType(Material.AIR);
-            }
-            //
-            Location l4 = new Location(world, x, y + i, z - 1);
-            if (l4.getBlock().getType() == Material.BARRIER) {
-                l4.getBlock().setType(Material.AIR);
-            }
-            //
-            Location l5 = new Location(world, x + 1, y + i, z + 1);
-            if (l5.getBlock().getType() == Material.BARRIER) {
-                l5.getBlock().setType(Material.AIR);
-            }
-            //
-            Location l6 = new Location(world, x + 1, y + i, z - 1);
-            if (l6.getBlock().getType() == Material.BARRIER) {
-                l6.getBlock().setType(Material.AIR);
-            }
-            //
-            Location l7 = new Location(world, x - 1, y + i, z + 1);
-            if (l7.getBlock().getType() == Material.BARRIER) {
-                l7.getBlock().setType(Material.AIR);
-            }
-            //
-            Location l8 = new Location(world, x - 1, y + i, z - 1);
-            if (l8.getBlock().getType() == Material.BARRIER) {
-                l8.getBlock().setType(Material.AIR);
-            }
+        if (d1.getBlock().isEmpty() && d2.getBlock().isEmpty() || (p.isOnGround() && p.getLocation().getY() % 1 > 0.25)) {
+            bDisable(p, true);
+            return;
+        }
+
+        if (pH.getBlock().isEmpty()) {
+            pH.getBlock().setType(Material.BARRIER);
+            bMap.replace(p.getUniqueId(), new Location[]{pH});
+        }
+    }
+
+    public static void bDisable(Player p, Boolean self) {
+        Location pH = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY() + 1, p.getLocation().getBlockZ());
+
+        p.setMetadata("crawl", new FixedMetadataValue(plugin, false));
+        p.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &cOFF"+t+"!"));
+
+        if (!self) {
+            Scripts.bCheck(p);
+        }
+
+        Scripts.bMap.remove(p.getUniqueId());
+        if (pH.getBlock().getType() == Material.BARRIER){
+            pH.getBlock().setType(Material.AIR);
         }
     }
 
