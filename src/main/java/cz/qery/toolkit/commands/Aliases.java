@@ -10,6 +10,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,21 +29,21 @@ public class Aliases implements CommandExecutor {
         if (!(sender instanceof Player p)) {
             if (args.length > 0) {
                 target = Bukkit.getServer().getPlayer(args[0]);
-                if(target == null){
-                    sender.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+                if (target == null) {
+                    sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                     return false;
                 }
             } else {
-                sender.sendMessage(Tools.chat(b+"["+n+"SERVER"+b+"]"+t+" Please use "+h+"/"+cmd.getName().toLowerCase()+" <player>"));
+                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Please use " + h + "/" + cmd.getName().toLowerCase() + " <player>"));
                 return false;
             }
         } else {
-            if (!p.hasPermission("toolkit."+cmd.getName().toLowerCase())) {
+            if (!p.hasPermission("toolkit." + cmd.getName().toLowerCase())) {
                 p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                 return false;
             } else {
                 if (args.length > 0) {
-                    if (!p.hasPermission("toolkit."+cmd.getName().toLowerCase()+".other")) {
+                    if (!p.hasPermission("toolkit." + cmd.getName().toLowerCase() + ".other")) {
                         p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                         return false;
                     } else {
@@ -93,6 +94,17 @@ public class Aliases implements CommandExecutor {
                     target.setAllowFlight(true);
                     sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Fly mode has been turned &aON" + t + "!"));
                 }
+            }
+            case "wc" -> {
+                target.getWorld().setStorm(false);
+                target.getWorld().setThundering(false);
+                target.getWorld().setClearWeatherDuration(300);
+                target.getWorld().setTime(1000);
+                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Weather cleared!"));
+            }
+            case "clear" -> {
+                target.getInventory().setContents(new ItemStack[]{});
+                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Inventory cleared!"));
             }
         }
         return false;

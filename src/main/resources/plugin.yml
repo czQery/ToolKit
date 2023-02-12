@@ -42,6 +42,10 @@ commands:
     description: Teleport to spawn
   fly:
     description: Allows the player to fly
+  wc:
+    description: Clear weather
+  clear:
+    description: Clear inventory
 
 permissions:
   toolkit.crash:
@@ -101,3 +105,11 @@ permissions:
     description: Fly command
   toolkit.fly.other:
     description: Fly command
+  toolkit.wc:
+    description: Wc command
+  toolkit.wc.other:
+    description: Wc command
+  toolkit.clear:
+    description: Clear command
+  toolkit.clear.other:
+    description: CLear command
