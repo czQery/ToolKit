@@ -54,6 +54,10 @@
 - Thor
 - FakeDemo
 
+## Dynmap (1.19.3)
+- Lunar waypoints
+- Vanish
+
 ## Events
 
 - Join message
