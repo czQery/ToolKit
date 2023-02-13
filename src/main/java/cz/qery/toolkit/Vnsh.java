@@ -44,6 +44,10 @@ public final class Vnsh {
             } else {
                 plugin.getServer().broadcastMessage(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName()));
             }
+
+            if (Dy.api != null) {
+                Dy.api.setPlayerVisiblity(p.getName(), true);
+            }
         }
 
         for (Map.Entry<UUID, String> pl : players.entrySet()) {
@@ -73,6 +77,10 @@ public final class Vnsh {
                 plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName())));
             } else {
                 plugin.getServer().broadcastMessage(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName()));
+            }
+
+            if (Dy.api != null) {
+                Dy.api.setPlayerVisiblity(p.getName(), false);
             }
         }
         p.setSleepingIgnored(true);

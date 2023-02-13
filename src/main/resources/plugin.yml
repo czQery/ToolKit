@@ -6,6 +6,8 @@ authors: [ czQery ]
 description: Set of useful tools
 website: github.com/czQery/ToolKit
 
+softdepend: [ dynmap ]
+
 commands:
   crash:
     description: Lag/Crash players game
@@ -44,7 +46,7 @@ commands:
     description: Allows the player to fly
   wc:
     description: Clear weather
-  clear:
+  ic:
     description: Clear inventory
 
 permissions:
@@ -109,7 +111,7 @@ permissions:
     description: Wc command
   toolkit.wc.other:
     description: Wc command
-  toolkit.clear:
+  toolkit.ic:
     description: Clear command
-  toolkit.clear.other:
+  toolkit.ic.other:
     description: CLear command

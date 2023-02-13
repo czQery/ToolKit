@@ -1,5 +1,6 @@
 package cz.qery.toolkit.commands;
 
+import cz.qery.toolkit.Dy;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
 import cz.qery.toolkit.lunar.Waypoint;

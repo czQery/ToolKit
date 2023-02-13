@@ -102,7 +102,7 @@ public class Aliases implements CommandExecutor {
                 target.getWorld().setTime(1000);
                 sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Weather cleared!"));
             }
-            case "clear" -> {
+            case "ic" -> {
                 target.getInventory().setContents(new ItemStack[]{});
                 sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Inventory cleared!"));
             }

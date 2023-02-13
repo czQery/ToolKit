@@ -50,8 +50,12 @@ public class Vanish implements CommandExecutor {
                 return false;
             }
         } else {
-            sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Please use "+h+"/vanish <player/list>"));
-            return false;
+            if ((sender instanceof Player)) {
+                target = (Player) sender;
+            } else {
+                sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Please use "+h+"/vanish <player/list>"));
+                return false;
+            }
         }
 
 

@@ -1,11 +1,13 @@
 package cz.qery.toolkit.lunar;
 
 import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointRemove;
+import cz.qery.toolkit.Dy;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.dynmap.markers.Marker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,17 +31,16 @@ public record Waypoint(String name, int x, int y, int z, String world, String co
 
         List<Map<?, ?>> maps = plugin.getConfig().getMapList("lunar.waypoints");
         for (Map<?, ?> map : maps) {
-            for (Object entry : map.values()) {
-
-                if (!(entry instanceof HashMap)) {
-                    continue;
+            map.forEach((k,v) -> {
+                if (!(v instanceof HashMap)) {
+                    return;
                 }
 
-                HashMap<String, Object> point = (HashMap<String, Object>)entry;
+                HashMap<String, Object> point = (HashMap<String, Object>)v;
 
-                Waypoint waypoint = new Waypoint(point.get("name").toString(), (int) point.get("x"), (int) point.get("y"), (int) point.get("z"), point.get("world").toString(), point.get("color").toString());
+                Waypoint waypoint = new Waypoint(k.toString(), (int) point.get("x"), (int) point.get("y"), (int) point.get("z"), point.get("world").toString(), point.get("color").toString());
                 waypoints.add(waypoint);
-            }
+            });
         }
     }
 
@@ -48,14 +49,17 @@ public record Waypoint(String name, int x, int y, int z, String world, String co
         for (Waypoint wp : waypoints) {
             HashMap<String, HashMap<String, Object>> waypoint_temp = new HashMap<String, HashMap<String, Object>>();
             HashMap<String, Object> waypoint_temp2 = new HashMap<String, Object>();
-            waypoint_temp2.put("name", wp.name());
-            waypoint_temp2.put("color", wp.color());
-            waypoint_temp2.put("world", wp.world());
-            waypoint_temp2.put("x", wp.x());
-            waypoint_temp2.put("y", wp.y());
-            waypoint_temp2.put("z", wp.z());
-            waypoint_temp.put(wp.name(), waypoint_temp2);
+            waypoint_temp2.put("color", wp.color);
+            waypoint_temp2.put("world", wp.world);
+            waypoint_temp2.put("x", wp.x);
+            waypoint_temp2.put("y", wp.y);
+            waypoint_temp2.put("z", wp.z);
+            waypoint_temp.put(wp.name, waypoint_temp2);
             l.add(waypoint_temp);
+
+            if (Dy.api != null && Dy.api.getMarkerAPI().getMarkerSet("toolkit.lunar").findMarkerByLabel(wp.name) == null) {
+                Dy.api.getMarkerAPI().getMarkerSet("toolkit.lunar").createMarker(wp.name, "<span style=\"color: "+wp.color+";\">⬤ </span><span>"+wp.name+"</span>", true, wp.world, wp.x, wp.y, wp.z, Dy.api.getMarkerAPI().getMarkerIcon("pin"), false);
+            }
         }
         plugin.getConfig().set("lunar.waypoints", null);
         plugin.getConfig().set("lunar.waypoints", l);
@@ -76,6 +80,14 @@ public record Waypoint(String name, int x, int y, int z, String world, String co
     }
 
     public static void Remove(String name, String world) {
+        if (Dy.api != null) {
+            Marker dyMarker = Dy.api.getMarkerAPI().getMarkerSet("toolkit.lunar").findMarkerByLabel(name);
+
+            if (dyMarker != null) {
+                dyMarker.deleteMarker();
+            }
+        }
+
         List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
         for (Player pp : players) {
             Tools.sendLunarPacket(pp, new LCPacketWaypointRemove(name, world));

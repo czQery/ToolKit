@@ -2,8 +2,8 @@
     <img src="https://github.com/czQery/ToolKit/blob/master/banner.png?raw=true" alt="Logo">
 </p>
 
-[![Version](https://img.shields.io/badge/version-v3.7-informational.svg)](https://github.com/czQery/ToolKit/releases)
-[![Releases](https://img.shields.io/badge/download-1.19-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-3.7.jar)
+[![Version](https://img.shields.io/badge/version-v3.8-informational.svg)](https://github.com/czQery/ToolKit/releases)
+[![Releases](https://img.shields.io/badge/download-1.19-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-3.8.jar)
 
 ## Commands
 
@@ -24,6 +24,8 @@
 | /gmsp   | toolkit.gmsp  | toolkit.gmsp.other  | Switch player's gamemode to SPECTATOR |
 | /spawn  | toolkit.spawn | toolkit.spawn.other | Teleports player to spawn             |
 | /fly    | toolkit.fly   | toolkit.fly.other   | Allows the player to fly              |
+| /wc     | toolkit.wc    | toolkit.wc.other    | Clear weather                         |
+| /ic     | toolkit.ic    | toolkit.ic.other    | Clear inventory                       |
 
 | Command  | Permission     | Description                                |
 |----------|----------------|--------------------------------------------|
@@ -37,7 +39,7 @@
 
 - Waypoints
 - Disabled mods
-- Automatically kick non lunar players
+- Automatically kick non-lunar players
 
 ## Trolls
 
@@ -101,7 +103,6 @@ lunar:
   #lunar waypoints
   waypoints:
     - Spawn:
-        name: Spawn
         color: '#ba1e0d'
         world: world
         x: 0
