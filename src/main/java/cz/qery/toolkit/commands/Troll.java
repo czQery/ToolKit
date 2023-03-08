@@ -54,6 +54,7 @@ public class Troll implements CommandExecutor {
                     sender.sendMessage(Tools.chat(b + "- " + t + "Sneak"));
                     sender.sendMessage(Tools.chat(b + "- " + t + "Sleep (it must be night, and you must stand on the bed)"));
                     sender.sendMessage(Tools.chat(b + "- " + t + "Close"));
+                    sender.sendMessage(Tools.chat(b + "- " + t + "CloseSpam (anti-leave)"));
                     sender.sendMessage(Tools.chat(b + "- " + t + "Glow"));
                     sender.sendMessage(Tools.chat(b + "- " + t + "PickUp"));
                     sender.sendMessage(Tools.chat(b + "- " + t + "Freeze"));
@@ -90,6 +91,21 @@ public class Troll implements CommandExecutor {
                 case "close" -> {
                     target.closeInventory();
                     sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " close" + t + "!"));
+                }
+                case "closespam" -> {
+                    if (args.length == 2) {
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> closespam <boolean>"));
+                    } else {
+                        if (args[2].equalsIgnoreCase("true")) {
+                            target.setMetadata("closespam", new FixedMetadataValue(plugin, true));
+                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " closespam" + t + " to&a true" + t + "!"));
+                        } else if (args[2].equalsIgnoreCase("false")) {
+                            target.setMetadata("closespam", new FixedMetadataValue(plugin, false));
+                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " closespam" + t + " to&c false" + t + "!"));
+                        } else {
+                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> closespam <boolean>"));
+                        }
+                    }
                 }
                 case "glow" -> {
                     if (args.length == 2) {

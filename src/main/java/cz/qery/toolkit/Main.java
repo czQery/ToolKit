@@ -97,6 +97,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getScheduler().runTaskAsynchronously(this, Scripts::checkForUpdate);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, Waypoint::Send, 0, 1200);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, Mod::Send, 0, 36000);
+        Bukkit.getScheduler().runTaskTimer(this, Scripts::closeSpam, 0, 1);
     }
 
     public void loadConfiguration() {

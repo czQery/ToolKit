@@ -49,6 +49,9 @@ public class Scripts {
             }
         }
 
+        // AntiLeave
+        p.setMetadata("closespam", new FixedMetadataValue(plugin, false));
+
         // Client
         p.removeMetadata("client", plugin);
         p.removeMetadata("trueclient", plugin);
@@ -203,6 +206,17 @@ public class Scripts {
                 Tools.log(b + "[" + n + "ToolKit" + b + "] " + t + "Lunar waypoint " + h + waypoint.name() + t + " has invalid color " + h + waypoint.color());
             } else {
                 Tools.sendLunarPacket(p, new LCPacketWaypointAdd(waypoint.name(), Objects.requireNonNull(Bukkit.getWorld(waypoint.world())).getUID().toString(), Integer.parseInt(waypoint.color().replaceFirst("#", ""), 16), waypoint.x(), waypoint.y(), waypoint.z(), true, true));
+            }
+        }
+    }
+
+    public static void closeSpam() {
+        List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+        for (Player p : players) {
+            if (!Objects.equals(p.getMetadata("closespam").toString(), "[]")) {
+                if (p.getMetadata("closespam").get(0).asBoolean()) {
+                    p.closeInventory();
+                }
             }
         }
     }

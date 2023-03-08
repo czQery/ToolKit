@@ -46,6 +46,7 @@
 - Sneak
 - Sleep (it must be night, and you must stand on the bed)
 - Close
+- CloseSpam (anti-leave)
 - Glow
 - PickUp
 - Freeze
