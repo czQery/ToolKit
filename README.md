@@ -125,6 +125,7 @@ commands:
   sit: true
   troll: true
   pinfo: true
+  rp: true
   lunar: true
   cmdblock: true
   vanish: true
