@@ -1,4 +1,7 @@
-package cz.qery.toolkit;
+package cz.qery.toolkit.commands;
+
+import cz.qery.toolkit.Main;
+import cz.qery.toolkit.Tools;
 
 import java.util.ArrayList;
 import java.util.HashMap;

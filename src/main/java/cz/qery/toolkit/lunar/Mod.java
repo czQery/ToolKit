@@ -1,9 +1,7 @@
 package cz.qery.toolkit.lunar;
 
 import com.lunarclient.bukkitapi.nethandler.client.LCPacketModSettings;
-import com.lunarclient.bukkitapi.nethandler.client.LCPacketUpdateWorld;
 import com.lunarclient.bukkitapi.nethandler.client.obj.ModSettings;
-import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;

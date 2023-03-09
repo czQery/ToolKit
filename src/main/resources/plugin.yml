@@ -9,45 +9,63 @@ website: github.com/czQery/ToolKit
 softdepend: [ dynmap ]
 
 commands:
-  crash:
-    description: Lag/Crash players game
-  skick:
-    description: Hax3er kick xDD (Badlion users cannot exit kick screen)
   toolkit:
     description: Show info about plugin
+  crash:
+    description: Lag/Crash players game
+    permission: toolkit.crash
+  skick:
+    description: Hax3er kick xDD (Badlion users cannot exit kick screen)
+    permission: toolkit.skick
   troll:
     description: Set of troll commands
+    permission: toolkit.troll
   crawl:
     description: Allows the player to crawl
+    permission: toolkit.crawl
   sit:
     description: Allows the player to sit down
+    permission: toolkit.sit
   pinfo:
     description: Show info about player (even their client)
+    permission: toolkit.pinfo
   rp:
     description: Set player resource pack
+    permission: toolkit.rp
   lunar:
     description: LunarClient tools
+    permission: toolkit.lunar
   cmdblock:
     description: Tool for blocking specific commands
+    permission: toolkit.commandblock
   vanish:
     description: Hide from other players
+    permission: toolkit.vanish
   # Aliases
   gmc:
     description: Switch to CREATIVE mode
+    permission: toolkit.gmc
   gms:
     description: Switch to SURVIVAL mode
+    permission: toolkit.gms
   gma:
     description: Switch to ADVENTURE mode
+    permission: toolkit.gma
   gmsp:
     description: Switch to SPECTATOR mode
+    permission: toolkit.gmsp
   spawn:
     description: Teleport to spawn
+    permission: toolkit.spawn
   fly:
     description: Allows the player to fly
+    permission: toolkit.fly
   wc:
     description: Clear weather
+    permission: toolkit.wc
   ic:
     description: Clear inventory
+    permission: toolkit.ic
 
 permissions:
   toolkit.crash:

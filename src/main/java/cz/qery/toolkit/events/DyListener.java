@@ -1,6 +1,5 @@
 package cz.qery.toolkit.events;
 
-import cz.qery.toolkit.Dy;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
 import cz.qery.toolkit.lunar.Waypoint;
@@ -21,7 +20,7 @@ public class DyListener extends DynmapCommonAPIListener {
 
     @Override
     public void apiEnabled(DynmapCommonAPI api) {
-        Dy.api = api;
+        Tools.DynApi = api;
         api.getMarkerAPI().createMarkerSet("toolkit.lunar", "Lunar", null, false);
         Bukkit.getScheduler().runTaskAsynchronously(plugin, Waypoint::Update);
         Tools.log(b+"["+n+"ToolKit"+b+"] &aDynmapAPI loaded!");

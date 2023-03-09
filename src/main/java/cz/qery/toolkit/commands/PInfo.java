@@ -24,8 +24,7 @@ public class PInfo implements CommandExecutor {
 
         Player target;
 
-        if ((sender instanceof Player) && !sender.hasPermission("toolkit.pinfo")) {
-            sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+        if (!CommandHandler.hasPermission(sender, cmd)) {
             return false;
         }
 
@@ -41,34 +40,31 @@ public class PInfo implements CommandExecutor {
         }
 
         Player finalTarget = target;
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
-            @Override
-            public void run() {
-                String name = finalTarget.getName();
-                String ip = Objects.requireNonNull(finalTarget.getAddress()).getHostName();
-                String client;
-                String trueclient = null;
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            String name = finalTarget.getName();
+            String ip = Objects.requireNonNull(finalTarget.getAddress()).getHostName();
+            String client;
+            String trueclient = null;
 
-                if (!Objects.equals(finalTarget.getMetadata("client").toString(), "[]")) {
-                    client = finalTarget.getMetadata("client").get(0).asString();
-                } else {
-                    client = "Vanilla";
-                }
-
-                if (!Objects.equals(finalTarget.getMetadata("trueclient").toString(), "[]")) {
-                    trueclient = finalTarget.getMetadata("trueclient").get(0).asString();
-                }
-
-                sender.sendMessage(Tools.chat(b+"-------["+n+"PlayerInfo"+b+"]-------"));
-                sender.sendMessage(Tools.chat(b+"- "+t+"Username "+h+name));
-                sender.sendMessage(Tools.chat(b+"- "+t+"Ip "+h+ip));
-                if (trueclient != null) {
-                    sender.sendMessage(Tools.chat(b+"- "+t+"Client "+h+client+" ("+trueclient+")"));
-                } else {
-                    sender.sendMessage(Tools.chat(b+"- "+t+"Client "+h+client));
-                }
-                sender.sendMessage(Tools.chat(b+"------------------------"));
+            if (!Objects.equals(finalTarget.getMetadata("client").toString(), "[]")) {
+                client = finalTarget.getMetadata("client").get(0).asString();
+            } else {
+                client = "Vanilla";
             }
+
+            if (!Objects.equals(finalTarget.getMetadata("trueclient").toString(), "[]")) {
+                trueclient = finalTarget.getMetadata("trueclient").get(0).asString();
+            }
+
+            sender.sendMessage(Tools.chat(b+"-------["+n+"PlayerInfo"+b+"]-------"));
+            sender.sendMessage(Tools.chat(b+"- "+t+"Username "+h+name));
+            sender.sendMessage(Tools.chat(b+"- "+t+"Ip "+h+ip));
+            if (trueclient != null) {
+                sender.sendMessage(Tools.chat(b+"- "+t+"Client "+h+client+" ("+trueclient+")"));
+            } else {
+                sender.sendMessage(Tools.chat(b+"- "+t+"Client "+h+client));
+            }
+            sender.sendMessage(Tools.chat(b+"------------------------"));
         });
 
         return false;

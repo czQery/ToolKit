@@ -1,6 +1,5 @@
 package cz.qery.toolkit.commands;
 
-import cz.qery.toolkit.CommandBlock;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;
@@ -24,8 +23,7 @@ public class Cmdblock implements CommandExecutor {
 
         if ((sender instanceof Player)) {
             p = (Player) sender;
-            if (!p.hasPermission("toolkit.commandblock")) {
-                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+            if (!CommandHandler.hasPermission(sender, cmd)) {
                 return false;
             }
         } else {
@@ -36,15 +34,15 @@ public class Cmdblock implements CommandExecutor {
             p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock <tool>"));
         } else {
             switch (args[0].toLowerCase()) {
-                case "help":
+                case "help" -> {
                     p.sendMessage(Tools.chat(b + "-------[" + n + "CMDBLOCK" + b + "]--------"));
                     p.sendMessage(Tools.chat(b + "- " + t + "add"));
                     p.sendMessage(Tools.chat(b + "- " + t + "remove"));
                     p.sendMessage(Tools.chat(b + "- " + t + "list"));
                     p.sendMessage(Tools.chat(b + "-------------------------"));
-                    break;
-                case "add":
-                    if(args.length < 2) {
+                }
+                case "add" -> {
+                    if (args.length < 2) {
                         p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock add <cmd>"));
                     } else {
                         for (CommandBlock cmdb : CommandBlock.cmdlist) {
@@ -58,9 +56,9 @@ public class Cmdblock implements CommandExecutor {
                         Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandBlock::Update);
                         p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command added to block list!"));
                     }
-                    break;
-                case "remove":
-                    if(args.length < 2) {
+                }
+                case "remove" -> {
+                    if (args.length < 2) {
                         p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock remove <cmd>"));
                     } else {
                         for (CommandBlock cmdb : CommandBlock.cmdlist) {
@@ -73,17 +71,16 @@ public class Cmdblock implements CommandExecutor {
                         }
                         p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command with this name does not exists!"));
                     }
-                    break;
-                case "list":
+                }
+                case "list" -> {
                     p.sendMessage(Tools.chat(b + "-------[" + n + "CMDBLOCK" + b + "]--------"));
                     for (CommandBlock cmdb : CommandBlock.cmdlist) {
                         p.sendMessage(Tools.chat(b + "- " + t + cmdb.name()));
                     }
                     p.sendMessage(Tools.chat(b + "-------------------------"));
-                    break;
-                default:
-                    p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock <tool>"));
-                    break;
+                }
+                default ->
+                        p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock <tool>"));
             }
         }
 

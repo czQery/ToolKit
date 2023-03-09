@@ -28,159 +28,160 @@ public class Troll implements CommandExecutor {
 
         Player target;
 
-        if ((sender instanceof Player) && !sender.hasPermission("toolkit.troll")) {
-            sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+        if (!CommandHandler.hasPermission(sender, cmd)) {
             return false;
         }
 
         if (args.length > 1) {
             target = Bukkit.getServer().getPlayer(args[0]);
-            if(target == null){
-                sender.sendMessage(Tools.chat(b+"["+n+"TROLL"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+            if (target == null) {
+                sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                 return false;
             }
         } else {
-            sender.sendMessage(Tools.chat(b+"["+n+"TROLL"+b+"]"+t+" Please use "+h+"/troll <player> <troll>"));
+            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> <troll>"));
             return false;
         }
 
-        if (target.hasPermission("toolkit.troll.bypass")) {
+        if (CommandHandler.hasPermissionBypass(target, cmd)) {
             sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " You cannot troll this player!"));
-        } else {
-            //SNEAK
-            switch (args[1].toLowerCase()) {
-                case "help" -> {
-                    sender.sendMessage(Tools.chat(b + "-------[" + n + "TROLL" + b + "]-------"));
-                    sender.sendMessage(Tools.chat(b + "- " + t + "Sneak"));
-                    sender.sendMessage(Tools.chat(b + "- " + t + "Sleep (it must be night, and you must stand on the bed)"));
-                    sender.sendMessage(Tools.chat(b + "- " + t + "Close"));
-                    sender.sendMessage(Tools.chat(b + "- " + t + "CloseSpam (anti-leave)"));
-                    sender.sendMessage(Tools.chat(b + "- " + t + "Glow"));
-                    sender.sendMessage(Tools.chat(b + "- " + t + "PickUp"));
-                    sender.sendMessage(Tools.chat(b + "- " + t + "Freeze"));
-                    sender.sendMessage(Tools.chat(b + "- " + t + "FakeOP"));
-                    sender.sendMessage(Tools.chat(b + "- " + t + "Flip"));
-                    sender.sendMessage(Tools.chat(b + "- " + t + "Thor"));
-                    sender.sendMessage(Tools.chat(b + "- " + t + "Fakedemo"));
-                    sender.sendMessage(Tools.chat(b + "----------------------"));
-                }
-                case "sneak" -> {
-                    if (args.length == 2) {
-                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> sneak <boolean>"));
-                    } else {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            target.setSneaking(Boolean.parseBoolean(args[2]));
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " sneak" + t + " to&a true" + t + "!"));
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            target.setSneaking(Boolean.parseBoolean(args[2]));
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " sneak" + t + " to&c false" + t + "!"));
-                        } else {
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> sneak <boolean>"));
-                        }
-                    }
-                }
-                case "sleep" -> {
-                    if (!(sender instanceof Player)) {
-                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " This troll cannot be used by the console!"));
-                    } else {
-                        Location loc =  ((Player) sender).getLocation();
-                        target.sleep(loc, true);
-                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " sleep" + t + "!"));
-                    }
-                }
-                case "close" -> {
-                    target.closeInventory();
-                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " close" + t + "!"));
-                }
-                case "closespam" -> {
-                    if (args.length == 2) {
-                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> closespam <boolean>"));
-                    } else {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            target.setMetadata("closespam", new FixedMetadataValue(plugin, true));
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " closespam" + t + " to&a true" + t + "!"));
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            target.setMetadata("closespam", new FixedMetadataValue(plugin, false));
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " closespam" + t + " to&c false" + t + "!"));
-                        } else {
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> closespam <boolean>"));
-                        }
-                    }
-                }
-                case "glow" -> {
-                    if (args.length == 2) {
-                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> glow <boolean>"));
-                    } else {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            target.setGlowing(Boolean.parseBoolean(args[2]));
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " glow" + t + " to&a true" + t + "!"));
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            target.setGlowing(Boolean.parseBoolean(args[2]));
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " glow" + t + " to&c false" + t + "!"));
-                        } else {
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> glow <boolean>"));
-                        }
-                    }
-                }
-                case "pickup" -> {
-                    if (args.length == 2) {
-                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> pickup <boolean>"));
-                    } else {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            target.setCanPickupItems(Boolean.parseBoolean(args[2]));
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " pickup" + t + " to&a true" + t + "!"));
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            target.setCanPickupItems(Boolean.parseBoolean(args[2]));
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " pickup" + t + " to&c false" + t + "!"));
-                        } else {
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> pickup <boolean>"));
-                        }
-                    }
-                }
-                case "freeze" -> {
-                    if (args.length == 2) {
-                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> freeze <boolean>"));
-                    } else {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            target.setMetadata("freeze", new FixedMetadataValue(plugin, true));
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " freeze" + t + " to&a true" + t + "!"));
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            target.setMetadata("freeze", new FixedMetadataValue(plugin, false));
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " freeze" + t + " to&c false" + t + "!"));
-                        } else {
-                            sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> freeze <boolean>"));
-                        }
-                    }
-                }
-                case "fakeop" -> {
-                    target.sendMessage(Tools.chat("&7&o[") + sender.getName() + ": Made " + target.getName() + " a server operator]");
-                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " fakeop" + t + "!"));
-                }
-                case "flip" -> {
-                    final Location targetLocation = target.getLocation().clone();
-                    float newYaw;
-                    newYaw = targetLocation.getYaw() + 180.0f;
-                    while (newYaw > 360.0f) {
-                        newYaw -= 360.0f;
-                    }
-                    targetLocation.setYaw(newYaw);
-                    target.teleport(targetLocation);
-                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " flip" + t + "!"));
-                }
-                case "thor" -> {
-                    target.getWorld().strikeLightning(target.getLocation());
-                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been struck by lightning!"));
-                }
-                case "fakedemo" -> {
-                    EntityPlayer target_entity = ((CraftPlayer) target).getHandle();
-                    final PacketPlayOutGameStateChange packet = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.f, 0.0F);
-                    target_entity.b.a(packet);
-                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " fakedemo" + t + "!"));
-                }
-                default ->
-                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> <troll>"));
-            }
+            return false;
         }
+
+        //SNEAK
+        switch (args[1].toLowerCase()) {
+            case "help" -> {
+                sender.sendMessage(Tools.chat(b + "-------[" + n + "TROLL" + b + "]-------"));
+                sender.sendMessage(Tools.chat(b + "- " + t + "Sneak"));
+                sender.sendMessage(Tools.chat(b + "- " + t + "Sleep (it must be night, and you must stand on the bed)"));
+                sender.sendMessage(Tools.chat(b + "- " + t + "Close"));
+                sender.sendMessage(Tools.chat(b + "- " + t + "CloseSpam (anti-leave)"));
+                sender.sendMessage(Tools.chat(b + "- " + t + "Glow"));
+                sender.sendMessage(Tools.chat(b + "- " + t + "PickUp"));
+                sender.sendMessage(Tools.chat(b + "- " + t + "Freeze"));
+                sender.sendMessage(Tools.chat(b + "- " + t + "FakeOP"));
+                sender.sendMessage(Tools.chat(b + "- " + t + "Flip"));
+                sender.sendMessage(Tools.chat(b + "- " + t + "Thor"));
+                sender.sendMessage(Tools.chat(b + "- " + t + "Fakedemo"));
+                sender.sendMessage(Tools.chat(b + "----------------------"));
+            }
+            case "sneak" -> {
+                if (args.length == 2) {
+                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> sneak <boolean>"));
+                } else {
+                    if (args[2].equalsIgnoreCase("true")) {
+                        target.setSneaking(Boolean.parseBoolean(args[2]));
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " sneak" + t + " to&a true" + t + "!"));
+                    } else if (args[2].equalsIgnoreCase("false")) {
+                        target.setSneaking(Boolean.parseBoolean(args[2]));
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " sneak" + t + " to&c false" + t + "!"));
+                    } else {
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> sneak <boolean>"));
+                    }
+                }
+            }
+            case "sleep" -> {
+                if (!(sender instanceof Player)) {
+                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " This troll cannot be used by the console!"));
+                } else {
+                    Location loc = ((Player) sender).getLocation();
+                    target.sleep(loc, true);
+                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " sleep" + t + "!"));
+                }
+            }
+            case "close" -> {
+                target.closeInventory();
+                sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " close" + t + "!"));
+            }
+            case "closespam" -> {
+                if (args.length == 2) {
+                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> closespam <boolean>"));
+                } else {
+                    if (args[2].equalsIgnoreCase("true")) {
+                        target.setMetadata("closespam", new FixedMetadataValue(plugin, true));
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " closespam" + t + " to&a true" + t + "!"));
+                    } else if (args[2].equalsIgnoreCase("false")) {
+                        target.setMetadata("closespam", new FixedMetadataValue(plugin, false));
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " closespam" + t + " to&c false" + t + "!"));
+                    } else {
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> closespam <boolean>"));
+                    }
+                }
+            }
+            case "glow" -> {
+                if (args.length == 2) {
+                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> glow <boolean>"));
+                } else {
+                    if (args[2].equalsIgnoreCase("true")) {
+                        target.setGlowing(Boolean.parseBoolean(args[2]));
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " glow" + t + " to&a true" + t + "!"));
+                    } else if (args[2].equalsIgnoreCase("false")) {
+                        target.setGlowing(Boolean.parseBoolean(args[2]));
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " glow" + t + " to&c false" + t + "!"));
+                    } else {
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> glow <boolean>"));
+                    }
+                }
+            }
+            case "pickup" -> {
+                if (args.length == 2) {
+                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> pickup <boolean>"));
+                } else {
+                    if (args[2].equalsIgnoreCase("true")) {
+                        target.setCanPickupItems(Boolean.parseBoolean(args[2]));
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " pickup" + t + " to&a true" + t + "!"));
+                    } else if (args[2].equalsIgnoreCase("false")) {
+                        target.setCanPickupItems(Boolean.parseBoolean(args[2]));
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " pickup" + t + " to&c false" + t + "!"));
+                    } else {
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> pickup <boolean>"));
+                    }
+                }
+            }
+            case "freeze" -> {
+                if (args.length == 2) {
+                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> freeze <boolean>"));
+                } else {
+                    if (args[2].equalsIgnoreCase("true")) {
+                        target.setMetadata("freeze", new FixedMetadataValue(plugin, true));
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " freeze" + t + " to&a true" + t + "!"));
+                    } else if (args[2].equalsIgnoreCase("false")) {
+                        target.setMetadata("freeze", new FixedMetadataValue(plugin, false));
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " freeze" + t + " to&c false" + t + "!"));
+                    } else {
+                        sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> freeze <boolean>"));
+                    }
+                }
+            }
+            case "fakeop" -> {
+                target.sendMessage(Tools.chat("&7&o[") + sender.getName() + ": Made " + target.getName() + " a server operator]");
+                sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " fakeop" + t + "!"));
+            }
+            case "flip" -> {
+                final Location targetLocation = target.getLocation().clone();
+                float newYaw;
+                newYaw = targetLocation.getYaw() + 180.0f;
+                while (newYaw > 360.0f) {
+                    newYaw -= 360.0f;
+                }
+                targetLocation.setYaw(newYaw);
+                target.teleport(targetLocation);
+                sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " flip" + t + "!"));
+            }
+            case "thor" -> {
+                target.getWorld().strikeLightning(target.getLocation());
+                sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been struck by lightning!"));
+            }
+            case "fakedemo" -> {
+                EntityPlayer target_entity = ((CraftPlayer) target).getHandle();
+                final PacketPlayOutGameStateChange packet = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.f, 0.0F);
+                target_entity.b.a(packet);
+                sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " fakedemo" + t + "!"));
+            }
+            default ->
+                    sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Please use " + h + "/troll <player> <troll>"));
+        }
+
         return false;
     }
 }

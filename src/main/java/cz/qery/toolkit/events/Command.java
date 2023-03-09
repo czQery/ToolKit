@@ -1,6 +1,6 @@
 package cz.qery.toolkit.events;
 
-import cz.qery.toolkit.CommandBlock;
+import cz.qery.toolkit.commands.CommandBlock;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;

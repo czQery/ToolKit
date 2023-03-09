@@ -30,8 +30,7 @@ public class Sit implements CommandExecutor {
         String who;
 
         if (args.length > 0) {
-            if ((sender instanceof Player) && !sender.hasPermission("toolkit.sit.other")) {
-                sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+            if (!CommandHandler.hasPermissionOther(sender, cmd)) {
                 return false;
             }
 
@@ -43,8 +42,7 @@ public class Sit implements CommandExecutor {
             who = "Player";
         } else {
             if (sender instanceof Player) {
-                if (!sender.hasPermission("toolkit.sit")) {
-                    sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+                if (!CommandHandler.hasPermission(sender, cmd)) {
                     return false;
                 }
 

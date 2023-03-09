@@ -24,8 +24,7 @@ public class RP implements CommandExecutor {
 
         Player target;
 
-        if ((sender instanceof Player) && !sender.hasPermission("toolkit.rp")) {
-            sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+        if (!CommandHandler.hasPermission(sender, cmd)) {
             return false;
         }
 

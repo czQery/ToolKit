@@ -13,8 +13,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.Messenger;
 
-import java.util.Objects;
-
 public final class Main extends JavaPlugin {
 
     private BukkitAudiences adventure;
@@ -34,27 +32,11 @@ public final class Main extends JavaPlugin {
 
         Tools.paperCheck();
 
-        Objects.requireNonNull(getCommand("crash")).setExecutor(new Crash());
-        Objects.requireNonNull(getCommand("crawl")).setExecutor(new Crawl());
-        Objects.requireNonNull(getCommand("toolkit")).setExecutor(new ToolKit());
-        Objects.requireNonNull(getCommand("skick")).setExecutor(new SKick());
-        Objects.requireNonNull(getCommand("sit")).setExecutor(new Sit());
-        Objects.requireNonNull(getCommand("troll")).setExecutor(new Troll());
-        Objects.requireNonNull(getCommand("pinfo")).setExecutor(new PInfo());
-        Objects.requireNonNull(getCommand("rp")).setExecutor(new RP());
-        Objects.requireNonNull(getCommand("lunar")).setExecutor(new Lunar());
-        Objects.requireNonNull(getCommand("cmdblock")).setExecutor(new Cmdblock());
-        Objects.requireNonNull(getCommand("vanish")).setExecutor(new Vanish());
-
-        //Aliases
-        Objects.requireNonNull(getCommand("gmc")).setExecutor(new Aliases());
-        Objects.requireNonNull(getCommand("gms")).setExecutor(new Aliases());
-        Objects.requireNonNull(getCommand("gma")).setExecutor(new Aliases());
-        Objects.requireNonNull(getCommand("gmsp")).setExecutor(new Aliases());
-        Objects.requireNonNull(getCommand("spawn")).setExecutor(new Aliases());
-        Objects.requireNonNull(getCommand("fly")).setExecutor(new Aliases());
-        Objects.requireNonNull(getCommand("wc")).setExecutor(new Aliases());
-        Objects.requireNonNull(getCommand("ic")).setExecutor(new Aliases());
+        try {
+            CommandHandler.load(this);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
 
         new Interact(this);
         new Join(this);

@@ -45,8 +45,8 @@ public final class Vnsh {
                 plugin.getServer().broadcastMessage(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName()));
             }
 
-            if (Dy.api != null) {
-                Dy.api.setPlayerVisiblity(p.getName(), true);
+            if (Tools.DynApi != null) {
+                Tools.DynApi.setPlayerVisiblity(p.getName(), true);
             }
         }
 
@@ -79,8 +79,8 @@ public final class Vnsh {
                 plugin.getServer().broadcastMessage(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName()));
             }
 
-            if (Dy.api != null) {
-                Dy.api.setPlayerVisiblity(p.getName(), false);
+            if (Tools.DynApi != null) {
+                Tools.DynApi.setPlayerVisiblity(p.getName(), false);
             }
         }
         p.setSleepingIgnored(true);

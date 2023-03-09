@@ -83,7 +83,7 @@
 - FeatherClient
 
 ## Config
-
+- true = enabled, false = disabled
 ```yml
 spawn:
   world: world
@@ -117,6 +117,25 @@ lunar:
   #disabled lunar mods
   disabled_mods:
     - "freelook"
+#disable individual commands (to prevent collision with plugins with same commands)
+commands:
+  crash: true
+  crawl: true
+  skick: true
+  sit: true
+  troll: true
+  pinfo: true
+  lunar: true
+  cmdblock: true
+  vanish: true
+  gmc: true
+  gms: true
+  gma: true
+  gmsp: true
+  spawn: true
+  fly: true
+  wc: true
+  ic: true
 #block commands
 commandblock:
   message: '&8[&cSERVER&8]&7 You''re not allowed to do this!'

@@ -25,8 +25,7 @@ public class Vanish implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         Player target;
 
-        if ((sender instanceof Player) && !sender.hasPermission("toolkit.vanish")) {
-            sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+        if (!CommandHandler.hasPermission(sender, cmd)) {
             return false;
         }
 

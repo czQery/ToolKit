@@ -22,34 +22,35 @@ public class Crash implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         Player target;
 
-        if ((sender instanceof Player) && !sender.hasPermission("toolkit.crash")) {
-            sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+        if (!CommandHandler.hasPermission(sender, cmd)) {
             return false;
         }
 
         if (args.length > 0) {
             target = Bukkit.getServer().getPlayer(args[0]);
-            if(target == null){
-                sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+            if (target == null) {
+                sender.sendMessage(Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                 return false;
             }
         } else {
-            sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Please use "+h+"/crash <player>"));
+            sender.sendMessage(Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " Please use " + h + "/crash <player>"));
             return false;
         }
 
-        if(target.hasPermission("toolkit.crash.bypass")){
-            sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" You cannot crash this player!"));
-        } else {
-            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-                try {
-                    Scripts.crash(target);
-                    sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]"+t+" Player "+h+ target.getName()+t+" has been crashed!"));
-                } catch (InterruptedException e) {
-                    sender.sendMessage(Tools.chat(b+"["+n+"CRASH"+b+"]&c Failed to crash player "+h+ target.getName()));
-                }
-            });
+        if (CommandHandler.hasPermissionBypass(target, cmd)) {
+            sender.sendMessage(Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " You cannot crash this player!"));
+            return false;
         }
+
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            try {
+                Scripts.crash(target);
+                sender.sendMessage(Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " Player " + h + target.getName() + t + " has been crashed!"));
+            } catch (InterruptedException e) {
+                sender.sendMessage(Tools.chat(b + "[" + n + "CRASH" + b + "]&c Failed to crash player " + h + target.getName()));
+            }
+        });
+
 
         return false;
     }

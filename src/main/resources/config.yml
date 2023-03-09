@@ -16,5 +16,23 @@ color:
 lunar:
   kick: false
   message: "&8[&cSERVER&8]&7 This is lunar only server!"
+commands:
+  crash: true
+  crawl: true
+  skick: true
+  sit: true
+  troll: true
+  pinfo: true
+  lunar: true
+  cmdblock: true
+  vanish: true
+  gmc: true
+  gms: true
+  gma: true
+  gmsp: true
+  spawn: true
+  fly: true
+  wc: true
+  ic: true
 commandblock:
   message: "&8[&cSERVER&8]&7 You're not allowed to do this!"

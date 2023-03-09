@@ -1,7 +1,6 @@
 package cz.qery.toolkit.lunar;
 
 import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointRemove;
-import cz.qery.toolkit.Dy;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
@@ -57,8 +56,8 @@ public record Waypoint(String name, int x, int y, int z, String world, String co
             waypoint_temp.put(wp.name, waypoint_temp2);
             l.add(waypoint_temp);
 
-            if (Dy.api != null && Dy.api.getMarkerAPI().getMarkerSet("toolkit.lunar").findMarkerByLabel(wp.name) == null) {
-                Dy.api.getMarkerAPI().getMarkerSet("toolkit.lunar").createMarker(wp.name, "<span style=\"color: "+wp.color+";\">⬤ </span><span>"+wp.name+"</span>", true, wp.world, wp.x, wp.y, wp.z, Dy.api.getMarkerAPI().getMarkerIcon("pin"), false);
+            if (Tools.DynApi != null && Tools.DynApi.getMarkerAPI().getMarkerSet("toolkit.lunar").findMarkerByLabel(wp.name) == null) {
+                Tools.DynApi.getMarkerAPI().getMarkerSet("toolkit.lunar").createMarker(wp.name, "<span style=\"color: "+wp.color+";\">⬤ </span><span>"+wp.name+"</span>", true, wp.world, wp.x, wp.y, wp.z, Tools.DynApi.getMarkerAPI().getMarkerIcon("pin"), false);
             }
         }
         plugin.getConfig().set("lunar.waypoints", null);
@@ -80,8 +79,8 @@ public record Waypoint(String name, int x, int y, int z, String world, String co
     }
 
     public static void Remove(String name, String world) {
-        if (Dy.api != null) {
-            Marker dyMarker = Dy.api.getMarkerAPI().getMarkerSet("toolkit.lunar").findMarkerByLabel(name);
+        if (Tools.DynApi != null) {
+            Marker dyMarker = Tools.DynApi.getMarkerAPI().getMarkerSet("toolkit.lunar").findMarkerByLabel(name);
 
             if (dyMarker != null) {
                 dyMarker.deleteMarker();
