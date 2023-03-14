@@ -17,6 +17,7 @@ public class CommandHandler {
     static Plugin plugin = Main.getPlugin(Main.class);
 
     public static final Map<String, CommandExecutor> commands = new HashMap<>();
+
     static {
         commands.put("toolkit", new ToolKit());
         commands.put("crash", new Crash());
@@ -29,6 +30,7 @@ public class CommandHandler {
         commands.put("lunar", new Lunar());
         commands.put("cmdblock", new Cmdblock());
         commands.put("vanish", new Vanish());
+        commands.put("msg", new Msg());
 
         //Aliases
         commands.put("gmc", new Aliases());
@@ -44,7 +46,7 @@ public class CommandHandler {
 
     public static String getExistingCommand(String command, Map<String, org.bukkit.command.Command> knownCommands) {
         for (String kc : knownCommands.keySet()) {
-            if (kc.contains(":"+command) && !kc.equals("toolkit:"+command)) {
+            if (kc.contains(":" + command) && !kc.equals("toolkit:" + command)) {
                 return kc;
             }
         }
@@ -53,14 +55,14 @@ public class CommandHandler {
     }
 
     public static void load(Main main) throws NoSuchFieldException, IllegalAccessException {
-        SimpleCommandMap commandMap = (SimpleCommandMap)  main.getServer().getCommandMap();
+        SimpleCommandMap commandMap = (SimpleCommandMap) main.getServer().getCommandMap();
         final HashMap<String, Command> knownCommands = (HashMap<String, Command>) commandMap.getKnownCommands();
 
         for (String cmdName : commands.keySet()) {
-            if (main.getConfig().getBoolean("commands."+cmdName) || cmdName.equals("toolkit")) {
+            if (main.getConfig().getBoolean("commands." + cmdName) || cmdName.equals("toolkit")) {
                 Objects.requireNonNull(main.getCommand(cmdName)).setExecutor(commands.get(cmdName));
             } else {
-                knownCommands.remove("toolkit:"+cmdName);
+                knownCommands.remove("toolkit:" + cmdName);
 
                 String ec = getExistingCommand(cmdName, knownCommands);
 
@@ -78,7 +80,7 @@ public class CommandHandler {
             return false;
         }
 
-        if ((sender instanceof Player) && !sender.hasPermission(cmd.getPermission()+prefix)) {
+        if ((sender instanceof Player) && !sender.hasPermission(cmd.getPermission() + prefix)) {
             if (!prefix.equals(".bypass")) {
                 sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
             }

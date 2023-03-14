@@ -32,7 +32,7 @@ public class Silent implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player && Vnsh.Enabled((Player)e.getEntity())) {
+        if (e.getEntity() instanceof Player && Vnsh.Enabled((Player) e.getEntity())) {
             e.setCancelled(true);
         }
     }
@@ -46,7 +46,7 @@ public class Silent implements Listener {
 
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent e) {
-        if (e.getEntity() instanceof Player && Vnsh.Enabled((Player)e.getEntity())) {
+        if (e.getEntity() instanceof Player && Vnsh.Enabled((Player) e.getEntity())) {
             e.setCancelled(true);
         }
     }
@@ -70,7 +70,7 @@ public class Silent implements Listener {
 
     @EventHandler
     public void onItemPickup(EntityPickupItemEvent e) {
-        if (e.getEntity() instanceof Player && Vnsh.Enabled((Player)e.getEntity())) {
+        if (e.getEntity() instanceof Player && Vnsh.Enabled((Player) e.getEntity())) {
             e.setCancelled(true);
         }
     }

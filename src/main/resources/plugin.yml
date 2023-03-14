@@ -41,6 +41,10 @@ commands:
   vanish:
     description: Hide from other players
     permission: toolkit.vanish
+  msg:
+    description: Send private message to player
+    permission: toolkit.msg
+    aliases: [tell, w]
   # Aliases
   gmc:
     description: Switch to CREATIVE mode
@@ -100,6 +104,8 @@ permissions:
     description: Bypass cmdblock command
   toolkit.vanish:
     description: Vanish command
+  toolkit.msg:
+      description: Msg command
   # Aliases
   toolkit.gmc:
     description: Gmc command
