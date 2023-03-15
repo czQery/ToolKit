@@ -33,6 +33,7 @@
 | /pinfo   | toolkit.pinfo  | Show info about player (even their client) |
 | /rp      | toolkit.rp     | Set player's resource pack                 |
 | /lunar   | toolkit.lunar  | Lunar tools                                |
+| /msg     | toolkit.msg    | Send private message to player             |
 | /toolkit | null           | Show info about plugin                     |
 
 ## Lunar
@@ -117,6 +118,9 @@ lunar:
   #disabled lunar mods
   disabled_mods:
     - "freelook"
+msg:
+  sender: "&8[&cMSG&8]&7 To&6 %receiver%&8 >&7 %msg%"
+  receiver: "&8[&cMSG&8]&7 From&6 %sender%&8 >&7 %msg%"
 #disable individual commands (to prevent collision with plugins with same commands)
 commands:
   crash: true
@@ -129,6 +133,7 @@ commands:
   lunar: true
   cmdblock: true
   vanish: true
+  msg: true
   gmc: true
   gms: true
   gma: true

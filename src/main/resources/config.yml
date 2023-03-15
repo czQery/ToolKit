@@ -17,8 +17,8 @@ lunar:
   kick: false
   message: "&8[&cSERVER&8]&7 This is lunar only server!"
 msg:
-  sender: "&8[&cMSG&8]&7 To&6 %receiver%&7 %msg%"
-  receiver: "&8[&cMSG&8]&7 From&6 %sender%&7 %msg%"
+  sender: "&8[&cMSG&8]&7 To&6 %receiver%&8 >&7 %msg%"
+  receiver: "&8[&cMSG&8]&7 From&6 %sender%&8 >&7 %msg%"
 commands:
   crash: true
   crawl: true

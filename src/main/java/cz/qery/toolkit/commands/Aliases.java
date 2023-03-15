@@ -28,7 +28,7 @@ public class Aliases implements CommandExecutor {
 
         if (!(sender instanceof Player p)) {
             if (args.length > 0) {
-                target = Bukkit.getServer().getPlayer(args[0]);
+                target = CommandHandler.getPlayer(sender, args[0]);
                 if (target == null) {
                     sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                     return false;
@@ -47,7 +47,7 @@ public class Aliases implements CommandExecutor {
                         p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
                         return false;
                     } else {
-                        target = Bukkit.getServer().getPlayer(args[0]);
+                        target = CommandHandler.getPlayer(sender, args[0]);
                         if (target == null) {
                             p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                             return false;

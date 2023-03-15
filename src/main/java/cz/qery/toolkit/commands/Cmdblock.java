@@ -4,13 +4,16 @@ import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-public class Cmdblock implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Cmdblock implements TabExecutor {
     Plugin plugin = Main.getPlugin(Main.class);
     String b = plugin.getConfig().getString("color.bracket");
     String n = plugin.getConfig().getString("color.name");
@@ -46,7 +49,7 @@ public class Cmdblock implements CommandExecutor {
                         p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock add <cmd>"));
                     } else {
                         for (CommandBlock cmdb : CommandBlock.cmdlist) {
-                            if (cmdb.name().equals(args[1].toString())) {
+                            if (cmdb.name().equals(args[1])) {
                                 p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command is already blocked!"));
                                 return false;
                             }
@@ -62,7 +65,7 @@ public class Cmdblock implements CommandExecutor {
                         p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock remove <cmd>"));
                     } else {
                         for (CommandBlock cmdb : CommandBlock.cmdlist) {
-                            if (cmdb.name().equals(args[1].toString())) {
+                            if (cmdb.name().equals(args[1])) {
                                 CommandBlock.cmdlist.remove(cmdb);
                                 Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandBlock::Update);
                                 p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command removed!"));
@@ -85,5 +88,30 @@ public class Cmdblock implements CommandExecutor {
         }
 
         return false;
+    }
+
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
+
+        List<String> list = new ArrayList<>();
+
+        switch (args.length) {
+            case 1 -> {
+                list.add("add");
+                list.add("remove");
+                list.add("list");
+            }
+            case 2 -> {
+                for (CommandBlock cmdb : CommandBlock.cmdlist) {
+                    list.add(cmdb.name());
+                }
+            }
+        }
+
+        if (list.size() != 0) {
+            return list;
+        }
+
+        return null;
+
     }
 }

@@ -2,6 +2,8 @@ package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.Vnsh;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,9 +11,7 @@ import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class CommandHandler {
     static Plugin plugin = Main.getPlugin(Main.class);
@@ -100,5 +100,33 @@ public class CommandHandler {
 
     public static boolean hasPermissionBypass(CommandSender sender, Command cmd) {
         return hasPermissionBase(sender, cmd, ".bypass");
+    }
+
+    public static Player getPlayer(CommandSender sender, String p) {
+        Player target = Bukkit.getServer().getPlayer(p);
+        if (target == null) {
+            return null;
+        }
+
+        if (Vnsh.players.get(target.getUniqueId()) != null && !sender.hasPermission("toolkit.vanish")) {
+            return null;
+        }
+
+        return target;
+    }
+
+    public static List<String> getPlayerList() {
+        Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
+        Bukkit.getServer().getOnlinePlayers().toArray(players);
+
+        List<String> list = new ArrayList<>();
+
+        for (Player pl : players) {
+            if (Vnsh.players.get(pl.getUniqueId()) == null) {
+                list.add(pl.getName());
+            }
+        }
+
+        return list;
     }
 }

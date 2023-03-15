@@ -2,19 +2,22 @@ package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.Vnsh;
 import cz.qery.toolkit.lunar.Waypoint;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
-public class Lunar implements CommandExecutor {
+public class Lunar implements TabExecutor {
     Plugin plugin = Main.getPlugin(Main.class);
     String b = plugin.getConfig().getString("color.bracket");
     String n = plugin.getConfig().getString("color.name");
@@ -103,4 +106,38 @@ public class Lunar implements CommandExecutor {
         return false;
     }
 
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
+
+        List<String> list = new ArrayList<>();
+
+        switch (args.length) {
+            case 1 -> {
+                list.add("waypoint");
+            }
+            case 2 -> {
+                list.add("add");
+                list.add("remove");
+                list.add("list");
+            }
+            case 3 -> {
+                list.add("name");
+            }
+            case 4 -> {
+                list.add("#ffffff");
+                list.add("#ff0000");
+                list.add("#fffb00");
+                list.add("#26ff00");
+                list.add("#006eff");
+                list.add("#8c00ff");
+                list.add("#8c00ff");
+            }
+        }
+
+        if (list.size() != 0) {
+            return list;
+        }
+
+        return null;
+
+    }
 }

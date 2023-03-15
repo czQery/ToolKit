@@ -2,21 +2,25 @@ package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.Vnsh;
 import net.minecraft.network.protocol.game.PacketPlayOutGameStateChange;
 import net.minecraft.server.level.EntityPlayer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.craftbukkit.v1_19_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-public class Troll implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Troll implements TabExecutor {
 
     Plugin plugin = Main.getPlugin(Main.class);
     String b = plugin.getConfig().getString("color.bracket");
@@ -33,7 +37,7 @@ public class Troll implements CommandExecutor {
         }
 
         if (args.length > 1) {
-            target = Bukkit.getServer().getPlayer(args[0]);
+            target = CommandHandler.getPlayer(sender, args[0]);
             if (target == null) {
                 sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                 return false;
@@ -183,5 +187,38 @@ public class Troll implements CommandExecutor {
         }
 
         return false;
+    }
+
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
+
+        List<String> list = new ArrayList<>();
+
+        switch (args.length) {
+            case 1-> list = CommandHandler.getPlayerList();
+            case 2 -> {
+                list.add("sneak");
+                list.add("sleep");
+                list.add("close");
+                list.add("closespam");
+                list.add("glow");
+                list.add("pickup");
+                list.add("freeze");
+                list.add("fakeop");
+                list.add("flip");
+                list.add("thor");
+                list.add("fakedemo");
+            }
+            case 3 -> {
+                list.add("true");
+                list.add("false");
+            }
+        }
+
+        if (list.size() != 0) {
+            return list;
+        }
+
+        return null;
+
     }
 }

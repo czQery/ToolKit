@@ -34,7 +34,7 @@ public class Sit implements CommandExecutor {
                 return false;
             }
 
-            target = Bukkit.getServer().getPlayer(args[0]);
+            target = CommandHandler.getPlayer(sender, args[0]);
             if (target == null) {
                 sender.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                 return false;

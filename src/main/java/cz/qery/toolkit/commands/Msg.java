@@ -30,7 +30,7 @@ public class Msg implements CommandExecutor {
         }
 
         if (args.length > 1) {
-            target = Bukkit.getServer().getPlayer(args[0]);
+            target = CommandHandler.getPlayer(sender, args[0]);
             if (target == null) {
                 sender.sendMessage(Tools.chat(b + "[" + n + "MSG" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                 return false;
