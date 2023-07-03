@@ -2,8 +2,8 @@
     <img src="https://github.com/czQery/ToolKit/blob/master/banner.png?raw=true" alt="Logo">
 </p>
 
-[![Version](https://img.shields.io/badge/version-v4.0-informational.svg)](https://github.com/czQery/ToolKit/releases)
-[![Releases](https://img.shields.io/badge/download-1.19.3-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-4.0.jar)
+[![Version](https://img.shields.io/badge/version-v4.1-informational.svg)](https://github.com/czQery/ToolKit/releases)
+[![Releases](https://img.shields.io/badge/download-1.19.3-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-4.1.jar)
 
 ## Commands
 
