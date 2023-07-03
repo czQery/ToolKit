@@ -11,7 +11,7 @@ import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.world.entity.EntityExperienceOrb;
 import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_19_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -106,14 +106,14 @@ public class Scripts {
         Location pH = new Location(p.getWorld(), p.getLocation().getBlockX(), p.getLocation().getBlockY() + 1, p.getLocation().getBlockZ());
 
         p.setMetadata("crawl", new FixedMetadataValue(plugin, false));
-        p.sendMessage(Tools.chat(b+"["+n+"CRAWL"+b+"]"+t+" Crawl mode has been turned &cOFF"+t+"!"));
+        p.sendMessage(Tools.chat(b + "[" + n + "CRAWL" + b + "]" + t + " Crawl mode has been turned &cOFF" + t + "!"));
 
         if (!self) {
             Scripts.bCheck(p);
         }
 
         Scripts.bMap.remove(p.getUniqueId());
-        if (pH.getBlock().getType() == Material.BARRIER){
+        if (pH.getBlock().getType() == Material.BARRIER) {
             pH.getBlock().setType(Material.AIR);
         }
     }
@@ -144,7 +144,7 @@ public class Scripts {
 
         for (int i = 0; i < 100; i++) {
             PacketPlayOutExplosion packet = new PacketPlayOutExplosion(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Float.MAX_VALUE, Collections.emptyList(), new Vec3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE));
-            p_entity.b.a(packet);
+            p_entity.c.a(packet);
         }
 
         Thread.sleep(500);
@@ -166,9 +166,9 @@ public class Scripts {
         Thread.sleep(500);
 
         for (int i = 0; i < 30000; i++) {
-            EntityExperienceOrb dd = new EntityExperienceOrb(p_entity.s, p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), Integer.MAX_VALUE);
+            EntityExperienceOrb dd = new EntityExperienceOrb(p_entity.x(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), Integer.MAX_VALUE);
             PacketPlayOutSpawnEntityExperienceOrb packet = new PacketPlayOutSpawnEntityExperienceOrb(dd);
-            p_entity.b.a(packet);
+            p_entity.c.a(packet);
         }
     }
 

@@ -11,7 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.craftbukkit.v1_19_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
@@ -179,7 +179,7 @@ public class Troll implements TabExecutor {
             case "fakedemo" -> {
                 EntityPlayer target_entity = ((CraftPlayer) target).getHandle();
                 final PacketPlayOutGameStateChange packet = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.f, 0.0F);
-                target_entity.b.a(packet);
+                target_entity.c.a(packet);
                 sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " fakedemo" + t + "!"));
             }
             default ->
@@ -194,7 +194,7 @@ public class Troll implements TabExecutor {
         List<String> list = new ArrayList<>();
 
         switch (args.length) {
-            case 1-> list = CommandHandler.getPlayerList();
+            case 1 -> list = CommandHandler.getPlayerList();
             case 2 -> {
                 list.add("sneak");
                 list.add("sleep");

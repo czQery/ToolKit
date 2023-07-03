@@ -5,7 +5,7 @@
 
     <groupId>cz.qery</groupId>
     <artifactId>ToolKit</artifactId>
-    <version>4.1</version>
+    <version>4.2</version>
     <packaging>jar</packaging>
 
     <name>ToolKit</name>
@@ -43,47 +43,47 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.19.3-R0.1-SNAPSHOT</version>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.2</version>
         </dependency>
         <dependency>
             <!--Local m2-->
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.19.3-R0.1-SNAPSHOT</version>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.LunarClient</groupId>
             <artifactId>BukkitAPI-NetHandler</artifactId>
-            <version>fab9915</version>
+            <version>03f6fdd</version>
         </dependency>
         <dependency>
             <!--Local m2-->
             <groupId>us.dynmap</groupId>
             <artifactId>DynmapCoreAPI</artifactId>
-            <version>3.5-beta-2</version>
+            <version>3.6-beta-2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-api</artifactId>
-            <version>4.12.0</version>
+            <version>4.14.0</version>
         </dependency>
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-platform-bukkit</artifactId>
-            <version>4.2.0</version>
+            <version>4.3.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
+            <version>1.18.28</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
