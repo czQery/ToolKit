@@ -2,13 +2,10 @@ package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
-import net.minecraft.network.protocol.game.PacketPlayOutResourcePackSend;
-import net.minecraft.server.level.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -43,16 +40,11 @@ public class RP implements TabExecutor {
         }
 
 
-        Player finalTarget = target;
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            String url = args[1];
-            EntityPlayer target_entity = ((CraftPlayer) finalTarget).getHandle();
-            final PacketPlayOutResourcePackSend packet = new PacketPlayOutResourcePackSend(url, "", true, null);
+            target.setResourcePack(args[1], "", true);
 
-            target_entity.c.a(packet);
-
-            finalTarget.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + sender.getName() + t + " has sent you" + h + " resource pack" + t + "!"));
-            sender.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + finalTarget.getName() + t + " has been set" + h + " resource pack" + t + "!"));
+            target.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + sender.getName() + t + " has sent you" + h + " resource pack" + t + "!"));
+            sender.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " resource pack" + t + "!"));
         });
         return false;
     }
@@ -66,7 +58,7 @@ public class RP implements TabExecutor {
             case 2 -> list.add("url");
         }
 
-        if (list.size() != 0) {
+        if (!list.isEmpty()) {
             return list;
         }
 

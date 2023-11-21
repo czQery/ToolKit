@@ -2,7 +2,6 @@ package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
-import cz.qery.toolkit.Vnsh;
 import cz.qery.toolkit.lunar.Waypoint;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -133,7 +132,7 @@ public class Lunar implements TabExecutor {
             }
         }
 
-        if (list.size() != 0) {
+        if (!list.isEmpty()) {
             return list;
         }
 

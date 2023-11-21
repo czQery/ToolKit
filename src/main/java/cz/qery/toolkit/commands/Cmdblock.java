@@ -107,7 +107,7 @@ public class Cmdblock implements TabExecutor {
             }
         }
 
-        if (list.size() != 0) {
+        if (!list.isEmpty()) {
             return list;
         }
 

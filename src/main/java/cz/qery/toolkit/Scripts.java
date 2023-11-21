@@ -11,7 +11,7 @@ import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.world.entity.EntityExperienceOrb;
 import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_20_R2.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -70,7 +70,7 @@ public class Scripts {
         }
     }
 
-    public static HashMap<UUID, Location[]> bMap = new HashMap<UUID, Location[]>();
+    public static HashMap<UUID, Location[]> bMap = new HashMap<>();
 
     @SuppressWarnings("deprecation")
     public static void bCheck(Player p) {

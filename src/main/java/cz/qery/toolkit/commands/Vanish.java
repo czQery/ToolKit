@@ -3,7 +3,6 @@ package cz.qery.toolkit.commands;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
 import cz.qery.toolkit.Vnsh;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,7 +30,7 @@ public class Vanish implements CommandExecutor {
 
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("list")) {
-                if (Vnsh.players.size() > 0) {
+                if (!Vnsh.players.isEmpty()) {
                     sender.sendMessage(Tools.chat(b + "-------[" + n + "VANISH" + b + "]--------"));
                     for (Map.Entry<UUID, String> pl : Vnsh.players.entrySet()) {
                         sender.sendMessage(Tools.chat(b + "- " + t + pl.getValue()));

@@ -46,8 +46,8 @@ public record Waypoint(String name, int x, int y, int z, String world, String co
     public static void Update() {
         List<HashMap<String, HashMap<String, Object>>> l = new ArrayList<>();
         for (Waypoint wp : waypoints) {
-            HashMap<String, HashMap<String, Object>> waypoint_temp = new HashMap<String, HashMap<String, Object>>();
-            HashMap<String, Object> waypoint_temp2 = new HashMap<String, Object>();
+            HashMap<String, HashMap<String, Object>> waypoint_temp = new HashMap<>();
+            HashMap<String, Object> waypoint_temp2 = new HashMap<>();
             waypoint_temp2.put("color", wp.color);
             waypoint_temp2.put("world", wp.world);
             waypoint_temp2.put("x", wp.x);

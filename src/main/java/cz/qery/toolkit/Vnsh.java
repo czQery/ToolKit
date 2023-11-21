@@ -19,7 +19,7 @@ public final class Vnsh {
     static String h = plugin.getConfig().getString("color.highlight");
     static String t = plugin.getConfig().getString("color.text");
 
-    public static HashMap<UUID, String> players = new HashMap<UUID, String>();
+    public static HashMap<UUID, String> players = new HashMap<>();
 
     @SuppressWarnings("deprecation")
     public static void Show(Player p, boolean init) {
