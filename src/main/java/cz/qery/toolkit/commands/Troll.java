@@ -177,7 +177,7 @@ public class Troll implements TabExecutor {
             case "fakedemo" -> {
                 EntityPlayer target_entity = ((CraftPlayer) target).getHandle();
                 final PacketPlayOutGameStateChange packet = new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.f, 0.0F);
-                target_entity.c.a(packet);
+                target_entity.c.b(packet);
                 sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " fakedemo" + t + "!"));
             }
             default ->

@@ -144,7 +144,7 @@ public class Scripts {
 
         for (int i = 0; i < 100; i++) {
             PacketPlayOutExplosion packet = new PacketPlayOutExplosion(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Float.MAX_VALUE, Collections.emptyList(), new Vec3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE));
-            p_entity.c.a(packet);
+            p_entity.c.b(packet);
         }
 
         Thread.sleep(500);
@@ -168,7 +168,7 @@ public class Scripts {
         for (int i = 0; i < 30000; i++) {
             EntityExperienceOrb dd = new EntityExperienceOrb(p_entity.x(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), Integer.MAX_VALUE);
             PacketPlayOutSpawnEntityExperienceOrb packet = new PacketPlayOutSpawnEntityExperienceOrb(dd);
-            p_entity.c.a(packet);
+            p_entity.c.b(packet);
         }
     }
 
