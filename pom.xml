@@ -5,7 +5,7 @@
 
     <groupId>cz.qery</groupId>
     <artifactId>ToolKit</artifactId>
-    <version>4.4</version>
+    <version>4.5</version>
     <packaging>jar</packaging>
 
     <name>ToolKit</name>
@@ -43,7 +43,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.2-R0.1-SNAPSHOT</version>
+            <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -55,7 +55,7 @@
             <!--Local m2-->
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.20.2-R0.1-SNAPSHOT</version>
+            <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -68,7 +68,7 @@
             <!--mvn install:install-file "-Dfile=DynmapCoreAPI-3.7-SNAPSHOT.jar" "-DgroupId=us.dynmap" "-DartifactId=DynmapCoreAPI" "-Dversion=3.7-SNAPSHOT" "-Dpackaging=jar"-->
             <groupId>us.dynmap</groupId>
             <artifactId>DynmapCoreAPI</artifactId>
-            <version>3.6-beta-2</version>
+            <version>3.7-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

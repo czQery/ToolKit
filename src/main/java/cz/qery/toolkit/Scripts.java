@@ -5,13 +5,17 @@ import com.google.gson.JsonParser;
 import com.lunarclient.bukkitapi.nethandler.client.LCPacketUpdateWorld;
 import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
 import cz.qery.toolkit.lunar.Waypoint;
+import net.minecraft.core.BlockPosition;
+import net.minecraft.core.particles.Particles;
 import net.minecraft.network.protocol.game.PacketPlayOutExplosion;
 import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntityExperienceOrb;
 import net.minecraft.server.level.EntityPlayer;
+import net.minecraft.sounds.SoundEffects;
 import net.minecraft.world.entity.EntityExperienceOrb;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_20_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -142,9 +146,13 @@ public class Scripts {
         EntityPlayer p_entity = ((CraftPlayer) p).getHandle();
         Location loc = p.getLocation();
 
+        List<BlockPosition> list = new ArrayList<>();
+        list.add(BlockPosition.a(p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ()));
+
+        Vec3D vec = new Vec3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+
         for (int i = 0; i < 100; i++) {
-            PacketPlayOutExplosion packet = new PacketPlayOutExplosion(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Float.MAX_VALUE, Collections.emptyList(), new Vec3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE));
-            p_entity.c.b(packet);
+            p_entity.c.b(new PacketPlayOutExplosion(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Float.MAX_VALUE, list, vec, Explosion.Effect.a, Particles.x, Particles.x, SoundEffects.hy));
         }
 
         Thread.sleep(500);
@@ -165,10 +173,10 @@ public class Scripts {
 
         Thread.sleep(500);
 
+        EntityExperienceOrb dd = new EntityExperienceOrb(p_entity.z(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), Integer.MAX_VALUE);
+
         for (int i = 0; i < 30000; i++) {
-            EntityExperienceOrb dd = new EntityExperienceOrb(p_entity.x(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), Integer.MAX_VALUE);
-            PacketPlayOutSpawnEntityExperienceOrb packet = new PacketPlayOutSpawnEntityExperienceOrb(dd);
-            p_entity.c.b(packet);
+            p_entity.c.b(new PacketPlayOutSpawnEntityExperienceOrb(dd));
         }
     }
 
