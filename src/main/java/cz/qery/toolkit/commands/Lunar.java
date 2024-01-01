@@ -18,10 +18,10 @@ import java.util.Objects;
 
 public class Lunar implements TabExecutor {
     Plugin plugin = Main.getPlugin(Main.class);
-    String b = plugin.getConfig().getString("color.bracket");
-    String n = plugin.getConfig().getString("color.name");
-    String t = plugin.getConfig().getString("color.text");
-    String h = plugin.getConfig().getString("color.highlight");
+    String b = Main.colors.get("b");
+    String n = Main.colors.get("n");
+    String t = Main.colors.get("t");
+    String h = Main.colors.get("h");
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
@@ -39,9 +39,8 @@ public class Lunar implements TabExecutor {
 
             switch (args[0].toLowerCase()) {
                 case "help" -> {
-                    p.sendMessage(Tools.chat(b + "-------[" + n + "LUNAR" + b + "]--------"));
+                    p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]"));
                     p.sendMessage(Tools.chat(b + "- " + t + "Waypoint"));
-                    p.sendMessage(Tools.chat(b + "----------------------"));
                 }
                 case "waypoint" -> {
                     if (args.length < 2) {
@@ -77,7 +76,7 @@ public class Lunar implements TabExecutor {
                                 for (Waypoint waypoint : Waypoint.waypoints) {
                                     if (waypoint.name().equals(args[2])) {
                                         Waypoint.waypoints.remove(waypoint);
-                                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> Waypoint.Remove(waypoint.name(), Objects.requireNonNull(Bukkit.getWorld(waypoint.world())).getUID().toString()));
+                                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> Waypoint.Remove(waypoint.name()));
                                         p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Waypoint removed!"));
                                         return false;
                                     }
@@ -86,11 +85,14 @@ public class Lunar implements TabExecutor {
                             }
                         }
                         case "list" -> {
-                            p.sendMessage(Tools.chat(b + "-------[" + n + "LUNAR-WAYPOINTS" + b + "]--------"));
-                            for (Waypoint waypoint : Waypoint.waypoints) {
-                                p.sendMessage(Tools.chat(b + "- " + t + waypoint.name()));
+                            if (!Waypoint.waypoints.isEmpty()) {
+                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR-WAYPOINTS" + b + "]"));
+                                for (Waypoint waypoint : Waypoint.waypoints) {
+                                    p.sendMessage(Tools.chat(b + "- " + t + waypoint.name()));
+                                }
+                            } else {
+                                sender.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " There are no waypoints!"));
                             }
-                            p.sendMessage(Tools.chat(b + "--------------------------------"));
                         }
                         default ->
                                 p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <add/remove/list>"));

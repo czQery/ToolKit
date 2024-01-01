@@ -15,10 +15,10 @@ import java.util.List;
 
 public class RP implements TabExecutor {
     Plugin plugin = Main.getPlugin(Main.class);
-    String b = plugin.getConfig().getString("color.bracket");
-    String n = plugin.getConfig().getString("color.name");
-    String t = plugin.getConfig().getString("color.text");
-    String h = plugin.getConfig().getString("color.highlight");
+    String b = Main.colors.get("b");
+    String n = Main.colors.get("n");
+    String t = Main.colors.get("t");
+    String h = Main.colors.get("h");
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 

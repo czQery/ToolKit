@@ -15,10 +15,10 @@ import java.util.List;
 
 public class Cmdblock implements TabExecutor {
     Plugin plugin = Main.getPlugin(Main.class);
-    String b = plugin.getConfig().getString("color.bracket");
-    String n = plugin.getConfig().getString("color.name");
-    String t = plugin.getConfig().getString("color.text");
-    String h = plugin.getConfig().getString("color.highlight");
+    String b = Main.colors.get("b");
+    String n = Main.colors.get("n");
+    String t = Main.colors.get("t");
+    String h = Main.colors.get("h");
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
@@ -38,11 +38,10 @@ public class Cmdblock implements TabExecutor {
         } else {
             switch (args[0].toLowerCase()) {
                 case "help" -> {
-                    p.sendMessage(Tools.chat(b + "-------[" + n + "CMDBLOCK" + b + "]--------"));
+                    p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]"));
                     p.sendMessage(Tools.chat(b + "- " + t + "add"));
                     p.sendMessage(Tools.chat(b + "- " + t + "remove"));
                     p.sendMessage(Tools.chat(b + "- " + t + "list"));
-                    p.sendMessage(Tools.chat(b + "-------------------------"));
                 }
                 case "add" -> {
                     if (args.length < 2) {
@@ -76,11 +75,14 @@ public class Cmdblock implements TabExecutor {
                     }
                 }
                 case "list" -> {
-                    p.sendMessage(Tools.chat(b + "-------[" + n + "CMDBLOCK" + b + "]--------"));
-                    for (CommandBlock cmdb : CommandBlock.cmdlist) {
-                        p.sendMessage(Tools.chat(b + "- " + t + cmdb.name()));
+                    if (!CommandBlock.cmdlist.isEmpty()) {
+                        p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]"));
+                        for (CommandBlock cmdb : CommandBlock.cmdlist) {
+                            p.sendMessage(Tools.chat(b + "- " + t + cmdb.name()));
+                        }
+                    } else {
+                        sender.sendMessage(Tools.chat(b+"["+n+"CMDBLOCK"+b+"]"+t+" There are no blocked commands!"));
                     }
-                    p.sendMessage(Tools.chat(b + "-------------------------"));
                 }
                 default ->
                         p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock <tool>"));

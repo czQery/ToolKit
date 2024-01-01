@@ -6,7 +6,10 @@ authors: [ czQery ]
 description: Set of useful tools
 website: github.com/czQery/ToolKit
 
-softdepend: [ dynmap ]
+softdepend:
+  - dynmap
+depend:
+  - Apollo-Bukkit
 
 commands:
   toolkit:

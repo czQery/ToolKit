@@ -1,8 +1,6 @@
 package cz.qery.toolkit.events;
 
-import com.lunarclient.bukkitapi.nethandler.client.LCPacketUpdateWorld;
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,6 +22,6 @@ public class WorldChange implements Listener {
 
     private void updateWorld(Player p) {
         String worldIdentifier = p.getWorld().getUID().toString();
-        Tools.sendLunarPacket(p, new LCPacketUpdateWorld(worldIdentifier));
+        //Tools.sendLunarPacket(p, new LCPacketUpdateWorld(worldIdentifier));
     }
 }

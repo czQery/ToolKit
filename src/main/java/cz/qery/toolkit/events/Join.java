@@ -19,10 +19,10 @@ import java.util.UUID;
 
 public class Join implements Listener {
     static Plugin plugin = Main.getPlugin(Main.class);
-    static String b = plugin.getConfig().getString("color.bracket");
-    static String n = plugin.getConfig().getString("color.name");
-    static String t = plugin.getConfig().getString("color.text");
-    static String h = plugin.getConfig().getString("color.highlight");
+    static String b = Main.colors.get("b");
+    static String n = Main.colors.get("n");
+    static String t = Main.colors.get("t");
+    static String h = Main.colors.get("h");
 
     public Join(Main plugin) {
         Join.plugin = plugin;
@@ -65,6 +65,5 @@ public class Join implements Listener {
 
         // lunar
         Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Waypoint.SendOne(p), 40);
-        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Mod.SendOne(p), 40);
     }
 }

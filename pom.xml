@@ -30,6 +30,10 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>lunarclient</id>
+            <url>https://repo.lunarclient.dev</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -59,9 +63,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.LunarClient</groupId>
-            <artifactId>BukkitAPI-NetHandler</artifactId>
-            <version>03f6fdd</version>
+            <groupId>com.lunarclient</groupId>
+            <artifactId>apollo-api</artifactId>
+            <version>1.0.5</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <!--Local m2-->

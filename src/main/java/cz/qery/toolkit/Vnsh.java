@@ -14,10 +14,10 @@ import java.util.UUID;
 
 public final class Vnsh {
     static Main plugin = Main.getPlugin(Main.class);
-    static String b = plugin.getConfig().getString("color.bracket");
-    static String n = plugin.getConfig().getString("color.name");
-    static String h = plugin.getConfig().getString("color.highlight");
-    static String t = plugin.getConfig().getString("color.text");
+    static String b = Main.colors.get("b");
+    static String n = Main.colors.get("n");
+    static String h = Main.colors.get("h");
+    static String t = Main.colors.get("t");
 
     public static HashMap<UUID, String> players = new HashMap<>();
 

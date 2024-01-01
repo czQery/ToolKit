@@ -1,37 +1,52 @@
 package cz.qery.toolkit.lunar;
 
-import com.lunarclient.bukkitapi.nethandler.client.LCPacketModSettings;
-import com.lunarclient.bukkitapi.nethandler.client.obj.ModSettings;
+import com.lunarclient.apollo.Apollo;
+import com.lunarclient.apollo.mods.Mods;
+import com.lunarclient.apollo.module.modsetting.ModSettingModule;
+import com.lunarclient.apollo.option.SimpleOption;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import lombok.SneakyThrows;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class Mod {
 
     static Main plugin = Main.getPlugin(Main.class);
-    public static LCPacketModSettings mods = null;
 
+    static String b = Main.colors.get("b");
+    static String n = Main.colors.get("n");
+    static String h = Main.colors.get("h");
+    static String t = Main.colors.get("t");
+    public static List<String> mods = new ArrayList<>();
+    public static Map<String, SimpleOption<Boolean>> mods_all = new HashMap<>();
+    public static ModSettingModule modSettingModule;
+
+    @SneakyThrows
     public static void Load() {
-        ModSettings modSettings = new ModSettings();
-        for (String modId : plugin.getConfig().getStringList("lunar.disabled_mods")) {
-            modSettings.addModSetting(modId, new ModSettings.ModSetting(false, new HashMap<>()));
-        }
-        mods = new LCPacketModSettings(modSettings);
-    }
+        modSettingModule = Apollo.getModuleManager().getModule(ModSettingModule.class);
+        mods = plugin.getConfig().getStringList("lunar.disabled_mods");
 
-    public static void Send() {
-        List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
-        for (Player p : players) {
-            Tools.sendLunarPacket(p, Mod.mods);
-        }
-    }
+        for (Class<?> modClass : Mods.ALL_MODS) {
+            Field field = modClass.getField("ENABLED");
 
-    public static void SendOne(Player p) {
-        Tools.sendLunarPacket(p, Mod.mods);
+            @SuppressWarnings("unchecked")
+            SimpleOption<Boolean> option = (SimpleOption<Boolean>) field.get(field.getClass());
+
+            //Tools.log(modClass.getSimpleName().replaceFirst("Mod", ""));
+
+            mods_all.put(modClass.getSimpleName().toLowerCase().replaceFirst("mod", ""), option);
+        }
+
+        for (String mod : mods) {
+            if (!mods_all.containsKey(mod.toLowerCase())) {
+                Tools.log(b + "[" + n + "ToolKit" + b + "] " + t + "Lunar mod invalid name " + h + mod);
+                continue;
+            }
+            Mod.modSettingModule.getOptions().set(mods_all.get(mod.toLowerCase()), false);
+        }
+
+        Tools.log(b+"["+n+"ToolKit"+b+"] &aApolloAPI mods loaded!");
     }
 }

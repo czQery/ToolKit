@@ -2,9 +2,6 @@ package cz.qery.toolkit;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.lunarclient.bukkitapi.nethandler.client.LCPacketUpdateWorld;
-import com.lunarclient.bukkitapi.nethandler.shared.LCPacketWaypointAdd;
-import cz.qery.toolkit.lunar.Waypoint;
 import net.minecraft.core.BlockPosition;
 import net.minecraft.core.particles.Particles;
 import net.minecraft.network.protocol.game.PacketPlayOutExplosion;
@@ -28,10 +25,10 @@ import java.util.*;
 
 public class Scripts {
     static Main plugin = Main.getPlugin(Main.class);
-    static String b = plugin.getConfig().getString("color.bracket");
-    static String n = plugin.getConfig().getString("color.name");
-    static String t = plugin.getConfig().getString("color.text");
-    static String h = plugin.getConfig().getString("color.highlight");
+    static String b = Main.colors.get("b");
+    static String n = Main.colors.get("n");
+    static String t = Main.colors.get("t");
+    static String h = Main.colors.get("h");
 
     public static void cleanup(Player p) {
         // Sit check
@@ -131,11 +128,10 @@ public class Scripts {
             JsonObject json = JsonParser.parseString(response.body()).getAsJsonObject();
             String version = Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("ToolKit")).getDescription().getVersion();
             if (!("v" + version).equals(json.get("tag_name").getAsString())) {
-                Tools.log(b + "-------[" + n + "TOOLKIT" + b + "]-------");
+                Tools.log(b + "[" + n + "ToolKit" + b + "]");
                 Tools.log(b + "- " + t + "Latest version " + h + json.get("tag_name").getAsString().replaceFirst("v", ""));
                 Tools.log(b + "- " + t + "This version " + h + version);
                 Tools.log(b + "- " + t + "Download newer version from GitHub " + h + "https://github.com/czQery/ToolKit/releases");
-                Tools.log(b + "----------------------");
             }
         } catch (Exception e) {
             Tools.log(b + "[" + n + "ToolKit" + b + "] &cAPI version check failed");
@@ -203,19 +199,6 @@ public class Scripts {
             return location;
         }
         return null;
-    }
-
-    public static void sendWaypoints(Player p, List<Waypoint> waypoints) {
-        for (Waypoint waypoint : waypoints) {
-            Tools.sendLunarPacket(p, new LCPacketUpdateWorld(p.getWorld().getUID().toString()));
-            if (Bukkit.getWorld(waypoint.world()) == null) {
-                Tools.log(b + "[" + n + "ToolKit" + b + "] " + t + "Lunar waypoint " + h + waypoint.name() + t + " has invalid world " + h + waypoint.world());
-            } else if (!waypoint.color().contains("#") && !waypoint.color().matches("^[a-fA-F0-9#]{0,7}$")) {
-                Tools.log(b + "[" + n + "ToolKit" + b + "] " + t + "Lunar waypoint " + h + waypoint.name() + t + " has invalid color " + h + waypoint.color());
-            } else {
-                Tools.sendLunarPacket(p, new LCPacketWaypointAdd(waypoint.name(), Objects.requireNonNull(Bukkit.getWorld(waypoint.world())).getUID().toString(), Integer.parseInt(waypoint.color().replaceFirst("#", ""), 16), waypoint.x(), waypoint.y(), waypoint.z(), true, true));
-            }
-        }
     }
 
     public static void closeSpam() {

@@ -16,10 +16,10 @@ import java.util.UUID;
 public class Vanish implements CommandExecutor {
 
     Plugin plugin = Main.getPlugin(Main.class);
-    String b = plugin.getConfig().getString("color.bracket");
-    String n = plugin.getConfig().getString("color.name");
-    String t = plugin.getConfig().getString("color.text");
-    String h = plugin.getConfig().getString("color.highlight");
+    String b = Main.colors.get("b");
+    String n = Main.colors.get("n");
+    String t = Main.colors.get("t");
+    String h = Main.colors.get("h");
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         Player target;
@@ -31,11 +31,10 @@ public class Vanish implements CommandExecutor {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("list")) {
                 if (!Vnsh.players.isEmpty()) {
-                    sender.sendMessage(Tools.chat(b + "-------[" + n + "VANISH" + b + "]--------"));
+                    sender.sendMessage(Tools.chat(b + "[" + n + "VANISH" + b + "]"));
                     for (Map.Entry<UUID, String> pl : Vnsh.players.entrySet()) {
                         sender.sendMessage(Tools.chat(b + "- " + t + pl.getValue()));
                     }
-                    sender.sendMessage(Tools.chat(b + "----------------------"));
                 } else {
                     sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" There are no players in vanish mode"));
                 }

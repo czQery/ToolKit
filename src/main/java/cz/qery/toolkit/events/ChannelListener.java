@@ -14,10 +14,10 @@ import java.util.Arrays;
 public class ChannelListener implements PluginMessageListener {
     public void onPluginMessageReceived(@NotNull String channel, @NotNull Player p, byte[] data) {
         Plugin plugin = Main.getPlugin(Main.class);
-        String b = plugin.getConfig().getString("color.bracket");
-        String n = plugin.getConfig().getString("color.name");
-        String t = plugin.getConfig().getString("color.text");
-        String h = plugin.getConfig().getString("color.highlight");
+        String b = Main.colors.get("b");
+        String n = Main.colors.get("n");
+        String t = Main.colors.get("t");
+        String h = Main.colors.get("h");
 
         data = Arrays.copyOfRange(data, 1, data.length);
         String msg = new String(data, StandardCharsets.US_ASCII);

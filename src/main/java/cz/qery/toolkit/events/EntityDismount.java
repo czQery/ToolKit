@@ -26,9 +26,9 @@ public class EntityDismount implements Listener {
         Entity p = e.getEntity();
         Entity en = e.getDismounted();
 
-        String b = plugin.getConfig().getString("color.bracket");
-        String n = plugin.getConfig().getString("color.name");
-        String t = plugin.getConfig().getString("color.text");
+        String b = Main.colors.get("b");
+        String n = Main.colors.get("n");
+        String t = Main.colors.get("t");
 
         if (en.getType() == EntityType.ARMOR_STAND && p.getType() == EntityType.PLAYER) {
             if (!Objects.equals(p.getMetadata("sit").toString(), "[]") && p.getMetadata("sit").get(0).asInt() != 0) {

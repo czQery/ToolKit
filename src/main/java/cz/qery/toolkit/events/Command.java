@@ -12,10 +12,10 @@ import org.bukkit.plugin.Plugin;
 
 public class Command implements Listener {
     static Plugin plugin = Main.getPlugin(Main.class);
-    static String b = plugin.getConfig().getString("color.bracket");
-    static String n = plugin.getConfig().getString("color.name");
-    static String t = plugin.getConfig().getString("color.text");
-    static String h = plugin.getConfig().getString("color.highlight");
+    static String b = Main.colors.get("b");
+    static String n = Main.colors.get("n");
+    static String t = Main.colors.get("t");
+    static String h = Main.colors.get("h");
 
     public Command(Main plugin) {
         Command.plugin = plugin;

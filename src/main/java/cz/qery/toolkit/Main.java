@@ -13,12 +13,15 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.Messenger;
 
-public final class Main extends JavaPlugin {
+import java.util.HashMap;
+import java.util.Map;
 
+public final class Main extends JavaPlugin {
     private BukkitAudiences adventure;
+    public static Map<String, String> colors = new HashMap<>();
 
     public @NonNull BukkitAudiences adventure() {
-        if(this.adventure == null) {
+        if (this.adventure == null) {
             throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
         }
         return this.adventure;
@@ -69,7 +72,7 @@ public final class Main extends JavaPlugin {
         new Metrics(this, 11896);
 
         //Dynmap
-        if(getServer().getPluginManager().getPlugin("dynmap") != null) {
+        if (getServer().getPluginManager().getPlugin("dynmap") != null) {
             new DyListener();
         }
 
@@ -77,8 +80,6 @@ public final class Main extends JavaPlugin {
         Mod.Load();
         CommandBlock.Load();
         Bukkit.getScheduler().runTaskAsynchronously(this, Scripts::checkForUpdate);
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, Waypoint::Send, 0, 1200);
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, Mod::Send, 0, 36000);
         Bukkit.getScheduler().runTaskTimer(this, Scripts::closeSpam, 0, 1);
     }
 
@@ -89,8 +90,22 @@ public final class Main extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveConfig();
 
-        String b = this.getConfig().getString("color.bracket");
-        String n = this.getConfig().getString("color.name");
+        colors.put("b", this.getConfig().getString("color.bracket"));
+        colors.put("n", this.getConfig().getString("color.name"));
+        colors.put("t", this.getConfig().getString("color.text"));
+        colors.put("h", this.getConfig().getString("color.highlight"));
+
+        String b = colors.get("b");
+        String n = colors.get("n");
+
+        /*if (getServer().getPluginManager().getPlugin("Apollo-Bukkit") != null) {
+            getServer().getPluginManager().getPlugin("apollo-bukkit").getConfig().set("modules.waypoint.enable", false);
+            getServer().getPluginManager().getPlugin("apollo-bukkit").saveConfig();
+            Tools.log(b+"["+n+"ToolKit"+b+"] &aApollo: "+getServer().getPluginManager().getPlugin("apollo-bukkit").getConfig().getString("send-updater-message"));
+        } else {
+            Tools.log(b+"["+n+"ToolKit"+b+"] &aApollo is null!");
+        }*/
+
         Tools.log(b+"["+n+"ToolKit"+b+"] &aConfig loaded!");
     }
 
@@ -101,7 +116,7 @@ public final class Main extends JavaPlugin {
         }
 
         HandlerList.unregisterAll(this);
-        if(this.adventure != null) {
+        if (this.adventure != null) {
             this.adventure.close();
             this.adventure = null;
         }

@@ -5,6 +5,8 @@
 [![Version](https://img.shields.io/badge/version-v4.4-informational.svg)](https://github.com/czQery/ToolKit/releases)
 [![Releases](https://img.shields.io/badge/download-1.20.2-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-4.4.jar)
 
+> Dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Dynmap (optional)](https://github.com/webbukkit/dynmap)
+
 ## Commands
 
 | Command   | Permission           | Protection                  | Description                           |
@@ -56,7 +58,7 @@
 - Thor
 - FakeDemo
 
-## Dynmap (1.19.3)
+## Dynmap
 - Lunar waypoints
 - Vanish
 
@@ -92,24 +94,24 @@ spawn:
   death: true
 join:
   alert: true
-  message: '&8[&cSERVER&8]&6 %player%&7 joined!'
+  message: "&8[&cSERVER&8]&6 %player%&7 joined!"
 leave:
   alert: true
-  message: '&8[&cSERVER&8]&6 %player%&7 disconnected!'
+  message: "&8[&cSERVER&8]&6 %player%&7 disconnected!"
 #custom chat colors
 color:
-  bracket: '&8'
-  name: '&c'
-  text: '&7'
-  highlight: '&6'
+  bracket: "&8"
+  name: "&c"
+  text: "&7"
+  highlight: "&6"
 lunar:
   #kick non lunar players
   kick: false
-  kick_message: '&8[&cSERVER&8]&7 This is lunar only server!'
+  kick_message: "&8[&cSERVER&8]&7 This is lunar only server!"
   #lunar waypoints
   waypoints:
     - Spawn:
-        color: '#ba1e0d'
+        color: "#ba1e0d"
         world: world
         x: 0
         y: 100
@@ -117,7 +119,81 @@ lunar:
         
   #disabled lunar mods
   disabled_mods:
-    - "freelook"
+    - Replaymod
+    #- OneSevenVisuals
+    #- Fps
+    #- Cps
+    #- Sba
+    #- ToggleSneak
+    #- Zoom
+    #- HypixelMod
+    #- HypixelBedwars
+    #- Quickplay
+    #- Armorstatus
+    #- Keystrokes
+    #- Coordinates
+    #- DayCounter
+    #- Crosshair
+    #- PotionEffects
+    #- DirectionHud
+    #- Titles
+    #- Waypoints
+    #- HitColor
+    #- Scoreboard
+    #- ItemCounter
+    #- Ping
+    #- MotionBlur
+    #- PackOrganizer
+    #- Chat
+    #- Tab
+    #- Nametag
+    #- ShulkerPreview
+    #- ScrollableTooltips
+    #- UhcOverlay
+    #- ParticleChanger
+    #- NickHider
+    #- Cooldowns
+    #- WorldeditCui
+    #- Clock
+    #- Stopwatch
+    #- Playtime
+    #- Memory
+    #- Combo
+    #- ReachDisplay
+    #- TimeChanger
+    #- ServerAddress
+    #- Saturation
+    #- ColorSaturation
+    #- ItemPhysics
+    #- TntCountdown
+    #- ItemTracker
+    #- ShinyPots
+    #- 3dSkins
+    #- GlintColorizer
+    #- Momentum
+    #- BlockOutline
+    #- Screenshot
+    #- Fov
+    #- Fog
+    #- AutoTextHotkey
+    #- MumbleLink
+    #- 2dItems
+    #- Bossbar
+    #- Freelook
+    #- PvpInfo
+    #- Snaplook
+    #- TeamView
+    #- PackDisplay
+    #- MenuBlur
+    #- Minimap
+    #- Hitbox
+    #- Lighting
+    #- WeatherChanger
+    #- ChunkBorders
+    #- SoundChanger
+    #- Neu
+    #- HurtCam
+    #- DamageTint
 msg:
   sender: "&8[&cMSG&8]&7 To&6 %receiver%&8 >&7 %msg%"
   receiver: "&8[&cMSG&8]&7 From&6 %sender%&8 >&7 %msg%"
@@ -144,7 +220,7 @@ commands:
   ic: true
 #block commands
 commandblock:
-  message: '&8[&cSERVER&8]&7 You''re not allowed to do this!'
+  message: "&8[&cSERVER&8]&7 You''re not allowed to do this!"
   list:
     - pl
     - plugins
@@ -152,48 +228,6 @@ commandblock:
     - ver
     - version
     - about
-    - '?'
+    - "?"
     - bukkit
-
-
-# ALL LUNAR MODS
-# skyblockAddons - Skyblock Addons
-# toggleSneak - Toggle Sneak/Sprint
-# hypixel_mod - Hypixel Mods
-# armorstatus - Armor Status
-# keystrokes - Key Strokes
-# coords - Coordinates
-# crosshair - Crosshair
-# potioneffects - Potion Effects
-# directionhud - Direction HUD
-# waypoints - Waypoints
-# scoreboard - Scoreboard
-# potion_counter - Potion Counter
-# ping - Ping
-# motionBlur - Motion Blur
-# chat - Chat
-# scrollable_tooltips - Scrollable Tooltips
-# uhc_overlay - UHC Overlay
-# particleMultiplierMod - Particle Multiplier
-# cooldowns - Cooldowns
-# worldedit_cui - WorldEdit CUI
-# clock - Clock
-# stopwatch - Stopwatch
-# memory - Memory Usage
-# combo - Combo Counter
-# range - Reach Display
-# time_changer - Time Changer
-# serverAddressMod - Server Address
-# saturation - Saturation
-# itemPhysic - Item Physics
-# itemTrackerChild - Item Tracker
-# shinyPots - Shiny Pots
-# block_outline - Block Outline
-# screenshot - Screenshot Uploader
-# fov_mod - FOV Mod
-# textHotKey - Auto Text Hot Key
-# netgraph - Net Graph
-# mumble-link - Mumble Link
-# bossbar - Boss Bar
-# freelook - Freelook
 ```

@@ -18,10 +18,10 @@ import java.util.Objects;
 public class ToolKit implements CommandExecutor {
 
     Plugin plugin = Main.getPlugin(Main.class);
-    String b = plugin.getConfig().getString("color.bracket");
-    String n = plugin.getConfig().getString("color.name");
-    String t = plugin.getConfig().getString("color.text");
-    String h = plugin.getConfig().getString("color.highlight");
+    String b = Main.colors.get("b");
+    String n = Main.colors.get("n");
+    String t = Main.colors.get("t");
+    String h = Main.colors.get("h");
 
     public boolean onCommand(CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
@@ -33,7 +33,7 @@ public class ToolKit implements CommandExecutor {
                 .hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, Component.text("")))
                 .build();
 
-        sender.sendMessage(Tools.chat(b+"-------["+n+"TOOLKIT"+b+"]-------"));
+        sender.sendMessage(Tools.chat(b+"["+n+"ToolKit"+b+"]"));
         sender.sendMessage(Tools.chat(b+"- "+t+"Set of useful tools"));
         sender.sendMessage(Tools.chat(b+"- "+t+"Version "+h+version));
         if (Tools.isPaper) {
@@ -42,7 +42,6 @@ public class ToolKit implements CommandExecutor {
             sender.sendMessage(Tools.chat(b+"- "+t+"GitHub "+h+"https://github.com/czQery/ToolKit"));
         }
         sender.sendMessage(Tools.chat(b+"- "+t+"Made by "+h+"czQery"));
-        sender.sendMessage(Tools.chat(b+"----------------------"));
         return false;
     }
 }

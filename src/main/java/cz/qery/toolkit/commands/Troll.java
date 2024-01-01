@@ -21,10 +21,10 @@ import java.util.List;
 public class Troll implements TabExecutor {
 
     Plugin plugin = Main.getPlugin(Main.class);
-    String b = plugin.getConfig().getString("color.bracket");
-    String n = plugin.getConfig().getString("color.name");
-    String t = plugin.getConfig().getString("color.text");
-    String h = plugin.getConfig().getString("color.highlight");
+    String b = Main.colors.get("b");
+    String n = Main.colors.get("n");
+    String t = Main.colors.get("t");
+    String h = Main.colors.get("h");
 
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
@@ -53,7 +53,7 @@ public class Troll implements TabExecutor {
         //SNEAK
         switch (args[1].toLowerCase()) {
             case "help" -> {
-                sender.sendMessage(Tools.chat(b + "-------[" + n + "TROLL" + b + "]-------"));
+                sender.sendMessage(Tools.chat(b + "[" + n + "TROLL" + b + "]"));
                 sender.sendMessage(Tools.chat(b + "- " + t + "Sneak"));
                 sender.sendMessage(Tools.chat(b + "- " + t + "Sleep (it must be night, and you must stand on the bed)"));
                 sender.sendMessage(Tools.chat(b + "- " + t + "Close"));
@@ -65,7 +65,6 @@ public class Troll implements TabExecutor {
                 sender.sendMessage(Tools.chat(b + "- " + t + "Flip"));
                 sender.sendMessage(Tools.chat(b + "- " + t + "Thor"));
                 sender.sendMessage(Tools.chat(b + "- " + t + "Fakedemo"));
-                sender.sendMessage(Tools.chat(b + "----------------------"));
             }
             case "sneak" -> {
                 if (args.length == 2) {
