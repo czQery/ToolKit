@@ -2,8 +2,8 @@
     <img src="https://github.com/czQery/ToolKit/blob/master/banner.png?raw=true" alt="Logo">
 </p>
 
-[![Version](https://img.shields.io/badge/version-v4.4-informational.svg)](https://github.com/czQery/ToolKit/releases)
-[![Releases](https://img.shields.io/badge/download-1.20.2-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-4.4.jar)
+[![Version](https://img.shields.io/badge/version-v4.5-informational.svg)](https://github.com/czQery/ToolKit/releases)
+[![Releases](https://img.shields.io/badge/download-1.20.4-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-4.5.jar)
 
 > Dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Dynmap (optional)](https://github.com/webbukkit/dynmap)
 
@@ -59,6 +59,7 @@
 - FakeDemo
 
 ## Dynmap
+
 - Lunar waypoints
 - Vanish
 
