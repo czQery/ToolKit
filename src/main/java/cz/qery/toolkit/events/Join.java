@@ -4,7 +4,6 @@ import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
 import cz.qery.toolkit.Vnsh;
-import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Waypoint;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -48,7 +47,6 @@ public class Join implements Listener {
         }
 
         // vanish
-
         for (Map.Entry<UUID, String> pl : Vnsh.players.entrySet()) {
             if (p.getUniqueId() == pl.getKey()) {
                 Vnsh.Hide(p, false);
@@ -62,8 +60,5 @@ public class Join implements Listener {
                 }
             }
         }
-
-        // lunar
-        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> Waypoint.SendOne(p), 40);
     }
 }

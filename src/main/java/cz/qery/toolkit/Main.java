@@ -47,7 +47,6 @@ public final class Main extends JavaPlugin {
         new Move(this);
         new ChannelRegister(this);
         new EntityDismount(this);
-        new WorldChange(this);
         new Command(this);
         new Silent(this);
         new Respawn(this);
@@ -73,8 +72,10 @@ public final class Main extends JavaPlugin {
 
         //Dynmap
         if (getServer().getPluginManager().getPlugin("dynmap") != null) {
-            new DyListener();
+            new DynmapRegister();
         }
+
+        new ApolloRegister();
 
         Waypoint.Load();
         Mod.Load();
