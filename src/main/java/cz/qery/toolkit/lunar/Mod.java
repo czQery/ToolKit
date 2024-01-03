@@ -1,12 +1,14 @@
 package cz.qery.toolkit.lunar;
 
 import com.lunarclient.apollo.Apollo;
+import com.lunarclient.apollo.BukkitApollo;
 import com.lunarclient.apollo.mods.Mods;
 import com.lunarclient.apollo.module.modsetting.ModSettingModule;
 import com.lunarclient.apollo.option.SimpleOption;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
 import lombok.SneakyThrows;
+import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -47,6 +49,17 @@ public class Mod {
             Mod.modSettingModule.getOptions().set(mods_all.get(mod.toLowerCase()), false);
         }
 
-        Tools.log(b+"["+n+"ToolKit"+b+"] &aApolloAPI mods loaded!");
+        Tools.log(b + "[" + n + "ToolKit" + b + "] &aApolloAPI mods loaded!");
+    }
+
+    public static void Bypass(Player p) {
+        for (String mod : mods) {
+            if (!mods_all.containsKey(mod.toLowerCase())) {
+                continue;
+            }
+            BukkitApollo.runForPlayer(p, apolloPlayer -> {
+                Mod.modSettingModule.getOptions().set(apolloPlayer, mods_all.get(mod.toLowerCase()), true);
+            });
+        }
     }
 }

@@ -3,6 +3,8 @@ package cz.qery.toolkit;
 import cz.qery.toolkit.commands.*;
 import cz.qery.toolkit.events.*;
 import cz.qery.toolkit.lunar.Mod;
+import cz.qery.toolkit.lunar.Notification;
+import cz.qery.toolkit.lunar.Staff;
 import cz.qery.toolkit.lunar.Waypoint;
 import lombok.NonNull;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -70,6 +72,12 @@ public final class Main extends JavaPlugin {
         //bStats
         new Metrics(this, 11896);
 
+        Waypoint.Load();
+        Mod.Load();
+        Staff.Load();
+        Notification.Load();
+        CommandBlock.Load();
+
         //Dynmap
         if (getServer().getPluginManager().getPlugin("dynmap") != null) {
             new DynmapRegister();
@@ -77,9 +85,6 @@ public final class Main extends JavaPlugin {
 
         new ApolloRegister();
 
-        Waypoint.Load();
-        Mod.Load();
-        CommandBlock.Load();
         Bukkit.getScheduler().runTaskAsynchronously(this, Scripts::checkForUpdate);
         Bukkit.getScheduler().runTaskTimer(this, Scripts::closeSpam, 0, 1);
     }
@@ -98,14 +103,6 @@ public final class Main extends JavaPlugin {
 
         String b = colors.get("b");
         String n = colors.get("n");
-
-        /*if (getServer().getPluginManager().getPlugin("Apollo-Bukkit") != null) {
-            getServer().getPluginManager().getPlugin("apollo-bukkit").getConfig().set("modules.waypoint.enable", false);
-            getServer().getPluginManager().getPlugin("apollo-bukkit").saveConfig();
-            Tools.log(b+"["+n+"ToolKit"+b+"] &aApollo: "+getServer().getPluginManager().getPlugin("apollo-bukkit").getConfig().getString("send-updater-message"));
-        } else {
-            Tools.log(b+"["+n+"ToolKit"+b+"] &aApollo is null!");
-        }*/
 
         Tools.log(b+"["+n+"ToolKit"+b+"] &aConfig loaded!");
     }

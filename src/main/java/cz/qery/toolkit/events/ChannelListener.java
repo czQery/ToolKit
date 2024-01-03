@@ -12,8 +12,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 public class ChannelListener implements PluginMessageListener {
+
+    static Plugin plugin = Main.getPlugin(Main.class);
     public void onPluginMessageReceived(@NotNull String channel, @NotNull Player p, byte[] data) {
-        Plugin plugin = Main.getPlugin(Main.class);
         String b = Main.colors.get("b");
         String n = Main.colors.get("n");
         String t = Main.colors.get("t");

@@ -10,7 +10,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class Interact implements Listener {
 
     public Interact(Main plugin) {
-
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     @EventHandler

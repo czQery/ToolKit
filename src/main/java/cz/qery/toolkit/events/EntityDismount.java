@@ -13,11 +13,8 @@ import org.spigotmc.event.entity.EntityDismountEvent;
 import java.util.Objects;
 
 public class EntityDismount implements Listener {
-    private final Main plugin;
 
     public EntityDismount(Main plugin) {
-        this.plugin = plugin;
-
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
@@ -25,10 +22,6 @@ public class EntityDismount implements Listener {
     public void onEntityDismount(EntityDismountEvent e) {
         Entity p = e.getEntity();
         Entity en = e.getDismounted();
-
-        String b = Main.colors.get("b");
-        String n = Main.colors.get("n");
-        String t = Main.colors.get("t");
 
         if (en.getType() == EntityType.ARMOR_STAND && p.getType() == EntityType.PLAYER) {
             if (!Objects.equals(p.getMetadata("sit").toString(), "[]") && p.getMetadata("sit").get(0).asInt() != 0) {

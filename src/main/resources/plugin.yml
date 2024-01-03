@@ -142,3 +142,6 @@ permissions:
     description: Clear command
   toolkit.ic.other:
     description: CLear command
+  # Other
+  toolkit.lunar.staff:
+    description: Lunar staff mods

@@ -119,6 +119,7 @@ public class Scripts {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public static void checkForUpdate() {
         try {
             HttpClient client = HttpClient.newHttpClient();

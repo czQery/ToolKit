@@ -65,11 +65,12 @@
         <dependency>
             <groupId>com.lunarclient</groupId>
             <artifactId>apollo-api</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <!--Local m2-->
+            <!-- https://dynmap.us/builds/dynmap/ -->
             <!--mvn install:install-file "-Dfile=DynmapCoreAPI-3.7-SNAPSHOT.jar" "-DgroupId=us.dynmap" "-DartifactId=DynmapCoreAPI" "-Dversion=3.7-SNAPSHOT" "-Dpackaging=jar"-->
             <groupId>us.dynmap</groupId>
             <artifactId>DynmapCoreAPI</artifactId>
@@ -121,7 +122,7 @@
                 <!-- https://repository.apache.org/content/repositories/snapshots/org/apache/maven/plugins/maven-shade-plugin/ -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.4.2-SNAPSHOT</version>
+                <version>3.5.2-SNAPSHOT</version>
                 <configuration>
                     <relocations>
                         <relocation>

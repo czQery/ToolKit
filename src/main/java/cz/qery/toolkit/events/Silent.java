@@ -19,7 +19,6 @@ import java.util.Objects;
 public class Silent implements Listener {
 
     public Silent(Main plugin) {
-
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 

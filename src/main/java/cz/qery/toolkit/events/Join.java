@@ -4,7 +4,6 @@ import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Scripts;
 import cz.qery.toolkit.Tools;
 import cz.qery.toolkit.Vnsh;
-import cz.qery.toolkit.lunar.Waypoint;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -24,8 +23,6 @@ public class Join implements Listener {
     static String h = Main.colors.get("h");
 
     public Join(Main plugin) {
-        Join.plugin = plugin;
-
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 

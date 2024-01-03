@@ -10,13 +10,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
 
 public class Leave implements Listener {
-    private final Main plugin;
+    static Plugin plugin = Main.getPlugin(Main.class);
 
     public Leave(Main plugin) {
-        this.plugin = plugin;
-
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 

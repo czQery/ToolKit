@@ -9,6 +9,7 @@ public class Tools {
 
     public static DynmapCommonAPI DynApi;
 
+    @SuppressWarnings("deprecation")
     public static String chat (String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
