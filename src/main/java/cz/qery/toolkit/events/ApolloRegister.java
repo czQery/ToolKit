@@ -6,7 +6,6 @@ import com.lunarclient.apollo.event.Listen;
 import com.lunarclient.apollo.event.player.ApolloRegisterPlayerEvent;
 import com.lunarclient.apollo.module.staffmod.StaffMod;
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
 import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Notification;
 import cz.qery.toolkit.lunar.Staff;
@@ -28,7 +27,6 @@ public class ApolloRegister implements ApolloListener {
     @Listen
     @SuppressWarnings("unused")
     public void onApolloRegister(ApolloRegisterPlayerEvent e) {
-        Tools.log(e.toString());
         Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
             if (e.getPlayer().hasPermission("toolkit.lunar.staff")) {
                 Staff.modSettingModuleStaff.enableStaffMods(e.getPlayer(), Collections.singletonList(StaffMod.XRAY));
