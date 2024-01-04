@@ -1,13 +1,12 @@
 package cz.qery.toolkit;
 
-import cz.qery.toolkit.commands.*;
+import cz.qery.toolkit.commands.CommandBlock;
+import cz.qery.toolkit.commands.CommandHandler;
 import cz.qery.toolkit.events.*;
 import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Notification;
 import cz.qery.toolkit.lunar.Staff;
 import cz.qery.toolkit.lunar.Waypoint;
-import lombok.NonNull;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -19,23 +18,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Main extends JavaPlugin {
-    private BukkitAudiences adventure;
     public static Map<String, String> colors = new HashMap<>();
-
-    public @NonNull BukkitAudiences adventure() {
-        if (this.adventure == null) {
-            throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
-        }
-        return this.adventure;
-    }
 
     @Override
     public void onEnable() {
-        this.adventure = BukkitAudiences.create(this);
-
         loadConfiguration();
-
-        Tools.paperCheck();
 
         try {
             CommandHandler.load(this);
@@ -73,7 +60,13 @@ public final class Main extends JavaPlugin {
         new Metrics(this, 11896);
 
         Waypoint.Load();
-        Mod.Load();
+        try {
+            Mod.Load();
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            String b = colors.get("b");
+            String n = colors.get("n");
+            Tools.log(b + "[" + n + "ToolKit" + b + "] &aApolloAPI mods error: "+e.getMessage());
+        }
         Staff.Load();
         Notification.Load();
         CommandBlock.Load();
@@ -104,7 +97,7 @@ public final class Main extends JavaPlugin {
         String b = colors.get("b");
         String n = colors.get("n");
 
-        Tools.log(b+"["+n+"ToolKit"+b+"] &aConfig loaded!");
+        Tools.log(b + "[" + n + "ToolKit" + b + "] &aConfig loaded!");
     }
 
     @Override
@@ -114,9 +107,5 @@ public final class Main extends JavaPlugin {
         }
 
         HandlerList.unregisterAll(this);
-        if (this.adventure != null) {
-            this.adventure.close();
-            this.adventure = null;
-        }
     }
 }

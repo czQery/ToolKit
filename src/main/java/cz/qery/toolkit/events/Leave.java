@@ -20,16 +20,11 @@ public class Leave implements Listener {
     }
 
     @EventHandler
-    @SuppressWarnings("deprecation")
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
 
         if (plugin.getConfig().getBoolean("leave.alert") && !Vnsh.Enabled(p)) {
-            if (Tools.isPaper) {
-                e.quitMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName())));
-            } else {
-                e.setQuitMessage(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName()));
-            }
+            e.quitMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%", p.getName())));
         } else {
             e.quitMessage(null);
         }

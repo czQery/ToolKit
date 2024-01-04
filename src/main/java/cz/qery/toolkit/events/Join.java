@@ -34,11 +34,7 @@ public class Join implements Listener {
         }
 
         if (plugin.getConfig().getBoolean("join.alert") && !Vnsh.Enabled(p)) {
-            if (Tools.isPaper) {
-                e.joinMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName())));
-            } else {
-                e.setJoinMessage(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName()));
-            }
+            e.joinMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%", p.getName())));
         } else {
             e.joinMessage(null);
         }
@@ -51,7 +47,7 @@ public class Join implements Listener {
                 Player target = Bukkit.getServer().getPlayer(pl.getKey());
                 if (target != null) {
                     if (p.hasPermission("toolkit.vanish")) {
-                        p.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Player "+h+target.getName()+t+" has &aentered"+t+" vanish mode!"));
+                        p.sendMessage(Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " Player " + h + target.getName() + t + " has &aentered" + t + " vanish mode!"));
                     }
                     p.hidePlayer(plugin, target);
                 }

@@ -10,14 +10,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
 public class ToolKit implements CommandExecutor {
-
-    Plugin plugin = Main.getPlugin(Main.class);
     String b = Main.colors.get("b");
     String n = Main.colors.get("n");
     String t = Main.colors.get("t");
@@ -28,20 +25,16 @@ public class ToolKit implements CommandExecutor {
         String version = Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("ToolKit")).getDescription().getVersion();
 
         final @NotNull TextComponent link = Component.text()
-                .content(Tools.chat(b+"- "+t+"GitHub "+h+"https://github.com/czQery/ToolKit"))
+                .content(Tools.chat(b + "- " + t + "GitHub " + h + "https://github.com/czQery/ToolKit"))
                 .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/czQery/ToolKit"))
-                .hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, Component.text("")))
+                .hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, Component.text("open")))
                 .build();
 
-        sender.sendMessage(Tools.chat(b+"["+n+"ToolKit"+b+"]"));
-        sender.sendMessage(Tools.chat(b+"- "+t+"Set of useful tools"));
-        sender.sendMessage(Tools.chat(b+"- "+t+"Version "+h+version));
-        if (Tools.isPaper) {
-            sender.sendMessage(link);
-        } else {
-            sender.sendMessage(Tools.chat(b+"- "+t+"GitHub "+h+"https://github.com/czQery/ToolKit"));
-        }
-        sender.sendMessage(Tools.chat(b+"- "+t+"Made by "+h+"czQery"));
+        sender.sendMessage(Tools.chat(b + "[" + n + "ToolKit" + b + "]"));
+        sender.sendMessage(Tools.chat(b + "- " + t + "Set of useful tools"));
+        sender.sendMessage(Tools.chat(b + "- " + t + "Version " + h + version));
+        sender.sendMessage(link);
+        sender.sendMessage(Tools.chat(b + "- " + t + "Made by " + h + "czQery"));
         return false;
     }
 }

@@ -21,11 +21,10 @@ public final class Vnsh {
 
     public static HashMap<UUID, String> players = new HashMap<>();
 
-    @SuppressWarnings("deprecation")
     public static void Show(Player p, boolean init) {
         for (Player pl : plugin.getServer().getOnlinePlayers()) {
             if (pl == p || pl.hasPermission("toolkit.vanish") || Enabled(pl)) {
-                pl.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Player "+h+p.getName()+t+" has &cexited"+t+" vanish mode!"));
+                pl.sendMessage(Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " Player " + h + p.getName() + t + " has &cexited" + t + " vanish mode!"));
 
             }
             if (pl == p || Enabled(pl)) {
@@ -39,11 +38,7 @@ public final class Vnsh {
         }
         if (init) {
             Vnsh.players.remove(p.getUniqueId());
-            if (Tools.isPaper) {
-                plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName())));
-            } else {
-                plugin.getServer().broadcastMessage(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%",p.getName()));
-            }
+            plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%", p.getName())));
 
             if (Tools.DynApi != null) {
                 Tools.DynApi.setPlayerVisiblity(p.getName(), true);
@@ -60,11 +55,10 @@ public final class Vnsh {
         p.setMetadata("vanished", new FixedMetadataValue(plugin, false));
     }
 
-    @SuppressWarnings("deprecation")
     public static void Hide(Player p, boolean init) {
         for (Player pl : plugin.getServer().getOnlinePlayers()) {
             if (pl == p || pl.hasPermission("toolkit.vanish") || Enabled(pl)) {
-                pl.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Player "+h+p.getName()+t+" has &aentered"+t+" vanish mode!"));
+                pl.sendMessage(Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " Player " + h + p.getName() + t + " has &aentered" + t + " vanish mode!"));
             }
             if (pl == p || Enabled(pl)) {
                 continue;
@@ -73,11 +67,7 @@ public final class Vnsh {
         }
         if (init) {
             Vnsh.players.put(p.getUniqueId(), p.getName());
-            if (Tools.isPaper) {
-                plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName())));
-            } else {
-                plugin.getServer().broadcastMessage(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%",p.getName()));
-            }
+            plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%", p.getName())));
 
             if (Tools.DynApi != null) {
                 Tools.DynApi.setPlayerVisiblity(p.getName(), false);
@@ -85,7 +75,7 @@ public final class Vnsh {
         }
         p.setSleepingIgnored(true);
         p.setAllowFlight(true);
-        for(Entity e : p.getWorld().getEntities()) {
+        for (Entity e : p.getWorld().getEntities()) {
             if (e instanceof Creature && ((Creature) e).getTarget() != null && ((Creature) e).getTarget().getUniqueId() == p.getUniqueId()) {
                 ((Creature) e).setTarget(null);
             }
