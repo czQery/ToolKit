@@ -10,7 +10,10 @@ import cz.qery.toolkit.Tools;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Mod {
 
@@ -39,6 +42,20 @@ public class Mod {
             mods_all.put(modClass.getSimpleName().toLowerCase().replaceFirst("mod", ""), option);
         }
 
+        Send();
+
+        Tools.log(b + "[" + n + "ToolKit" + b + "] &aApolloAPI mods loaded!");
+    }
+
+    public static void Update() {
+        plugin.getConfig().set("lunar.disabled_mods", null);
+        plugin.getConfig().set("lunar.disabled_mods", mods);
+        plugin.saveConfig();
+
+        Send();
+    }
+
+    public static void Send() {
         for (String mod : mods) {
             if (!mods_all.containsKey(mod.toLowerCase())) {
                 Tools.log(b + "[" + n + "ToolKit" + b + "] " + t + "Lunar mod invalid name " + h + mod);
@@ -46,8 +63,14 @@ public class Mod {
             }
             Mod.modSettingModule.getOptions().set(mods_all.get(mod.toLowerCase()), false);
         }
+    }
 
-        Tools.log(b + "[" + n + "ToolKit" + b + "] &aApolloAPI mods loaded!");
+    public static void UnSend(String mod) {
+        if (!mods_all.containsKey(mod.toLowerCase())) {
+            Tools.log(b + "[" + n + "ToolKit" + b + "] " + t + "Lunar mod invalid name " + h + mod);
+            return;
+        }
+        Mod.modSettingModule.getOptions().set(mods_all.get(mod.toLowerCase()), true);
     }
 
     public static void Bypass(Player p) {

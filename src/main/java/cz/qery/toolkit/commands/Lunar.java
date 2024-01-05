@@ -2,6 +2,7 @@ package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.lunar.Mod;
 import cz.qery.toolkit.lunar.Waypoint;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -40,6 +41,7 @@ public class Lunar implements TabExecutor {
                 case "help" -> {
                     p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]"));
                     p.sendMessage(Tools.chat(b + "- " + t + "Waypoint"));
+                    p.sendMessage(Tools.chat(b + "- " + t + "Mod"));
                 }
                 case "waypoint" -> {
                     if (args.length < 2) {
@@ -96,7 +98,58 @@ public class Lunar implements TabExecutor {
                         default ->
                                 p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar waypoint <add/remove/list>"));
                     }
+                }
+                case "mod" -> {
+                    if (args.length < 2) {
+                        p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar mod <add/remove/list>"));
+                        return false;
+                    }
 
+                    switch (args[1].toLowerCase()) {
+                        case "add" -> {
+                            if (args.length < 3) {
+                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar mod add <mod>"));
+                            } else {
+                                for (String mod : Mod.mods) {
+                                    if (mod.equalsIgnoreCase(args[2])) {
+                                        p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Mod is already disabled!"));
+                                        return false;
+                                    }
+                                }
+                                Mod.mods.add(args[2]);
+                                Bukkit.getScheduler().runTaskAsynchronously(plugin, Mod::Update);
+                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Mod disabled!"));
+                            }
+                        }
+                        case "remove" -> {
+                            if (args.length < 3) {
+                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar mod remove <mod>"));
+                            } else {
+                                for (String mod : Mod.mods) {
+                                    if (mod.equalsIgnoreCase(args[2])) {
+                                        Mod.mods.remove(mod);
+                                        Mod.UnSend(mod);
+                                        Bukkit.getScheduler().runTaskAsynchronously(plugin, Mod::Update);
+                                        p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Mod removed!"));
+                                        return false;
+                                    }
+                                }
+                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Mod with this name does not exists!"));
+                            }
+                        }
+                        case "list" -> {
+                            if (!Mod.mods.isEmpty()) {
+                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR-MODS" + b + "]"));
+                                for (String mod : Mod.mods) {
+                                    p.sendMessage(Tools.chat(b + "- " + t + mod));
+                                }
+                            } else {
+                                sender.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " There are no disabled mods!"));
+                            }
+                        }
+                        default ->
+                                p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar mod <add/remove/list>"));
+                    }
                 }
                 default ->
                         p.sendMessage(Tools.chat(b + "[" + n + "LUNAR" + b + "]" + t + " Please use " + h + "/lunar <tool>"));
@@ -113,6 +166,7 @@ public class Lunar implements TabExecutor {
         switch (args.length) {
             case 1 -> {
                 list.add("waypoint");
+                list.add("mod");
             }
             case 2 -> {
                 list.add("add");

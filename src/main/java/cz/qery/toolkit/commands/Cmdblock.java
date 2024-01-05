@@ -103,9 +103,7 @@ public class Cmdblock implements TabExecutor {
                 list.add("list");
             }
             case 2 -> {
-                for (CommandBlock cmdb : CommandBlock.cmdlist) {
-                    list.add(cmdb.name());
-                }
+                list.add("name");
             }
         }
 

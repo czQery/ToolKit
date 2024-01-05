@@ -4,7 +4,6 @@ import cz.qery.toolkit.Main;
 import cz.qery.toolkit.Tools;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public record CommandBlock(String name) {
@@ -33,15 +32,14 @@ public record CommandBlock(String name) {
     }
 
     public static void Update() {
-        List<HashMap<String, HashMap<String, Object>>> l = new ArrayList<>();
-        String[] cmdl = new String[cmdlist.size()];
-        int cmdi = 0;
-        for (CommandBlock cmdc : cmdlist) {
-            cmdl[cmdi] = cmdc.name();
-            cmdi = cmdi + 1;
+        String[] cmdConfig = new String[cmdlist.size()];
+        int i = 0;
+        for (CommandBlock cmd : cmdlist) {
+            cmdConfig[i] = cmd.name();
+            i = i + 1;
         }
         plugin.getConfig().set("commandblock.list", null);
-        plugin.getConfig().set("commandblock.list", cmdl);
+        plugin.getConfig().set("commandblock.list", cmdConfig);
         plugin.saveConfig();
     }
 }
