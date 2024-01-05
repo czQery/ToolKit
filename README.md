@@ -2,8 +2,8 @@
     <img src="https://github.com/czQery/ToolKit/blob/master/banner.png?raw=true" alt="Logo">
 </div>
 
-[![Version](https://img.shields.io/badge/version-v4.5-informational.svg)](https://github.com/czQery/ToolKit/releases)
-[![Releases](https://img.shields.io/badge/download-1.20.4-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-4.5.jar)
+[![Version](https://img.shields.io/badge/version-v4.6-informational.svg)](https://github.com/czQery/ToolKit/releases)
+[![Releases](https://img.shields.io/badge/download-1.20.4-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-4.6.jar)
 
 > Dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Dynmap (optional)](https://github.com/webbukkit/dynmap)
 
@@ -28,7 +28,7 @@ Suitable for all servers that require basic player management tools.
   - permission: `toolkit.sit`
     - other: `toolkit.sit.other`
 ---
-- **/lunar \<waypoint> \<add/remove/list>**: Command for interacting with the Lunar client, such as creating checkpoints (width dynmap support) or banning certain mods
+- **/lunar \<waypoint/mod> \<add/remove/list>**: Command for interacting with the Lunar client, such as creating checkpoints (width dynmap support) or banning certain mods
   - permission: `toolkit.lunar`
   - staff: Mode enables staff modes in Lunar and allows player to bypass banned mods
     - permission: `toolkit.lunar.staff`
