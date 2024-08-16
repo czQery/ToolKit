@@ -1,7 +1,7 @@
 name: ToolKit
 version: ${project.version}
 main: cz.qery.toolkit.Main
-api-version: '1.20'
+api-version: '1.21'
 authors: [ czQery ]
 description: Set of useful tools
 website: github.com/czQery/ToolKit
