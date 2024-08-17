@@ -25,7 +25,7 @@ public class ChannelListener implements PluginMessageListener {
 
 
         if ("minecraft:brand".equals(channel)) {
-            if (!msg.toLowerCase().contains("vannila") && !msg.toLowerCase().contains("lunarclient") && !msg.toLowerCase().contains("fabric") && !msg.toLowerCase().contains("feather") && !msg.toLowerCase().contains("forge")) {
+            if (!msg.toLowerCase().contains("vanilla") && !msg.toLowerCase().contains("lunarclient") && !msg.toLowerCase().contains("fabric") && !msg.toLowerCase().contains("feather") && !msg.toLowerCase().contains("forge")) {
                 p.setMetadata("client", new FixedMetadataValue(plugin, msg));
                 Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+" client "+h+msg);
             }

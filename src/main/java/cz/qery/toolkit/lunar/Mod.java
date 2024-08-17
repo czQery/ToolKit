@@ -78,9 +78,7 @@ public class Mod {
             if (!mods_all.containsKey(mod.toLowerCase())) {
                 continue;
             }
-            BukkitApollo.runForPlayer(p, apolloPlayer -> {
-                Mod.modSettingModule.getOptions().set(apolloPlayer, mods_all.get(mod.toLowerCase()), true);
-            });
+            BukkitApollo.runForPlayer(p, apolloPlayer -> Mod.modSettingModule.getOptions().set(apolloPlayer, mods_all.get(mod.toLowerCase()), true));
         }
     }
 }

@@ -20,6 +20,7 @@ public class ToolKit implements CommandExecutor {
     String t = Main.colors.get("t");
     String h = Main.colors.get("h");
 
+    @SuppressWarnings("deprecation")
     public boolean onCommand(CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
         String version = Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("ToolKit")).getDescription().getVersion();

@@ -23,18 +23,14 @@ public class Notification {
     }
 
     public static void Send(Player p, String msg) {
-        BukkitApollo.runForPlayer(p, apolloPlayer -> {
-            notificationModule.displayNotification(apolloPlayer, com.lunarclient.apollo.module.notification.Notification.builder()
-                    .titleComponent(Component.text("Server"/*, NamedTextColor.RED*/))
-                    .descriptionComponent(Component.text(msg))
-                    .displayTime(Duration.ofSeconds(5))
-                    .build());
-        });
+        BukkitApollo.runForPlayer(p, apolloPlayer -> notificationModule.displayNotification(apolloPlayer, com.lunarclient.apollo.module.notification.Notification.builder()
+                .titleComponent(Component.text("Server"/*, NamedTextColor.RED*/))
+                .descriptionComponent(Component.text(msg))
+                .displayTime(Duration.ofSeconds(5))
+                .build()));
     }
 
     public static void Cancel(Player p) {
-        BukkitApollo.runForPlayer(p, apolloPlayer -> {
-            notificationModule.resetNotifications(apolloPlayer);
-        });
+        BukkitApollo.runForPlayer(p, apolloPlayer -> notificationModule.resetNotifications(apolloPlayer));
     }
 }

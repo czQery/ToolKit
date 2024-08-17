@@ -10,7 +10,7 @@ public record CommandBlock(String name) {
     static Main plugin = Main.getPlugin(Main.class);
     static String b = Main.colors.get("b");
     static String n = Main.colors.get("n");
-    static String h = Main.colors.get("h");
+    //static String h = Main.colors.get("h");
     static String t = Main.colors.get("t");
 
     public static List<CommandBlock> cmdlist = new ArrayList<>();

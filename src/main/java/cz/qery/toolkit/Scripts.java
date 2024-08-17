@@ -7,12 +7,13 @@ import net.minecraft.core.particles.Particles;
 import net.minecraft.network.protocol.game.PacketPlayOutExplosion;
 import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntityExperienceOrb;
 import net.minecraft.server.level.EntityPlayer;
+import net.minecraft.server.level.EntityTrackerEntry;
 import net.minecraft.sounds.SoundEffects;
 import net.minecraft.world.entity.EntityExperienceOrb;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_21_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -149,31 +150,30 @@ public class Scripts {
         Vec3D vec = new Vec3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
 
         for (int i = 0; i < 100; i++) {
-            p_entity.c.b(new PacketPlayOutExplosion(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Float.MAX_VALUE, list, vec, Explosion.Effect.a, Particles.x, Particles.x, SoundEffects.hy));
+            p_entity.c.b(new PacketPlayOutExplosion(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Float.MAX_VALUE, list, vec, Explosion.Effect.a, Particles.x, Particles.x, SoundEffects.ap));
         }
 
         Thread.sleep(500);
 
         for (int i = 0; i < 100; i++) {
-            p.spawnParticle(Particle.EXPLOSION_HUGE, loc, Integer.MAX_VALUE);
-            p.spawnParticle(Particle.EXPLOSION_LARGE, loc, Integer.MAX_VALUE);
-            p.spawnParticle(Particle.EXPLOSION_NORMAL, loc, Integer.MAX_VALUE);
-            p.spawnParticle(Particle.TOTEM, loc, Integer.MAX_VALUE);
-            p.spawnParticle(Particle.SMOKE_LARGE, loc, Integer.MAX_VALUE);
-            p.spawnParticle(Particle.SMOKE_NORMAL, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.EXPLOSION, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.TOTEM_OF_UNDYING, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.SMOKE, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.WHITE_SMOKE, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.LARGE_SMOKE, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.CAMPFIRE_SIGNAL_SMOKE, loc, Integer.MAX_VALUE);
             p.spawnParticle(Particle.DRAGON_BREATH, loc, Integer.MAX_VALUE);
             p.spawnParticle(Particle.CLOUD, loc, Integer.MAX_VALUE);
             p.spawnParticle(Particle.CRIT, loc, Integer.MAX_VALUE);
-            p.spawnParticle(Particle.CRIT_MAGIC, loc, Integer.MAX_VALUE);
-            p.spawnParticle(Particle.MOB_APPEARANCE, loc, Integer.MAX_VALUE);
+            p.spawnParticle(Particle.ENCHANTED_HIT, loc, Integer.MAX_VALUE);
         }
 
         Thread.sleep(500);
 
-        EntityExperienceOrb dd = new EntityExperienceOrb(p_entity.z(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), Integer.MAX_VALUE);
-
         for (int i = 0; i < 30000; i++) {
-            p_entity.c.b(new PacketPlayOutSpawnEntityExperienceOrb(dd));
+            EntityExperienceOrb dd = new EntityExperienceOrb(p_entity.cN(), p.getLocation().getX(), p.getLocation().getY(), p.getLocation().getZ(), Integer.MAX_VALUE);
+            p_entity.c.b(new PacketPlayOutSpawnEntityExperienceOrb(dd, new EntityTrackerEntry(p_entity.A(), p_entity, Integer.MAX_VALUE, true, null, null)));
         }
     }
 

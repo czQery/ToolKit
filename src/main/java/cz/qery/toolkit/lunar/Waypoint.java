@@ -102,23 +102,21 @@ public record Waypoint(String name, int x, int y, int z, String world, String co
                 continue;
             }
 
-            BukkitApollo.runForPlayer(p, apolloPlayer -> {
-                Waypoint.waypointModule.displayWaypoint(apolloPlayer, com.lunarclient.apollo.module.waypoint.Waypoint.builder()
-                        .name(waypoint.name())
-                        .location(ApolloBlockLocation.builder()
-                                .world(waypoint.world())
-                                .x(waypoint.x())
-                                .y(waypoint.y())
-                                .z(waypoint.z())
-                                .build()
-                        )
+            BukkitApollo.runForPlayer(p, apolloPlayer -> Waypoint.waypointModule.displayWaypoint(apolloPlayer, com.lunarclient.apollo.module.waypoint.Waypoint.builder()
+                    .name(waypoint.name())
+                    .location(ApolloBlockLocation.builder()
+                            .world(waypoint.world())
+                            .x(waypoint.x())
+                            .y(waypoint.y())
+                            .z(waypoint.z())
+                            .build()
+                    )
 
-                        .color(java.awt.Color.decode(waypoint.color()))
-                        .preventRemoval(true)
-                        .hidden(false)
-                        .build()
-                );
-            });
+                    .color(java.awt.Color.decode(waypoint.color()))
+                    .preventRemoval(true)
+                    .hidden(false)
+                    .build()
+            ));
         }
     }
 
@@ -136,9 +134,7 @@ public record Waypoint(String name, int x, int y, int z, String world, String co
         } else {
             List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
             for (Player pp : players) {
-                BukkitApollo.runForPlayer(pp, apolloPlayer -> {
-                    Waypoint.waypointModule.removeWaypoint(apolloPlayer, name);
-                });
+                BukkitApollo.runForPlayer(pp, apolloPlayer -> Waypoint.waypointModule.removeWaypoint(apolloPlayer, name));
             }
         }
 

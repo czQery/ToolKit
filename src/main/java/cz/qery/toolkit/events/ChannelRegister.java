@@ -26,7 +26,7 @@ public class ChannelRegister implements Listener {
         switch (event.getChannel().split(":")[0]) {
             case "lunar", "lunarclient" -> Scripts.addTrueClient(p, "LunarClient");
             case "feather" -> Scripts.addTrueClient(p, "FeatherClient");
-            case "fabric", "fabric-screen-handler-api", "fabric-screen-handler-api-v1" -> Scripts.addTrueClient(p, "Fabric");
+            case "fabric", "fabric-screen-handler-api", "fabric-screen-handler-api-v1", "noxesium-v2" -> Scripts.addTrueClient(p, "Fabric");
             case "fml" -> Scripts.addTrueClient(p, "Forge");
             default -> Tools.log(b + "[" + n + "SERVER" + b + "] " + h + event.getPlayer().getName() + t + " registered channel " + h + event.getChannel());
         }
