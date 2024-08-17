@@ -102,9 +102,7 @@ public class Cmdblock implements TabExecutor {
                 list.add("remove");
                 list.add("list");
             }
-            case 2 -> {
-                list.add("name");
-            }
+            case 2 -> list.add("name");
         }
 
         if (!list.isEmpty()) {

@@ -173,9 +173,7 @@ public class Lunar implements TabExecutor {
                 list.add("remove");
                 list.add("list");
             }
-            case 3 -> {
-                list.add("name");
-            }
+            case 3 -> list.add("name");
             case 4 -> {
                 list.add("#ffffff");
                 list.add("#ff0000");

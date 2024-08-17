@@ -11,9 +11,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.server.ServerListPingEvent;
 
-import java.util.Iterator;
 import java.util.Objects;
 
 public class Silent implements Listener {
@@ -74,17 +72,6 @@ public class Silent implements Listener {
     public void onItemPickup(EntityPickupItemEvent e) {
         if (e.getEntity() instanceof Player && Vnsh.Enabled((Player) e.getEntity())) {
             e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void onServerListPing(ServerListPingEvent e) {
-        Iterator<Player> iterator = e.iterator();
-        while (iterator.hasNext()) {
-            Player p = iterator.next();
-            if (Vnsh.players.get(p.getUniqueId()) != null) {
-                iterator.remove();
-            }
         }
     }
 }

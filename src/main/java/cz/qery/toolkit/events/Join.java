@@ -41,7 +41,7 @@ public class Join implements Listener {
 
         // vanish
         for (Map.Entry<UUID, String> pl : Vnsh.players.entrySet()) {
-            if (p.getUniqueId() == pl.getKey()) {
+            if (p.getUniqueId().compareTo(pl.getKey()) == 0) {
                 Vnsh.Hide(p, false);
             } else {
                 Player target = Bukkit.getServer().getPlayer(pl.getKey());
