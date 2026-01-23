@@ -6,7 +6,7 @@
 [![Releases](https://img.shields.io/badge/download-1.21.11-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-5.0.jar)
 
 >
-Optional dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Pl3xMap](https://github.com/webbukkit/dynmap)
+Optional dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Pl3xMap](https://github.com/granny/Pl3xMap)
 
 ToolKit is a lightweight plugin for Paper & Folia servers that provides a range of useful tools for server
 administrators.<br>
@@ -167,6 +167,7 @@ commandblock:
     - "?"
     - bukkit
 ```
+
 
 
 
