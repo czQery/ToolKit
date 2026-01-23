@@ -1,13 +1,8 @@
 package cz.qery.toolkit
 
-import cz.qery.toolkit.loader.CommandsBlock
-import cz.qery.toolkit.loader.Commands
 import cz.qery.toolkit.events.*
 import cz.qery.toolkit.helper.Other
-import cz.qery.toolkit.loader.Pl3xWaypoint
-import cz.qery.toolkit.loader.LunarNotification
-import cz.qery.toolkit.loader.LunarStaff
-import cz.qery.toolkit.loader.LunarWaypoint
+import cz.qery.toolkit.loader.*
 import net.pl3x.map.core.Pl3xMap
 import org.bstats.bukkit.Metrics
 import org.bukkit.Bukkit
@@ -16,6 +11,16 @@ import org.bukkit.plugin.java.JavaPlugin
 
 
 class Main : JavaPlugin() {
+
+    companion object {
+        @JvmField
+        var ApolloLoaded = false
+        @JvmField
+        var Pl3xMapLoaded = false
+        @JvmField
+        var colors: MutableMap<String?, String?> = HashMap()
+    }
+
     override fun onEnable() {
         loadConfiguration()
 
@@ -56,25 +61,35 @@ class Main : JavaPlugin() {
         // bStats
         Metrics(this, 11896)
 
-        LunarWaypoint.Load()
-        LunarStaff.Load()
-        LunarNotification.Load()
+        Waypoints.Load()
         CommandsBlock.Load()
+
+        // Lunar apollo API
+        if (server.pluginManager.getPlugin("apollo-bukkit") != null || server.pluginManager.getPlugin("apollo-folia") != null) {
+            ApolloRegister()
+            LunarWaypoints.Load()
+            LunarStaff.Load()
+            LunarNotification.Load()
+            ApolloLoaded = true
+        }
 
         // Pl3xMap
         if (server.pluginManager.getPlugin("pl3xmap") != null) {
-            Pl3xMap.api().worldRegistry.get("world")?.layerRegistry?.register("toolkit_world",
-                Pl3xWaypoint("toolkit_world")
+            Pl3xMapPlayers.Load()
+            Pl3xMap.api().worldRegistry.get("world")?.layerRegistry?.register(
+                "toolkit_world",
+                Pl3xMapWaypoints("toolkit_world")
             )
-            Pl3xMap.api().worldRegistry.get("world_nether")?.layerRegistry?.register("toolkit_world_nether",
-                Pl3xWaypoint("toolkit_world_nether")
+            Pl3xMap.api().worldRegistry.get("world_nether")?.layerRegistry?.register(
+                "toolkit_world_nether",
+                Pl3xMapWaypoints("toolkit_world_nether")
             )
-            Pl3xMap.api().worldRegistry.get("world_the_end")?.layerRegistry?.register("toolkit_world_the_end",
-                Pl3xWaypoint("toolkit_world_the_end")
+            Pl3xMap.api().worldRegistry.get("world_the_end")?.layerRegistry?.register(
+                "toolkit_world_the_end",
+                Pl3xMapWaypoints("toolkit_world_the_end")
             )
+            Pl3xMapLoaded = true
         }
-
-        ApolloRegister()
 
         Bukkit.getScheduler().runTaskAsynchronously(this, Runnable { Other.checkForUpdate() })
         Bukkit.getScheduler().runTaskTimer(this, Runnable { Other.closeSpam() }, 0, 1)
@@ -104,10 +119,5 @@ class Main : JavaPlugin() {
         }
 
         HandlerList.unregisterAll(this)
-    }
-
-    companion object {
-        @JvmField
-        var colors: MutableMap<String?, String?> = HashMap()
     }
 }

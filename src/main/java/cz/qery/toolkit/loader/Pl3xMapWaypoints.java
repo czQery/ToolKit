@@ -10,11 +10,9 @@ import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static cz.qery.toolkit.loader.LunarWaypoint.waypoints;
+public class Pl3xMapWaypoints extends SimpleLayer {
 
-public class Pl3xWaypoint extends SimpleLayer {
-
-    public Pl3xWaypoint(String key) {
+    public Pl3xMapWaypoints(String key) {
         super(key, () -> "Waypoints");
     }
 
@@ -23,7 +21,7 @@ public class Pl3xWaypoint extends SimpleLayer {
 
         Collection<Marker<?>> list = new ArrayList<>();
 
-        for (LunarWaypoint wp : waypoints) {
+        for (Waypoints wp : Waypoints.list) {
             if (!getKey().replace("toolkit_", "").equals(wp.world())) {
                 continue;
             }

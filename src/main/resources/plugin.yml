@@ -8,8 +8,8 @@ website: github.com/czQery/ToolKit
 
 softdepend:
   - ple3xmap
-depend:
-  - Apollo-Bukkit
+  - apollo-bukkit
+  - apollo-folia
 
 commands:
   toolkit:

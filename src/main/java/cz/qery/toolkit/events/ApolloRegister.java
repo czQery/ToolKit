@@ -8,7 +8,7 @@ import com.lunarclient.apollo.module.staffmod.StaffMod;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.loader.LunarNotification;
 import cz.qery.toolkit.loader.LunarStaff;
-import cz.qery.toolkit.loader.LunarWaypoint;
+import cz.qery.toolkit.loader.LunarWaypoints;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -35,7 +35,7 @@ public class ApolloRegister implements ApolloListener {
                 LunarNotification.Cancel(p);
                 LunarNotification.Send(p, "Joined in staff mode!");
             }
-            LunarWaypoint.SendOne(Bukkit.getPlayer(e.getPlayer().getUniqueId()));
+            LunarWaypoints.SendOne(Bukkit.getPlayer(e.getPlayer().getUniqueId()));
         }, 15);
     }
 }

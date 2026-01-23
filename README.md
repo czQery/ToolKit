@@ -3,10 +3,10 @@
 </div>
 
 [![Version](https://img.shields.io/badge/version-v4.7-informational.svg)](https://github.com/czQery/ToolKit/releases)
-[![Releases](https://img.shields.io/badge/download-1.21.1-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-4.7.jar)
+[![Releases](https://img.shields.io/badge/download-1.21.11-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-4.7.jar)
 
 >
-Dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Dynmap (optional)](https://github.com/webbukkit/dynmap)
+Optional dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Pl3xMap](https://github.com/webbukkit/dynmap)
 
 ToolKit is a lightweight plugin for Spigot and Paper servers that provides a range of useful tools for server
 administrators.<br>
@@ -36,13 +36,9 @@ Suitable for all servers that require basic player management tools.
 
 ---
 
-- **/lunar \<waypoint/mod> \<add/remove/list>**: Command for interacting with the Lunar client, such as creating
+- **/waypoint \<add/remove/list>**: Command for creating waypoints compatible with Lunar & Pl3xMap
   checkpoints (width dynmap support) or banning certain mods
-    - permission: `toolkit.lunar`
-    - staff: Mode enables staff modes in Lunar and allows player to bypass banned mods
-        - permission: `toolkit.lunar.staff`
-    - other:
-        - option in config to kick all non-lunar players
+    - permission: `toolkit.waypoint`
 
 ---
 
@@ -107,7 +103,8 @@ Suitable for all servers that require basic player management tools.
 - **Teleport to spawn on join**
 - **Teleport to spawn on death**
 - **Teleport to spawn using /spawn**
-- **Dynmap integration to hide players in vanish and show lunar waypoints**
+- **Pl3xMap integration to hide players in vanish and show Lunar waypoints**
+- **Block all players without Lunar client**
 
 ## Config
 
@@ -134,92 +131,6 @@ lunar:
   #kick non lunar players
   kick: false
   kick_message: "&8[&cSERVER&8]&7 This is lunar only server!"
-  #lunar waypoints
-  waypoints:
-    - Spawn:
-        color: "#ba1e0d"
-        world: world
-        x: 0
-        y: 100
-        z: 0
-        
-  #disabled lunar mods
-  disabled_mods:
-    - Replaymod
-    #- OneSevenVisuals
-    #- Fps
-    #- Cps
-    #- Sba
-    #- ToggleSneak
-    #- Zoom
-    #- HypixelMod
-    #- HypixelBedwars
-    #- Quickplay
-    #- Armorstatus
-    #- Keystrokes
-    #- Coordinates
-    #- DayCounter
-    #- Crosshair
-    #- PotionEffects
-    #- DirectionHud
-    #- Titles
-    #- Waypoints
-    #- HitColor
-    #- Scoreboard
-    #- ItemCounter
-    #- Ping
-    #- MotionBlur
-    #- PackOrganizer
-    #- Chat
-    #- Tab
-    #- Nametag
-    #- ShulkerPreview
-    #- ScrollableTooltips
-    #- UhcOverlay
-    #- ParticleChanger
-    #- NickHider
-    #- Cooldowns
-    #- WorldeditCui
-    #- Clock
-    #- Stopwatch
-    #- Playtime
-    #- Memory
-    #- Combo
-    #- ReachDisplay
-    #- TimeChanger
-    #- ServerAddress
-    #- Saturation
-    #- ColorSaturation
-    #- ItemPhysics
-    #- TntCountdown
-    #- ItemTracker
-    #- ShinyPots
-    #- 3dSkins
-    #- GlintColorizer
-    #- Momentum
-    #- BlockOutline
-    #- Screenshot
-    #- Fov
-    #- Fog
-    #- AutoTextHotkey
-    #- MumbleLink
-    #- 2dItems
-    #- Bossbar
-    #- Freelook
-    #- PvpInfo
-    #- Snaplook
-    #- TeamView
-    #- PackDisplay
-    #- MenuBlur
-    #- Minimap
-    #- Hitbox
-    #- Lighting
-    #- WeatherChanger
-    #- ChunkBorders
-    #- SoundChanger
-    #- Neu
-    #- HurtCam
-    #- DamageTint
 msg:
   sender: "&8[&cMSG&8]&7 To&6 %receiver%&8 >&7 %msg%"
   receiver: "&8[&cMSG&8]&7 From&6 %sender%&8 >&7 %msg%"

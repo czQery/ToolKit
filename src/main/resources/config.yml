@@ -27,7 +27,7 @@ commands:
   troll: true
   pinfo: true
   rp: true
-  lunar: true
+  wp: true
   cmdblock: true
   vanish: true
   msg: true

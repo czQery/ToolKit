@@ -3,7 +3,8 @@ package cz.qery.toolkit.commands;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.helper.Other;
 import cz.qery.toolkit.loader.Commands;
-import cz.qery.toolkit.loader.LunarWaypoint;
+import cz.qery.toolkit.loader.LunarWaypoints;
+import cz.qery.toolkit.loader.Waypoints;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -44,16 +45,16 @@ public class WP implements TabExecutor {
                 if (args.length < 3) {
                     p.sendMessage(Other.Tools.chat(b + "[" + n + "WP" + b + "]" + t + " Please use " + h + "/wp<add> <name> <HEX-color>"));
                 } else {
-                    for (LunarWaypoint waypoint : LunarWaypoint.waypoints) {
+                    for (Waypoints waypoint : Waypoints.list) {
                         if (waypoint.name().equals(args[1])) {
                             p.sendMessage(Other.Tools.chat(b + "[" + n + "WP" + b + "]" + t + " Waypoint with this name already exists!"));
                             return false;
                         }
                     }
                     if (args[2].contains("#") && args[2].matches("^[a-fA-F0-9#]{0,7}$")) {
-                        LunarWaypoint waypoint = new LunarWaypoint(args[1], p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getWorld().getName(), args[2]);
-                        LunarWaypoint.waypoints.add(waypoint);
-                        Bukkit.getScheduler().runTaskAsynchronously(plugin, LunarWaypoint::Update);
+                        Waypoints waypoint = new Waypoints(args[1], p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getWorld().getName(), args[2]);
+                        Waypoints.list.add(waypoint);
+                        Bukkit.getScheduler().runTaskAsynchronously(plugin, Waypoints::Update);
                         p.sendMessage(Other.Tools.chat(b + "[" + n + "WP" + b + "]" + t + " Waypoint created!"));
                     } else {
                         p.sendMessage(Other.Tools.chat(b + "[" + n + "WP" + b + "]" + t + " You must use HEX color (example: white = #FFFFFF)!"));
@@ -64,10 +65,11 @@ public class WP implements TabExecutor {
                 if (args.length < 2) {
                     p.sendMessage(Other.Tools.chat(b + "[" + n + "WP" + b + "]" + t + " Please use " + h + "/wp <remove> <name>"));
                 } else {
-                    for (LunarWaypoint waypoint : LunarWaypoint.waypoints) {
+                    for (Waypoints waypoint : Waypoints.list) {
                         if (waypoint.name().equals(args[1])) {
-                            LunarWaypoint.waypoints.remove(waypoint);
-                            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> LunarWaypoint.Remove(waypoint.name()));
+                            Waypoints.list.remove(waypoint);
+                            if (Main.ApolloLoaded)
+                                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> LunarWaypoints.Remove(waypoint.name()));
                             p.sendMessage(Other.Tools.chat(b + "[" + n + "WP" + b + "]" + t + " Waypoint removed!"));
                             return false;
                         }
@@ -76,9 +78,9 @@ public class WP implements TabExecutor {
                 }
             }
             case "list" -> {
-                if (!LunarWaypoint.waypoints.isEmpty()) {
+                if (!Waypoints.list.isEmpty()) {
                     p.sendMessage(Other.Tools.chat(b + "[" + n + "WAYPOINTS" + b + "]"));
-                    for (LunarWaypoint waypoint : LunarWaypoint.waypoints) {
+                    for (Waypoints waypoint : Waypoints.list) {
                         p.sendMessage(Other.Tools.chat(b + "- " + t + waypoint.name()));
                     }
                 } else {

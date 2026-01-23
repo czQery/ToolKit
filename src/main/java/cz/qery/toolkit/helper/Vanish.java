@@ -1,6 +1,7 @@
 package cz.qery.toolkit.helper;
 
 import cz.qery.toolkit.Main;
+import cz.qery.toolkit.loader.Pl3xMapPlayers;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -32,6 +33,7 @@ public final class Vanish {
             }
             pl.showPlayer(plugin, p);
         }
+
         p.setSleepingIgnored(false);
         if (p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR) {
             p.setAllowFlight(false);
@@ -47,6 +49,8 @@ public final class Vanish {
                 p.hidePlayer(plugin, target);
             }
         }
+
+        if (Main.Pl3xMapLoaded) Pl3xMapPlayers.Show(p.getUniqueId());
 
         p.setMetadata("vanished", new FixedMetadataValue(plugin, false));
     }
@@ -79,6 +83,8 @@ public final class Vanish {
                 p.showPlayer(plugin, target);
             }
         }
+
+        if (Main.Pl3xMapLoaded) Pl3xMapPlayers.Hide(p.getUniqueId());
 
         p.setMetadata("vanished", new FixedMetadataValue(plugin, true));
     }
