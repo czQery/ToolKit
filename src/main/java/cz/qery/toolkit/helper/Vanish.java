@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
@@ -71,9 +72,16 @@ public final class Vanish {
         }
         p.setSleepingIgnored(true);
         p.setAllowFlight(true);
+        
         for (Entity e : p.getWorld().getEntities()) {
-            if (e instanceof Creature && ((Creature) e).getTarget() != null && ((Creature) e).getTarget().getUniqueId().compareTo(p.getUniqueId()) == 0) {
-                ((Creature) e).setTarget(null);
+            if (e instanceof Creature creature) {
+                creature.getScheduler().run(plugin, (task) -> {
+                    if (!creature.isValid()) return;
+                    LivingEntity target = creature.getTarget();
+                    if (target != null && target.getUniqueId().equals(p.getUniqueId())) {
+                        creature.setTarget(null);
+                    }
+                }, null);
             }
         }
 

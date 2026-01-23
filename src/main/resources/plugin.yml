@@ -8,9 +8,9 @@ description: Set of useful tools
 website: github.com/czQery/ToolKit
 
 softdepend:
-  - ple3xmap
-  - apollo-bukkit
-  - apollo-folia
+  - Pl3xMap
+  - Apollo-Folia
+  - Apollo-Bukkit
 
 commands:
   toolkit:
