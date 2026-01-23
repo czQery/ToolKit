@@ -40,12 +40,12 @@ public class RP implements TabExecutor {
             return false;
         }
 
-
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        Bukkit.getAsyncScheduler().runNow(plugin, (task) -> {
             target.setResourcePack(args[1], "", true);
 
             target.sendMessage(Other.Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + sender.getName() + t + " has sent you" + h + " resource pack" + t + "!"));
             sender.sendMessage(Other.Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " resource pack" + t + "!"));
+
         });
         return false;
     }

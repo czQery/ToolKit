@@ -1,5 +1,5 @@
 group = "cz.qery"
-version = "4.7"
+version = "5.0"
 
 kotlin {
     jvmToolchain(21)

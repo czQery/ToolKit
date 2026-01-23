@@ -2,13 +2,13 @@
     <img src="https://github.com/czQery/ToolKit/blob/master/banner.png?raw=true" alt="Logo">
 </div>
 
-[![Version](https://img.shields.io/badge/version-v4.7-informational.svg)](https://github.com/czQery/ToolKit/releases)
-[![Releases](https://img.shields.io/badge/download-1.21.11-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-4.7.jar)
+[![Version](https://img.shields.io/badge/version-v5.0-informational.svg)](https://github.com/czQery/ToolKit/releases)
+[![Releases](https://img.shields.io/badge/download-1.21.11-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-5.0.jar)
 
 >
 Optional dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Pl3xMap](https://github.com/webbukkit/dynmap)
 
-ToolKit is a lightweight plugin for Spigot and Paper servers that provides a range of useful tools for server
+ToolKit is a lightweight plugin for Paper & Folia servers that provides a range of useful tools for server
 administrators.<br>
 Suitable for all servers that require basic player management tools.
 

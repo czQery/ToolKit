@@ -15,8 +15,10 @@ class Main : JavaPlugin() {
     companion object {
         @JvmField
         var ApolloLoaded = false
+
         @JvmField
         var Pl3xMapLoaded = false
+
         @JvmField
         var colors: MutableMap<String?, String?> = HashMap()
     }
@@ -91,8 +93,8 @@ class Main : JavaPlugin() {
             Pl3xMapLoaded = true
         }
 
-        Bukkit.getScheduler().runTaskAsynchronously(this, Runnable { Other.checkForUpdate() })
-        Bukkit.getScheduler().runTaskTimer(this, Runnable { Other.closeSpam() }, 0, 1)
+        Bukkit.getAsyncScheduler().runNow(this) { _ -> Other.checkForUpdate() }
+        Bukkit.getGlobalRegionScheduler().runAtFixedRate(this, { _ -> Other.closeSpam()}, 20, 1)
     }
 
     fun loadConfiguration() {

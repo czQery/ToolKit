@@ -166,7 +166,7 @@ public class Troll implements TabExecutor {
                     newYaw -= 360.0f;
                 }
                 targetLocation.setYaw(newYaw);
-                target.teleport(targetLocation);
+                target.teleportAsync(targetLocation);
                 sender.sendMessage(Other.Tools.chat(b + "[" + n + "TROLL" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " flip" + t + "!"));
             }
             case "thor" -> {

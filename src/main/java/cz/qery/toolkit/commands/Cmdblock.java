@@ -2,8 +2,8 @@ package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.helper.Other;
-import cz.qery.toolkit.loader.CommandsBlock;
 import cz.qery.toolkit.loader.Commands;
+import cz.qery.toolkit.loader.CommandsBlock;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -57,7 +57,7 @@ public class Cmdblock implements TabExecutor {
                         }
                         CommandsBlock cmdc = new CommandsBlock(args[1]);
                         CommandsBlock.cmdlist.add(cmdc);
-                        Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandsBlock::Update);
+                        Bukkit.getAsyncScheduler().runNow(plugin, (task) -> CommandsBlock.Update());
                         p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command added to block list!"));
                     }
                 }
@@ -68,7 +68,7 @@ public class Cmdblock implements TabExecutor {
                         for (CommandsBlock cmdb : CommandsBlock.cmdlist) {
                             if (cmdb.name().equals(args[1])) {
                                 CommandsBlock.cmdlist.remove(cmdb);
-                                Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandsBlock::Update);
+                                Bukkit.getAsyncScheduler().runNow(plugin, (task) -> CommandsBlock.Update());
                                 p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command removed!"));
                                 return false;
                             }

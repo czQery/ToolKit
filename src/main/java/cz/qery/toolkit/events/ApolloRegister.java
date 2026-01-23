@@ -14,6 +14,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Collections;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class ApolloRegister implements ApolloListener {
 
@@ -26,16 +28,17 @@ public class ApolloRegister implements ApolloListener {
     @Listen
     @SuppressWarnings("unused")
     public void onApolloRegister(ApolloRegisterPlayerEvent e) {
-        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
-            if (e.getPlayer().hasPermission("toolkit.lunar.staff")) {
-                LunarStaff.modSettingModuleStaff.enableStaffMods(e.getPlayer(), Collections.singletonList(StaffMod.XRAY));
+        Player p = plugin.getServer().getPlayer(e.getPlayer().getUniqueId());
 
-                Player p = Bukkit.getPlayer(e.getPlayer().getUniqueId());
+        Objects.requireNonNull(p).getScheduler().runDelayed(plugin, (task) -> {
+            if (p.hasPermission("toolkit.lunar.staff")) {
+                LunarStaff.modSettingModuleStaff.enableStaffMods(e.getPlayer(), Collections.singletonList(StaffMod.XRAY));
 
                 LunarNotification.Cancel(p);
                 LunarNotification.Send(p, "Joined in staff mode!");
             }
-            LunarWaypoints.SendOne(Bukkit.getPlayer(e.getPlayer().getUniqueId()));
-        }, 15);
+            LunarWaypoints.SendOne(p);
+
+        }, null, 20);
     }
 }

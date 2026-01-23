@@ -3,6 +3,7 @@ package cz.qery.toolkit.commands;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.helper.Other;
 import cz.qery.toolkit.loader.Commands;
+import cz.qery.toolkit.loader.CommandsBlock;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -42,7 +43,7 @@ public class Crash implements CommandExecutor {
             return false;
         }
 
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        Bukkit.getAsyncScheduler().runNow(plugin, (task) -> {
             try {
                 Other.crash(target);
                 sender.sendMessage(Other.Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " Player " + h + target.getName() + t + " has been crashed!"));
@@ -50,7 +51,6 @@ public class Crash implements CommandExecutor {
                 sender.sendMessage(Other.Tools.chat(b + "[" + n + "CRASH" + b + "]&c Failed to crash player " + h + target.getName()));
             }
         });
-
 
         return false;
     }

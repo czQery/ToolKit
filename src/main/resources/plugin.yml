@@ -2,6 +2,7 @@ name: ToolKit
 version: ${version}
 main: cz.qery.toolkit.Main
 api-version: '1.21'
+folia-supported: true
 authors: [ czQery ]
 description: Set of useful tools
 website: github.com/czQery/ToolKit

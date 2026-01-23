@@ -54,7 +54,7 @@ public class WP implements TabExecutor {
                     if (args[2].contains("#") && args[2].matches("^[a-fA-F0-9#]{0,7}$")) {
                         Waypoints waypoint = new Waypoints(args[1], p.getLocation().getBlockX(), p.getLocation().getBlockY(), p.getLocation().getBlockZ(), p.getWorld().getName(), args[2]);
                         Waypoints.list.add(waypoint);
-                        Bukkit.getScheduler().runTaskAsynchronously(plugin, Waypoints::Update);
+                        Bukkit.getAsyncScheduler().runNow(plugin, (task) -> Waypoints.Update());
                         p.sendMessage(Other.Tools.chat(b + "[" + n + "WP" + b + "]" + t + " Waypoint created!"));
                     } else {
                         p.sendMessage(Other.Tools.chat(b + "[" + n + "WP" + b + "]" + t + " You must use HEX color (example: white = #FFFFFF)!"));
@@ -69,7 +69,7 @@ public class WP implements TabExecutor {
                         if (waypoint.name().equals(args[1])) {
                             Waypoints.list.remove(waypoint);
                             if (Main.ApolloLoaded)
-                                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> LunarWaypoints.Remove(waypoint.name()));
+                                Bukkit.getAsyncScheduler().runNow(plugin, (task) -> LunarWaypoints.Remove(waypoint.name()));
                             p.sendMessage(Other.Tools.chat(b + "[" + n + "WP" + b + "]" + t + " Waypoint removed!"));
                             return false;
                         }

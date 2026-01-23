@@ -41,7 +41,7 @@ public class PInfo implements CommandExecutor {
         }
 
         Player finalTarget = target;
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        Bukkit.getAsyncScheduler().runNow(plugin, (task) -> {
             String name = finalTarget.getName();
             String ip = Objects.requireNonNull(finalTarget.getAddress()).getHostName();
             String client;

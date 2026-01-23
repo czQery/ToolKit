@@ -66,7 +66,7 @@ public class Other {
             if (ent.getEntityId() == p.getMetadata("sit").getFirst().asInt()) {
                 ent.remove();
 
-                p.teleport(loc.add(0, 1.7, 0));
+                p.teleportAsync(loc.add(0, 1.7, 0));
                 p.setMetadata("sit", new FixedMetadataValue(plugin, 0));
                 p.sendMessage(Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " Sit mode has been turned &cOFF" + t + "!"));
             }
@@ -228,7 +228,7 @@ public class Other {
             double y = world.getSpawnLocation().getY() + 0.5;
             double z = world.getSpawnLocation().getZ() + 0.5;
             Location location = new Location(world, x, y, z);
-            p.teleport(location);
+            p.teleportAsync(location);
             return location;
         }
         return null;
