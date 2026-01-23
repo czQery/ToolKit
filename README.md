@@ -36,7 +36,7 @@ Suitable for all servers that require basic player management tools.
 
 ---
 
-- **/WP \<add/remove/list>**: Command for creating waypoints compatible with Lunar & Pl3xMap
+- **/wp \<add/remove/list>**: Command for creating waypoints compatible with Lunar & Pl3xMap
   checkpoints (width dynmap support) or banning certain mods
     - permission: `toolkit.wp`
 
@@ -168,4 +168,5 @@ commandblock:
     - "?"
     - bukkit
 ```
+
 
