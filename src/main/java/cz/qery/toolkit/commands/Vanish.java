@@ -1,13 +1,12 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
-import cz.qery.toolkit.Vnsh;
+import cz.qery.toolkit.helper.Other;
+import cz.qery.toolkit.loader.Commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -15,7 +14,6 @@ import java.util.UUID;
 
 public class Vanish implements CommandExecutor {
 
-    Plugin plugin = Main.getPlugin(Main.class);
     String b = Main.colors.get("b");
     String n = Main.colors.get("n");
     String t = Main.colors.get("t");
@@ -24,43 +22,43 @@ public class Vanish implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         Player target;
 
-        if (!CommandHandler.hasPermission(sender, cmd)) {
+        if (!Commands.hasPermission(sender, cmd)) {
             return false;
         }
 
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("list")) {
-                if (!Vnsh.players.isEmpty()) {
-                    sender.sendMessage(Tools.chat(b + "[" + n + "VANISH" + b + "]"));
-                    for (Map.Entry<UUID, String> pl : Vnsh.players.entrySet()) {
-                        sender.sendMessage(Tools.chat(b + "- " + t + pl.getValue()));
+                if (!cz.qery.toolkit.helper.Vanish.players.isEmpty()) {
+                    sender.sendMessage(Other.Tools.chat(b + "[" + n + "VANISH" + b + "]"));
+                    for (Map.Entry<UUID, String> pl : cz.qery.toolkit.helper.Vanish.players.entrySet()) {
+                        sender.sendMessage(Other.Tools.chat(b + "- " + t + pl.getValue()));
                     }
                 } else {
-                    sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" There are no players in vanish mode"));
+                    sender.sendMessage(Other.Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " There are no players in vanish mode"));
                 }
                 return false;
             }
 
-            target = CommandHandler.getPlayer(sender, args[0]);
-            if(target == null){
-                sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+            target = Commands.getPlayer(sender, args[0]);
+            if (target == null) {
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                 return false;
             }
         } else {
             if ((sender instanceof Player)) {
                 target = (Player) sender;
             } else {
-                sender.sendMessage(Tools.chat(b+"["+n+"VANISH"+b+"]"+t+" Please use "+h+"/vanish <player/list>"));
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " Please use " + h + "/vanish <player/list>"));
                 return false;
             }
         }
 
 
         // turn on/off logic
-        if (!Vnsh.Enabled(target)) {
-            Vnsh.Hide(target, true);
+        if (!cz.qery.toolkit.helper.Vanish.Enabled(target)) {
+            cz.qery.toolkit.helper.Vanish.Hide(target, true);
         } else {
-            Vnsh.Show(target, true);
+            cz.qery.toolkit.helper.Vanish.Show(target, true);
         }
 
         return false;

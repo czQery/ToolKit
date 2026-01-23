@@ -1,7 +1,7 @@
 package cz.qery.toolkit.events;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.helper.Other;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
@@ -14,6 +14,7 @@ import java.util.Arrays;
 public class ChannelListener implements PluginMessageListener {
 
     static Plugin plugin = Main.getPlugin(Main.class);
+
     public void onPluginMessageReceived(@NotNull String channel, @NotNull Player p, byte[] data) {
         String b = Main.colors.get("b");
         String n = Main.colors.get("n");
@@ -27,10 +28,10 @@ public class ChannelListener implements PluginMessageListener {
         if ("minecraft:brand".equals(channel)) {
             if (!msg.toLowerCase().contains("vanilla") && !msg.toLowerCase().contains("lunarclient") && !msg.toLowerCase().contains("fabric") && !msg.toLowerCase().contains("feather") && !msg.toLowerCase().contains("forge")) {
                 p.setMetadata("client", new FixedMetadataValue(plugin, msg));
-                Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+" client "+h+msg);
+                Other.Tools.log(b + "[" + n + "SERVER" + b + "] " + h + p.getName() + t + " client " + h + msg);
             }
         } else {
-            Tools.log(b+"["+n+"SERVER"+b+"] "+h+p.getName()+t+ " sent "+h+channel+" "+t+msg);
+            Other.Tools.log(b + "[" + n + "SERVER" + b + "] " + h + p.getName() + t + " sent " + h + channel + " " + t + msg);
         }
     }
 }

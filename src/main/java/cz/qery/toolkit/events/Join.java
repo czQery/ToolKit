@@ -1,9 +1,8 @@
 package cz.qery.toolkit.events;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Scripts;
-import cz.qery.toolkit.Tools;
-import cz.qery.toolkit.Vnsh;
+import cz.qery.toolkit.helper.Other;
+import cz.qery.toolkit.helper.Vanish;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -30,24 +29,24 @@ public class Join implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         if (plugin.getConfig().getBoolean("spawn.join")) {
-            Scripts.spawnTeleport(p);
+            Other.spawnTeleport(p);
         }
 
-        if (plugin.getConfig().getBoolean("join.alert") && !Vnsh.Enabled(p)) {
-            e.joinMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%", p.getName())));
+        if (plugin.getConfig().getBoolean("join.alert") && !Vanish.Enabled(p)) {
+            e.joinMessage(Component.text(Other.Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%", p.getName())));
         } else {
             e.joinMessage(null);
         }
 
         // vanish
-        for (Map.Entry<UUID, String> pl : Vnsh.players.entrySet()) {
+        for (Map.Entry<UUID, String> pl : Vanish.players.entrySet()) {
             if (p.getUniqueId().compareTo(pl.getKey()) == 0) {
-                Vnsh.Hide(p, false);
+                Vanish.Hide(p, false);
             } else {
                 Player target = Bukkit.getServer().getPlayer(pl.getKey());
                 if (target != null) {
                     if (p.hasPermission("toolkit.vanish")) {
-                        p.sendMessage(Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " Player " + h + target.getName() + t + " has &aentered" + t + " vanish mode!"));
+                        p.sendMessage(Other.Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " Player " + h + target.getName() + t + " has &aentered" + t + " vanish mode!"));
                     }
                     p.hidePlayer(plugin, target);
                 }

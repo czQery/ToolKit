@@ -1,7 +1,8 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.helper.Other;
+import cz.qery.toolkit.loader.Commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -24,18 +25,18 @@ public class RP implements TabExecutor {
 
         Player target;
 
-        if (!CommandHandler.hasPermission(sender, cmd)) {
+        if (!Commands.hasPermission(sender, cmd)) {
             return false;
         }
 
         if (args.length > 1) {
-            target = CommandHandler.getPlayer(sender, args[0]);
-            if(target == null){
-                sender.sendMessage(Tools.chat(b+"["+n+"RP"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+            target = Commands.getPlayer(sender, args[0]);
+            if (target == null) {
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                 return false;
             }
         } else {
-            sender.sendMessage(Tools.chat(b+"["+n+"RP"+b+"]"+t+" Please use "+h+"/rp <player> <url>"));
+            sender.sendMessage(Other.Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Please use " + h + "/rp <player> <url>"));
             return false;
         }
 
@@ -43,8 +44,8 @@ public class RP implements TabExecutor {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             target.setResourcePack(args[1], "", true);
 
-            target.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + sender.getName() + t + " has sent you" + h + " resource pack" + t + "!"));
-            sender.sendMessage(Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " resource pack" + t + "!"));
+            target.sendMessage(Other.Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + sender.getName() + t + " has sent you" + h + " resource pack" + t + "!"));
+            sender.sendMessage(Other.Tools.chat(b + "[" + n + "RP" + b + "]" + t + " Player " + h + target.getName() + t + " has been set" + h + " resource pack" + t + "!"));
         });
         return false;
     }
@@ -54,7 +55,7 @@ public class RP implements TabExecutor {
         List<String> list = new ArrayList<>();
 
         switch (args.length) {
-            case 1 -> list = CommandHandler.getPlayerList();
+            case 1 -> list = Commands.getPlayerList();
             case 2 -> list.add("url");
         }
 

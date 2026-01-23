@@ -1,8 +1,8 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Scripts;
-import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.helper.Other;
+import cz.qery.toolkit.loader.Commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,32 +22,32 @@ public class Crash implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         Player target;
 
-        if (!CommandHandler.hasPermission(sender, cmd)) {
+        if (!Commands.hasPermission(sender, cmd)) {
             return false;
         }
 
         if (args.length > 0) {
-            target = CommandHandler.getPlayer(sender, args[0]);
+            target = Commands.getPlayer(sender, args[0]);
             if (target == null) {
-                sender.sendMessage(Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                 return false;
             }
         } else {
-            sender.sendMessage(Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " Please use " + h + "/crash <player>"));
+            sender.sendMessage(Other.Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " Please use " + h + "/crash <player>"));
             return false;
         }
 
-        if (CommandHandler.hasPermissionBypass(target, cmd)) {
-            sender.sendMessage(Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " You cannot crash this player!"));
+        if (Commands.hasPermissionBypass(target, cmd)) {
+            sender.sendMessage(Other.Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " You cannot crash this player!"));
             return false;
         }
 
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
-                Scripts.crash(target);
-                sender.sendMessage(Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " Player " + h + target.getName() + t + " has been crashed!"));
+                Other.crash(target);
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "CRASH" + b + "]" + t + " Player " + h + target.getName() + t + " has been crashed!"));
             } catch (InterruptedException e) {
-                sender.sendMessage(Tools.chat(b + "[" + n + "CRASH" + b + "]&c Failed to crash player " + h + target.getName()));
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "CRASH" + b + "]&c Failed to crash player " + h + target.getName()));
             }
         });
 

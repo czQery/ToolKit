@@ -1,8 +1,9 @@
-package cz.qery.toolkit.commands;
+package cz.qery.toolkit.loader;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
-import cz.qery.toolkit.Vnsh;
+import cz.qery.toolkit.helper.Other;
+import cz.qery.toolkit.helper.Vanish;
+import cz.qery.toolkit.commands.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,10 +14,9 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.*;
 
-public class CommandHandler {
-    static Plugin plugin = Main.getPlugin(Main.class);
-
+public class Commands {
     public static final Map<String, CommandExecutor> commands = new HashMap<>();
+    static Plugin plugin = Main.getPlugin(Main.class);
 
     static {
         commands.put("toolkit", new ToolKit());
@@ -27,9 +27,9 @@ public class CommandHandler {
         commands.put("troll", new Troll());
         commands.put("pinfo", new PInfo());
         commands.put("rp", new RP());
-        commands.put("lunar", new Lunar());
+        commands.put("wp", new WP());
         commands.put("cmdblock", new Cmdblock());
-        commands.put("vanish", new Vanish());
+        commands.put("vanish", new cz.qery.toolkit.commands.Vanish());
         commands.put("msg", new Msg());
 
         //Aliases
@@ -82,7 +82,7 @@ public class CommandHandler {
 
         if ((sender instanceof Player) && !sender.hasPermission(cmd.getPermission() + prefix)) {
             if (!prefix.equals(".bypass")) {
-                sender.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+                sender.sendMessage(Other.Tools.chat(plugin.getConfig().getString("commandblock.message")));
             }
             return false;
         }
@@ -108,7 +108,7 @@ public class CommandHandler {
             return null;
         }
 
-        if (Vnsh.players.get(target.getUniqueId()) != null && !sender.hasPermission("toolkit.vanish")) {
+        if (Vanish.players.get(target.getUniqueId()) != null && !sender.hasPermission("toolkit.vanish")) {
             return null;
         }
 
@@ -122,7 +122,7 @@ public class CommandHandler {
         List<String> list = new ArrayList<>();
 
         for (Player pl : players) {
-            if (Vnsh.players.get(pl.getUniqueId()) == null) {
+            if (Vanish.players.get(pl.getUniqueId()) == null) {
                 list.add(pl.getName());
             }
         }

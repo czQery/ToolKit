@@ -1,5 +1,6 @@
-package cz.qery.toolkit;
+package cz.qery.toolkit.helper;
 
+import cz.qery.toolkit.Main;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -12,19 +13,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public final class Vnsh {
+public final class Vanish {
+    public static HashMap<UUID, String> players = new HashMap<>();
     static Main plugin = Main.getPlugin(Main.class);
     static String b = Main.colors.get("b");
     static String n = Main.colors.get("n");
     static String h = Main.colors.get("h");
     static String t = Main.colors.get("t");
 
-    public static HashMap<UUID, String> players = new HashMap<>();
-
     public static void Show(Player p, boolean init) {
         for (Player pl : plugin.getServer().getOnlinePlayers()) {
             if (pl == p || pl.hasPermission("toolkit.vanish") || Enabled(pl)) {
-                pl.sendMessage(Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " Player " + h + p.getName() + t + " has &cexited" + t + " vanish mode!"));
+                pl.sendMessage(Other.Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " Player " + h + p.getName() + t + " has &cexited" + t + " vanish mode!"));
 
             }
             if (pl == p || Enabled(pl)) {
@@ -37,12 +37,8 @@ public final class Vnsh {
             p.setAllowFlight(false);
         }
         if (init) {
-            Vnsh.players.remove(p.getUniqueId());
-            plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%", p.getName())));
-
-            if (Tools.DynApi != null) {
-                Tools.DynApi.setPlayerVisiblity(p.getName(), true);
-            }
+            Vanish.players.remove(p.getUniqueId());
+            plugin.getServer().sendMessage(Component.text(Other.Tools.chat(plugin.getConfig().getString("join.message")).replace("%player%", p.getName())));
         }
 
         for (Map.Entry<UUID, String> pl : players.entrySet()) {
@@ -58,7 +54,7 @@ public final class Vnsh {
     public static void Hide(Player p, boolean init) {
         for (Player pl : plugin.getServer().getOnlinePlayers()) {
             if (pl == p || pl.hasPermission("toolkit.vanish") || Enabled(pl)) {
-                pl.sendMessage(Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " Player " + h + p.getName() + t + " has &aentered" + t + " vanish mode!"));
+                pl.sendMessage(Other.Tools.chat(b + "[" + n + "VANISH" + b + "]" + t + " Player " + h + p.getName() + t + " has &aentered" + t + " vanish mode!"));
             }
             if (pl == p || Enabled(pl)) {
                 continue;
@@ -66,12 +62,8 @@ public final class Vnsh {
             pl.hidePlayer(plugin, p);
         }
         if (init) {
-            Vnsh.players.put(p.getUniqueId(), p.getName());
-            plugin.getServer().sendMessage(Component.text(Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%", p.getName())));
-
-            if (Tools.DynApi != null) {
-                Tools.DynApi.setPlayerVisiblity(p.getName(), false);
-            }
+            Vanish.players.put(p.getUniqueId(), p.getName());
+            plugin.getServer().sendMessage(Component.text(Other.Tools.chat(plugin.getConfig().getString("leave.message")).replace("%player%", p.getName())));
         }
         p.setSleepingIgnored(true);
         p.setAllowFlight(true);

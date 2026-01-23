@@ -1,8 +1,7 @@
 package cz.qery.toolkit.events;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Scripts;
-import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.helper.Other;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,11 +23,13 @@ public class ChannelRegister implements Listener {
         String t = Main.colors.get("t");
 
         switch (event.getChannel().split(":")[0]) {
-            case "lunar", "lunarclient" -> Scripts.addTrueClient(p, "LunarClient");
-            case "feather" -> Scripts.addTrueClient(p, "FeatherClient");
-            case "fabric", "fabric-screen-handler-api", "fabric-screen-handler-api-v1", "noxesium-v2" -> Scripts.addTrueClient(p, "Fabric");
-            case "fml" -> Scripts.addTrueClient(p, "Forge");
-            default -> Tools.log(b + "[" + n + "SERVER" + b + "] " + h + event.getPlayer().getName() + t + " registered channel " + h + event.getChannel());
+            case "apollo", "lunar", "lunarclient" -> Other.addTrueClient(p, "LunarClient");
+            case "feather" -> Other.addTrueClient(p, "FeatherClient");
+            case "fabric", "fabric-screen-handler-api", "fabric-screen-handler-api-v1", "noxesium-v2" ->
+                    Other.addTrueClient(p, "Fabric");
+            case "fml" -> Other.addTrueClient(p, "Forge");
+            default ->
+                    Other.Tools.log(b + "[" + n + "SERVER" + b + "] " + h + event.getPlayer().getName() + t + " registered channel " + h + event.getChannel());
         }
     }
 }

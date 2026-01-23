@@ -1,7 +1,9 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.helper.Other;
+import cz.qery.toolkit.loader.CommandsBlock;
+import cz.qery.toolkit.loader.Commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,8 +27,8 @@ public class Cmdblock implements TabExecutor {
         CommandSender p;
 
         if ((sender instanceof Player)) {
-            p = (Player) sender;
-            if (!CommandHandler.hasPermission(sender, cmd)) {
+            p = sender;
+            if (!Commands.hasPermission(sender, cmd)) {
                 return false;
             }
         } else {
@@ -34,58 +36,58 @@ public class Cmdblock implements TabExecutor {
         }
 
         if (args.length < 1) {
-            p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock <tool>"));
+            p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock <tool>"));
         } else {
             switch (args[0].toLowerCase()) {
                 case "help" -> {
-                    p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]"));
-                    p.sendMessage(Tools.chat(b + "- " + t + "add"));
-                    p.sendMessage(Tools.chat(b + "- " + t + "remove"));
-                    p.sendMessage(Tools.chat(b + "- " + t + "list"));
+                    p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]"));
+                    p.sendMessage(Other.Tools.chat(b + "- " + t + "add"));
+                    p.sendMessage(Other.Tools.chat(b + "- " + t + "remove"));
+                    p.sendMessage(Other.Tools.chat(b + "- " + t + "list"));
                 }
                 case "add" -> {
                     if (args.length < 2) {
-                        p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock add <cmd>"));
+                        p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock add <cmd>"));
                     } else {
-                        for (CommandBlock cmdb : CommandBlock.cmdlist) {
+                        for (CommandsBlock cmdb : CommandsBlock.cmdlist) {
                             if (cmdb.name().equals(args[1])) {
-                                p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command is already blocked!"));
+                                p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command is already blocked!"));
                                 return false;
                             }
                         }
-                        CommandBlock cmdc = new CommandBlock(args[1]);
-                        CommandBlock.cmdlist.add(cmdc);
-                        Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandBlock::Update);
-                        p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command added to block list!"));
+                        CommandsBlock cmdc = new CommandsBlock(args[1]);
+                        CommandsBlock.cmdlist.add(cmdc);
+                        Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandsBlock::Update);
+                        p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command added to block list!"));
                     }
                 }
                 case "remove" -> {
                     if (args.length < 2) {
-                        p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock remove <cmd>"));
+                        p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock remove <cmd>"));
                     } else {
-                        for (CommandBlock cmdb : CommandBlock.cmdlist) {
+                        for (CommandsBlock cmdb : CommandsBlock.cmdlist) {
                             if (cmdb.name().equals(args[1])) {
-                                CommandBlock.cmdlist.remove(cmdb);
-                                Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandBlock::Update);
-                                p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command removed!"));
+                                CommandsBlock.cmdlist.remove(cmdb);
+                                Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandsBlock::Update);
+                                p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command removed!"));
                                 return false;
                             }
                         }
-                        p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command with this name does not exists!"));
+                        p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Command with this name does not exists!"));
                     }
                 }
                 case "list" -> {
-                    if (!CommandBlock.cmdlist.isEmpty()) {
-                        p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]"));
-                        for (CommandBlock cmdb : CommandBlock.cmdlist) {
-                            p.sendMessage(Tools.chat(b + "- " + t + cmdb.name()));
+                    if (!CommandsBlock.cmdlist.isEmpty()) {
+                        p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]"));
+                        for (CommandsBlock cmdb : CommandsBlock.cmdlist) {
+                            p.sendMessage(Other.Tools.chat(b + "- " + t + cmdb.name()));
                         }
                     } else {
-                        sender.sendMessage(Tools.chat(b+"["+n+"CMDBLOCK"+b+"]"+t+" There are no blocked commands!"));
+                        sender.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " There are no blocked commands!"));
                     }
                 }
                 default ->
-                        p.sendMessage(Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock <tool>"));
+                        p.sendMessage(Other.Tools.chat(b + "[" + n + "CMDBLOCK" + b + "]" + t + " Please use " + h + "/cmdblock <tool>"));
             }
         }
 

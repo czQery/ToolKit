@@ -6,10 +6,9 @@ import com.lunarclient.apollo.event.Listen;
 import com.lunarclient.apollo.event.player.ApolloRegisterPlayerEvent;
 import com.lunarclient.apollo.module.staffmod.StaffMod;
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.lunar.Mod;
-import cz.qery.toolkit.lunar.Notification;
-import cz.qery.toolkit.lunar.Staff;
-import cz.qery.toolkit.lunar.Waypoint;
+import cz.qery.toolkit.loader.LunarNotification;
+import cz.qery.toolkit.loader.LunarStaff;
+import cz.qery.toolkit.loader.LunarWaypoint;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -29,15 +28,14 @@ public class ApolloRegister implements ApolloListener {
     public void onApolloRegister(ApolloRegisterPlayerEvent e) {
         Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
             if (e.getPlayer().hasPermission("toolkit.lunar.staff")) {
-                Staff.modSettingModuleStaff.enableStaffMods(e.getPlayer(), Collections.singletonList(StaffMod.XRAY));
+                LunarStaff.modSettingModuleStaff.enableStaffMods(e.getPlayer(), Collections.singletonList(StaffMod.XRAY));
 
                 Player p = Bukkit.getPlayer(e.getPlayer().getUniqueId());
 
-                Mod.Bypass(p);
-                Notification.Cancel(p);
-                Notification.Send(p, "Joined in staff mode!");
+                LunarNotification.Cancel(p);
+                LunarNotification.Send(p, "Joined in staff mode!");
             }
-            Waypoint.SendOne(Bukkit.getPlayer(e.getPlayer().getUniqueId()));
+            LunarWaypoint.SendOne(Bukkit.getPlayer(e.getPlayer().getUniqueId()));
         }, 15);
     }
 }

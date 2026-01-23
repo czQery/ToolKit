@@ -12,13 +12,14 @@ public class Interact implements Listener {
     public Interact(Main plugin) {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
+
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
 
         //FREEZE
         if (!p.getMetadata("freeze").toString().equals("[]")) {
-            if (p.getMetadata("freeze").get(0).asBoolean()) {
+            if (p.getMetadata("freeze").getFirst().asBoolean()) {
                 e.setCancelled(true);
             }
         }

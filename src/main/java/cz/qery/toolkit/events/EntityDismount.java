@@ -1,7 +1,7 @@
 package cz.qery.toolkit.events;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Scripts;
+import cz.qery.toolkit.helper.Other;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -24,8 +24,8 @@ public class EntityDismount implements Listener {
         Entity en = e.getDismounted();
 
         if (en.getType() == EntityType.ARMOR_STAND && p.getType() == EntityType.PLAYER) {
-            if (!Objects.equals(p.getMetadata("sit").toString(), "[]") && p.getMetadata("sit").get(0).asInt() != 0) {
-                Scripts.sCheck((Player) p);
+            if (!Objects.equals(p.getMetadata("sit").toString(), "[]") && p.getMetadata("sit").getFirst().asInt() != 0) {
+                Other.sCheck((Player) p);
             }
         }
     }

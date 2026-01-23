@@ -1,7 +1,8 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.helper.Other;
+import cz.qery.toolkit.loader.Commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,18 +23,18 @@ public class Msg implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         Player target;
 
-        if (!CommandHandler.hasPermission(sender, cmd)) {
+        if (!Commands.hasPermission(sender, cmd)) {
             return false;
         }
 
         if (args.length > 1) {
-            target = CommandHandler.getPlayer(sender, args[0]);
+            target = Commands.getPlayer(sender, args[0]);
             if (target == null) {
-                sender.sendMessage(Tools.chat(b + "[" + n + "MSG" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "MSG" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                 return false;
             }
         } else {
-            sender.sendMessage(Tools.chat(b + "[" + n + "MSG" + b + "]" + t + " Please use " + h + "/msg <player> <message>"));
+            sender.sendMessage(Other.Tools.chat(b + "[" + n + "MSG" + b + "]" + t + " Please use " + h + "/msg <player> <message>"));
             return false;
         }
 
@@ -52,8 +53,8 @@ public class Msg implements CommandExecutor {
         chatReceiver = chatReceiver.replace("%receiver%", target.getName());
         chatReceiver = chatReceiver.replace("%msg%", text);
 
-        sender.sendMessage(Tools.chat(chatSender));
-        target.sendMessage(Tools.chat(chatReceiver));
+        sender.sendMessage(Other.Tools.chat(chatSender));
+        target.sendMessage(Other.Tools.chat(chatReceiver));
 
         return false;
     }

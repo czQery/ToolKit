@@ -1,7 +1,8 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.helper.Other;
+import cz.qery.toolkit.loader.Commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,18 +25,18 @@ public class PInfo implements CommandExecutor {
 
         Player target;
 
-        if (!CommandHandler.hasPermission(sender, cmd)) {
+        if (!Commands.hasPermission(sender, cmd)) {
             return false;
         }
 
         if (args.length > 0) {
-            target = CommandHandler.getPlayer(sender, args[0]);
-            if(target == null){
-                sender.sendMessage(Tools.chat(b+"["+n+"PINFO"+b+"]"+t+" Player "+h+args[0]+t+" is not online!"));
+            target = Commands.getPlayer(sender, args[0]);
+            if (target == null) {
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "PINFO" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                 return false;
             }
         } else {
-            sender.sendMessage(Tools.chat(b+"["+n+"PINFO"+b+"]"+t+" Please use "+h+"/pinfo <player>"));
+            sender.sendMessage(Other.Tools.chat(b + "[" + n + "PINFO" + b + "]" + t + " Please use " + h + "/pinfo <player>"));
             return false;
         }
 
@@ -47,22 +48,22 @@ public class PInfo implements CommandExecutor {
             String trueclient = null;
 
             if (!Objects.equals(finalTarget.getMetadata("client").toString(), "[]")) {
-                client = finalTarget.getMetadata("client").get(0).asString();
+                client = finalTarget.getMetadata("client").getFirst().asString();
             } else {
                 client = "Vanilla";
             }
 
             if (!Objects.equals(finalTarget.getMetadata("trueclient").toString(), "[]")) {
-                trueclient = finalTarget.getMetadata("trueclient").get(0).asString();
+                trueclient = finalTarget.getMetadata("trueclient").getFirst().asString();
             }
 
-            sender.sendMessage(Tools.chat(b+"["+n+"PlayerInfo"+b+"]"));
-            sender.sendMessage(Tools.chat(b+"- "+t+"Username "+h+name));
-            sender.sendMessage(Tools.chat(b+"- "+t+"Ip "+h+ip));
+            sender.sendMessage(Other.Tools.chat(b + "[" + n + "PlayerInfo" + b + "]"));
+            sender.sendMessage(Other.Tools.chat(b + "- " + t + "Username " + h + name));
+            sender.sendMessage(Other.Tools.chat(b + "- " + t + "Ip " + h + ip));
             if (trueclient != null) {
-                sender.sendMessage(Tools.chat(b+"- "+t+"Client "+h+client+" ("+trueclient+")"));
+                sender.sendMessage(Other.Tools.chat(b + "- " + t + "Client " + h + client + " (" + trueclient + ")"));
             } else {
-                sender.sendMessage(Tools.chat(b+"- "+t+"Client "+h+client));
+                sender.sendMessage(Other.Tools.chat(b + "- " + t + "Client " + h + client));
             }
         });
 

@@ -1,7 +1,7 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.helper.Other;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -26,16 +26,16 @@ public class ToolKit implements CommandExecutor {
         String version = Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("ToolKit")).getDescription().getVersion();
 
         final @NotNull TextComponent link = Component.text()
-                .content(Tools.chat(b + "- " + t + "GitHub " + h + "https://github.com/czQery/ToolKit"))
+                .content(Other.Tools.chat(b + "- " + t + "GitHub " + h + "https://github.com/czQery/ToolKit"))
                 .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/czQery/ToolKit"))
                 .hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, Component.text("open")))
                 .build();
 
-        sender.sendMessage(Tools.chat(b + "[" + n + "ToolKit" + b + "]"));
-        sender.sendMessage(Tools.chat(b + "- " + t + "Set of useful tools"));
-        sender.sendMessage(Tools.chat(b + "- " + t + "Version " + h + version));
+        sender.sendMessage(Other.Tools.chat(b + "[" + n + "ToolKit" + b + "]"));
+        sender.sendMessage(Other.Tools.chat(b + "- " + t + "Set of useful tools"));
+        sender.sendMessage(Other.Tools.chat(b + "- " + t + "Version " + h + version));
         sender.sendMessage(link);
-        sender.sendMessage(Tools.chat(b + "- " + t + "Made by " + h + "czQery"));
+        sender.sendMessage(Other.Tools.chat(b + "- " + t + "Made by " + h + "czQery"));
         return false;
     }
 }

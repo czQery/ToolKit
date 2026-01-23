@@ -1,5 +1,5 @@
 name: ToolKit
-version: ${project.version}
+version: ${version}
 main: cz.qery.toolkit.Main
 api-version: '1.21'
 authors: [ czQery ]
@@ -7,7 +7,7 @@ description: Set of useful tools
 website: github.com/czQery/ToolKit
 
 softdepend:
-  - dynmap
+  - ple3xmap
 depend:
   - Apollo-Bukkit
 
@@ -35,9 +35,9 @@ commands:
   rp:
     description: Set player resource pack
     permission: toolkit.rp
-  lunar:
-    description: LunarClient tools
-    permission: toolkit.lunar
+  wp:
+    description: Global lunar waypoints
+    permission: toolkit.wp
   cmdblock:
     description: Tool for blocking specific commands
     permission: toolkit.commandblock
@@ -47,7 +47,7 @@ commands:
   msg:
     description: Send private message to player
     permission: toolkit.msg
-    aliases: [tell, w]
+    aliases: [ tell, w ]
   # Aliases
   gmc:
     description: Switch to CREATIVE mode
@@ -99,8 +99,8 @@ permissions:
     description: Pinfo command
   toolkit.rp:
     description: Rp command
-  toolkit.lunar:
-    description: Lunar command
+  toolkit.wp:
+    description: Waypoint command
   toolkit.commandblock:
     description: Cmdblock command
   toolkit.commandblock.bypass:
@@ -108,7 +108,7 @@ permissions:
   toolkit.vanish:
     description: Vanish command
   toolkit.msg:
-      description: Msg command
+    description: Msg command
   # Aliases
   toolkit.gmc:
     description: Gmc command
@@ -141,7 +141,7 @@ permissions:
   toolkit.ic:
     description: Clear command
   toolkit.ic.other:
-    description: CLear command
+    description: Clear command
   # Other
   toolkit.lunar.staff:
     description: Lunar staff mods

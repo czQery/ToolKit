@@ -1,8 +1,8 @@
 package cz.qery.toolkit.events;
 
-import cz.qery.toolkit.commands.CommandBlock;
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.helper.Other;
+import cz.qery.toolkit.loader.CommandsBlock;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,10 +21,10 @@ public class Command implements Listener {
     public void onCommand(PlayerCommandPreprocessEvent e) {
         Player p = e.getPlayer();
         if (!p.hasPermission("toolkit.commandblock.bypass")) {
-            for (CommandBlock cmdb : CommandBlock.cmdlist) {
-                if (e.getMessage().toLowerCase().startsWith("/"+cmdb.name())) {
+            for (CommandsBlock cmdb : CommandsBlock.cmdlist) {
+                if (e.getMessage().toLowerCase().startsWith("/" + cmdb.name())) {
                     e.setCancelled(true);
-                    e.getPlayer().sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+                    e.getPlayer().sendMessage(Other.Tools.chat(plugin.getConfig().getString("commandblock.message")));
                 }
             }
         }

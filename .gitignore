@@ -6,3 +6,7 @@ target
 .vscode
 .idea
 .apt_generated_tests
+.gradle
+gradle
+gradlew*
+build

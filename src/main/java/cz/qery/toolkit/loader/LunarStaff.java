@@ -1,19 +1,18 @@
-package cz.qery.toolkit.lunar;
+package cz.qery.toolkit.loader;
 
 import com.lunarclient.apollo.Apollo;
 import com.lunarclient.apollo.module.staffmod.StaffModModule;
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.helper.Other;
 
-public class Staff {
-    
+public class LunarStaff {
+
+    public static StaffModModule modSettingModuleStaff;
     static String b = Main.colors.get("b");
     static String n = Main.colors.get("n");
 
-    public static StaffModModule modSettingModuleStaff;
-
     public static void Load() {
         modSettingModuleStaff = Apollo.getModuleManager().getModule(StaffModModule.class);
-        Tools.log(b + "[" + n + "ToolKit" + b + "] &aApolloAPI staff loaded!");
+        Other.Tools.log(b + "[" + n + "ToolKit" + b + "] &aApolloAPI staff loaded!");
     }
 }

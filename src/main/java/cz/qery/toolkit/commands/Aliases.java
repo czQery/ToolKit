@@ -1,9 +1,9 @@
 package cz.qery.toolkit.commands;
 
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Scripts;
-import cz.qery.toolkit.Tools;
-import cz.qery.toolkit.Vnsh;
+import cz.qery.toolkit.helper.Other;
+import cz.qery.toolkit.helper.Vanish;
+import cz.qery.toolkit.loader.Commands;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -27,28 +27,28 @@ public class Aliases implements CommandExecutor {
 
         if (!(sender instanceof Player p)) {
             if (args.length > 0) {
-                target = CommandHandler.getPlayer(sender, args[0]);
+                target = Commands.getPlayer(sender, args[0]);
                 if (target == null) {
-                    sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
+                    sender.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                     return false;
                 }
             } else {
-                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Please use " + h + "/" + cmd.getName().toLowerCase() + " <player>"));
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Please use " + h + "/" + cmd.getName().toLowerCase() + " <player>"));
                 return false;
             }
         } else {
             if (!p.hasPermission("toolkit." + cmd.getName().toLowerCase())) {
-                p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+                p.sendMessage(Other.Tools.chat(plugin.getConfig().getString("commandblock.message")));
                 return false;
             } else {
                 if (args.length > 0) {
                     if (!p.hasPermission("toolkit." + cmd.getName().toLowerCase() + ".other")) {
-                        p.sendMessage(Tools.chat(plugin.getConfig().getString("commandblock.message")));
+                        p.sendMessage(Other.Tools.chat(plugin.getConfig().getString("commandblock.message")));
                         return false;
                     } else {
-                        target = CommandHandler.getPlayer(sender, args[0]);
+                        target = Commands.getPlayer(sender, args[0]);
                         if (target == null) {
-                            p.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
+                            p.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Player " + h + args[0] + t + " is not online!"));
                             return false;
                         }
                     }
@@ -61,37 +61,37 @@ public class Aliases implements CommandExecutor {
         switch (cmd.getName().toLowerCase()) {
             case "gmc" -> {
                 target.setGameMode(GameMode.CREATIVE);
-                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "CREATIVE"));
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "CREATIVE"));
             }
             case "gms" -> {
                 target.setGameMode(GameMode.SURVIVAL);
-                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SURVIVAL"));
-                if (Vnsh.Enabled(target)) {
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SURVIVAL"));
+                if (Vanish.Enabled(target)) {
                     target.setAllowFlight(true);
                 }
             }
             case "gma" -> {
                 target.setGameMode(GameMode.ADVENTURE);
-                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "ADVENTURE"));
-                if (Vnsh.Enabled(target)) {
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "ADVENTURE"));
+                if (Vanish.Enabled(target)) {
                     target.setAllowFlight(true);
                 }
             }
             case "gmsp" -> {
                 target.setGameMode(GameMode.SPECTATOR);
-                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SPECTATOR"));
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Switched to " + h + "SPECTATOR"));
             }
             case "spawn" -> {
-                Scripts.spawnTeleport(target);
-                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Teleported to " + h + "SPAWN"));
+                Other.spawnTeleport(target);
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Teleported to " + h + "SPAWN"));
             }
             case "fly" -> {
                 if (target.getAllowFlight()) {
                     target.setAllowFlight(false);
-                    sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Fly mode has been turned &cOFF" + t + "!"));
+                    sender.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Fly mode has been turned &cOFF" + t + "!"));
                 } else {
                     target.setAllowFlight(true);
-                    sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Fly mode has been turned &aON" + t + "!"));
+                    sender.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Fly mode has been turned &aON" + t + "!"));
                 }
             }
             case "wc" -> {
@@ -99,11 +99,11 @@ public class Aliases implements CommandExecutor {
                 target.getWorld().setThundering(false);
                 target.getWorld().setClearWeatherDuration(300);
                 target.getWorld().setTime(1000);
-                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Weather cleared!"));
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Weather cleared!"));
             }
             case "ic" -> {
                 target.getInventory().setContents(new ItemStack[]{});
-                sender.sendMessage(Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Inventory cleared!"));
+                sender.sendMessage(Other.Tools.chat(b + "[" + n + "SERVER" + b + "]" + t + " Inventory cleared!"));
             }
         }
         return false;

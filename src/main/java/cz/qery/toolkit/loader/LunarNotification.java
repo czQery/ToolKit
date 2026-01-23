@@ -1,25 +1,24 @@
-package cz.qery.toolkit.lunar;
+package cz.qery.toolkit.loader;
 
 import com.lunarclient.apollo.Apollo;
 import com.lunarclient.apollo.BukkitApollo;
 import com.lunarclient.apollo.module.notification.NotificationModule;
 import cz.qery.toolkit.Main;
-import cz.qery.toolkit.Tools;
+import cz.qery.toolkit.helper.Other;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 
 import java.time.Duration;
 
-public class Notification {
+public class LunarNotification {
 
+    public static NotificationModule notificationModule;
     static String b = Main.colors.get("b");
     static String n = Main.colors.get("n");
 
-    public static NotificationModule notificationModule;
-
     public static void Load() {
         notificationModule = Apollo.getModuleManager().getModule(NotificationModule.class);
-        Tools.log(b + "[" + n + "ToolKit" + b + "] &aApolloAPI notifications loaded!");
+        Other.Tools.log(b + "[" + n + "ToolKit" + b + "] &aApolloAPI notifications loaded!");
     }
 
     public static void Send(Player p, String msg) {

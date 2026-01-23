@@ -5,74 +5,89 @@
 [![Version](https://img.shields.io/badge/version-v4.6-informational.svg)](https://github.com/czQery/ToolKit/releases)
 [![Releases](https://img.shields.io/badge/download-1.20.4-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-4.6.jar)
 
-> Dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Dynmap (optional)](https://github.com/webbukkit/dynmap)
+>
+Dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Dynmap (optional)](https://github.com/webbukkit/dynmap)
 
-ToolKit is a lightweight plugin for Spigot and Paper servers that provides a range of useful tools for server administrators.<br>
+ToolKit is a lightweight plugin for Spigot and Paper servers that provides a range of useful tools for server
+administrators.<br>
 Suitable for all servers that require basic player management tools.
 
 ## Key Features:
->*`.bypass` permission suffix is for restricting anyone to use that command on you.<br>
+
+> *`.bypass` permission suffix is for restricting anyone to use that command on you.<br>
 `.other` permission suffix is for option to apply the command to other players.*
 
 - **/crash \<player>**: Force-quits a selected player's Minecraft client
-  - permission: `toolkit.crash`
-    - bypass: `toolkit.crash.bypass`
-- **/skick \<player>**: Disconnects the player from the game with a very long message, making it impossible to click on the button to return to the main menu
-  - permission: `toolkit.skick`
-    - bypass: `toolkit.skick.bypass`
+    - permission: `toolkit.crash`
+        - bypass: `toolkit.crash.bypass`
+- **/skick \<player>**: Disconnects the player from the game with a very long message, making it impossible to click on
+  the button to return to the main menu
+    - permission: `toolkit.skick`
+        - bypass: `toolkit.skick.bypass`
+
 ---
+
 - **/crawl \<player>**: Forces a selected player to crawl on ground
-  - permission: `toolkit.crawl`
-    - other: `toolkit.crawl.other`
+    - permission: `toolkit.crawl`
+        - other: `toolkit.crawl.other`
 - **/sit \<player>**: Forces a selected player to sit on ground or any other block
-  - permission: `toolkit.sit`
-    - other: `toolkit.sit.other`
+    - permission: `toolkit.sit`
+        - other: `toolkit.sit.other`
+
 ---
-- **/lunar \<waypoint/mod> \<add/remove/list>**: Command for interacting with the Lunar client, such as creating checkpoints (width dynmap support) or banning certain mods
-  - permission: `toolkit.lunar`
-  - staff: Mode enables staff modes in Lunar and allows player to bypass banned mods
-    - permission: `toolkit.lunar.staff`
-  - other:
-    - option in config to kick all non-lunar players
+
+- **/lunar \<waypoint/mod> \<add/remove/list>**: Command for interacting with the Lunar client, such as creating
+  checkpoints (width dynmap support) or banning certain mods
+    - permission: `toolkit.lunar`
+    - staff: Mode enables staff modes in Lunar and allows player to bypass banned mods
+        - permission: `toolkit.lunar.staff`
+    - other:
+        - option in config to kick all non-lunar players
+
 ---
+
 - **/vanish \<player/list>**: Makes a player invisible to other players
-  - permission: `toolkit.vanish`
+    - permission: `toolkit.vanish`
 - **/pinfo \<player>**: Shows the player's IP address and the client they are connected with
-  - permission: `toolkit.pinfo`
-  - clients:
-    - Forge
-    - Fabric
-    - LiteLoader
-    - WorldDownloader
-    - Rift
-    - LunarClient
-    - FeatherClient
+    - permission: `toolkit.pinfo`
+    - clients:
+        - Forge
+        - Fabric
+        - LiteLoader
+        - WorldDownloader
+        - Rift
+        - LunarClient
+        - FeatherClient
 - **/cmdblock**: Allows to block specified server commands
-  - permission: `toolkit.cmdblock`
-    - bypass: `toolkit.cmdblock.bypass`
+    - permission: `toolkit.cmdblock`
+        - bypass: `toolkit.cmdblock.bypass`
 - **/rp \<player> \<url>**: Forcefully orders the player to download the given resource pack
-  - permission: `toolkit.rp`
+    - permission: `toolkit.rp`
 - **/msg \<player> \<message>**: Sends a private message to the given player.
-  - permission: `toolkit.msg`
+    - permission: `toolkit.msg`
+
 ---
+
 - **/troll \<player> \<troll>**: Brings a touch of mischievous fun
-  - permission: `toolkit.troll`
-    - bypass: `toolkit.troll.bypass`
-  - trolls:
-    - Sneak
-    - Sleep (it must be night, and you must stand on the bed)
-    - Close
-    - CloseSpam (anti-leave)
-    - Glow
-    - PickUp
-    - Freeze
-    - FakeOp
-    - Flip
-    - Thor
-    - FakeDemo
+    - permission: `toolkit.troll`
+        - bypass: `toolkit.troll.bypass`
+    - trolls:
+        - Sneak
+        - Sleep (it must be night, and you must stand on the bed)
+        - Close
+        - CloseSpam (anti-leave)
+        - Glow
+        - PickUp
+        - Freeze
+        - FakeOp
+        - Flip
+        - Thor
+        - FakeDemo
 
 ## Aliases:
->*All Aliases have permission in this format `toolkit.<command>` with option to add `toolkit.<command>.other` suffix*
+
+> *All Aliases have permission in this format `toolkit.<command>` with option to add `toolkit.<command>.other` suffix*
+
 - **/gmc**: Switch player's gamemode to CREATIVE
 - **/gms**: Switch player's gamemode to SURVIVAL
 - **/gma**: Switch player's gamemode to ADVENTURE
@@ -83,16 +98,21 @@ Suitable for all servers that require basic player management tools.
 - **/ic**: Clear inventory
 
 ## Additional Features:
+
 - **Custom join message**
 - **Custom leave message**
+
 ---
+
 - **Teleport to spawn on join**
 - **Teleport to spawn on death**
 - **Teleport to spawn using /spawn**
 - **Dynmap integration to hide players in vanish and show lunar waypoints**
 
 ## Config
+
 - true = enabled, false = disabled
+
 ```yml
 spawn:
   world: world
@@ -212,7 +232,7 @@ commands:
   troll: true
   pinfo: true
   rp: true
-  lunar: true
+  wp: true
   cmdblock: true
   vanish: true
   msg: true
