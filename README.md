@@ -2,11 +2,10 @@
     <img src="https://github.com/czQery/ToolKit/blob/master/banner.png?raw=true" alt="Logo">
 </div>
 
-[![Version](https://img.shields.io/badge/version-v5.1-informational.svg)](https://github.com/czQery/ToolKit/releases)
-[![Releases](https://img.shields.io/badge/download-1.21.11-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-5.1.jar)
+[![Version](https://img.shields.io/badge/version-v5.2-informational.svg)](https://github.com/czQery/ToolKit/releases)
+[![Releases](https://img.shields.io/badge/download-1.21.11-brightgreen.svg)](https://github.com/czQery/ToolKit/releases/latest/download/ToolKit-5.2.jar)
 
->
-Optional dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Pl3xMap](https://github.com/granny/Pl3xMap)
+> Optional dependencies: [Apollo](https://github.com/LunarClient/Apollo), [Pl3xMap](https://github.com/granny/Pl3xMap)
 
 ToolKit is a lightweight plugin for Paper & Folia servers that provides a range of useful tools for server
 administrators.<br>

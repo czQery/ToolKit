@@ -72,16 +72,16 @@ public final class Vanish {
         }
         p.setSleepingIgnored(true);
         p.setAllowFlight(true);
-        
+
         for (Entity e : p.getWorld().getEntities()) {
             if (e instanceof Creature creature) {
-                creature.getScheduler().run(plugin, (task) -> {
+                creature.getScheduler().execute(plugin, () -> {
                     if (!creature.isValid()) return;
                     LivingEntity target = creature.getTarget();
                     if (target != null && target.getUniqueId().equals(p.getUniqueId())) {
                         creature.setTarget(null);
                     }
-                }, null);
+                }, null, 0);
             }
         }
 

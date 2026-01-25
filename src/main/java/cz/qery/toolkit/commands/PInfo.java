@@ -43,6 +43,7 @@ public class PInfo implements CommandExecutor {
         Player finalTarget = target;
         Bukkit.getAsyncScheduler().runNow(plugin, (task) -> {
             String name = finalTarget.getName();
+            String uuid = finalTarget.getUniqueId().toString();
             String ip = Objects.requireNonNull(finalTarget.getAddress()).getHostName();
             String client;
             String trueclient = null;
@@ -59,7 +60,8 @@ public class PInfo implements CommandExecutor {
 
             sender.sendMessage(Other.Tools.chat(b + "[" + n + "PlayerInfo" + b + "]"));
             sender.sendMessage(Other.Tools.chat(b + "- " + t + "Username " + h + name));
-            sender.sendMessage(Other.Tools.chat(b + "- " + t + "Ip " + h + ip));
+            sender.sendMessage(Other.Tools.chat(b + "- " + t + "UUID " + h + uuid));
+            sender.sendMessage(Other.Tools.chat(b + "- " + t + "IP " + h + ip));
             if (trueclient != null) {
                 sender.sendMessage(Other.Tools.chat(b + "- " + t + "Client " + h + client + " (" + trueclient + ")"));
             } else {

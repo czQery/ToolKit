@@ -26,11 +26,12 @@ public class Pl3xMapWaypoints extends SimpleLayer {
                 continue;
             }
 
-            Circle icon = Marker.circle(wp.name(), Point.of(wp.x(), wp.z()), 1);
+            Circle icon = Marker.circle(wp.name(), Point.of(wp.x(), wp.z()), 3);
             icon.setOptions(Options.builder()
                     .tooltipContent("<div>" + wp.name() + "</div>")
                     .strokeColor(java.awt.Color.decode(wp.color()).getRGB())
-                    .fillColor(java.awt.Color.decode(wp.color()).getRGB())
+                    .strokeWeight(3)
+                    .fillColor(0x00000000)
                     .build());
 
             list.add(icon);

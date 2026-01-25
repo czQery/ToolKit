@@ -3,6 +3,7 @@ package cz.qery.toolkit.commands;
 import cz.qery.toolkit.Main;
 import cz.qery.toolkit.helper.Other;
 import cz.qery.toolkit.loader.Commands;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -61,9 +62,11 @@ public class Crawl implements CommandExecutor {
                     target.setMetadata("crawl", new FixedMetadataValue(plugin, true));
                     Other.bMap.put(target.getUniqueId(), new Location[]{loc});
                     sender.sendMessage(Other.Tools.chat(b + "[" + n + "CRAWL" + b + "]" + t + " Crawl mode has been turned &aON" + t + "!"));
-                    if (loc.getBlock().isEmpty()) {
-                        loc.getBlock().setType(Material.BARRIER);
-                    }
+                    Bukkit.getRegionScheduler().execute(plugin, loc, () -> {
+                        if (loc.getBlock().isEmpty()) {
+                            loc.getBlock().setType(Material.BARRIER);
+                        }
+                    });
                 } else {
                     sender.sendMessage(Other.Tools.chat(b + "[" + n + "CRAWL" + b + "]" + t + " " + who + " must stand on a full block or lower than slab!"));
                 }

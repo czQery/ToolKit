@@ -54,28 +54,30 @@ public class Sit implements CommandExecutor {
         }
 
         if ((!Objects.equals(target.getMetadata("sit").toString(), "[]") && target.getMetadata("sit").getFirst().asInt() == 0) || Objects.equals(target.getMetadata("sit").toString(), "[]")) {
-            if (target.isOnGround()) {
-                Location loc = new Location(target.getWorld(), target.getLocation().getBlockX() + 0.5, target.getLocation().getBlockY() - 0.96 + target.getLocation().getY() % 1, target.getLocation().getBlockZ() + 0.5);
-                loc.setYaw(target.getLocation().getYaw());
-                ArmorStand as = loc.getWorld().spawn(loc, ArmorStand.class);
-                as.setBasePlate(false);
-                as.setArms(false);
-                as.setVisible(false);
-                as.setCanPickupItems(false);
-                as.setGravity(false);
-                as.setSmall(true);
-                as.setPassenger(target);
-                target.setMetadata("sit", new FixedMetadataValue(plugin, as.getEntityId()));
+            target.getScheduler().execute(plugin, () -> {
+                if (target.isOnGround()) {
+                    Location loc = new Location(target.getWorld(), target.getLocation().getBlockX() + 0.5, target.getLocation().getBlockY() - 0.96 + target.getLocation().getY() % 1, target.getLocation().getBlockZ() + 0.5);
+                    loc.setYaw(target.getLocation().getYaw());
+                    ArmorStand as = loc.getWorld().spawn(loc, ArmorStand.class);
+                    as.setBasePlate(false);
+                    as.setArms(false);
+                    as.setVisible(false);
+                    as.setCanPickupItems(false);
+                    as.setGravity(false);
+                    as.setSmall(true);
+                    as.setPassenger(target);
+                    target.setMetadata("sit", new FixedMetadataValue(plugin, as.getEntityId()));
 
-                String msgOn = Other.Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " Sit mode has been turned &aON" + t + "!");
-                target.sendMessage(msgOn);
+                    String msgOn = Other.Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " Sit mode has been turned &aON" + t + "!");
+                    target.sendMessage(msgOn);
 
-                if (!target.getName().equals(sender.getName())) {
-                    sender.sendMessage(msgOn);
+                    if (!target.getName().equals(sender.getName())) {
+                        sender.sendMessage(msgOn);
+                    }
+                } else {
+                    sender.sendMessage(Other.Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " " + who + " must stand on a block!"));
                 }
-            } else {
-                sender.sendMessage(Other.Tools.chat(b + "[" + n + "SIT" + b + "]" + t + " " + who + " must stand on a block!"));
-            }
+            }, null, 0);
         } else {
             Other.sCheck(target);
 
